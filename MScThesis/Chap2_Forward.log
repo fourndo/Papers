@@ -1,0 +1,17 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdftex 2014.4.15)  14 AUG 2015 13:45
+entering extended mode
+**C:/Users/dominiquef.MIRAGEOSCIENCE/Dropbox/UBC/ResearchDomFournier/Thesis/Cha
+p2_Forward.aux
+
+(C:/Users/dominiquef.MIRAGEOSCIENCE/Dropbox/UBC/ResearchDomFournier/Thesis/Chap
+2_Forward.aux
+! Undefined control sequence.
+l.2 \providecommand
+                   \hyper@newdestlabel[2]{}
+? 
+! Emergency stop.
+l.2 \providecommand
+                   \hyper@newdestlabel[2]{}
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!

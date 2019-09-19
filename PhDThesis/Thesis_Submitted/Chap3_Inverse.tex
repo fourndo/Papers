@@ -1,0 +1,585 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./../Figures/}}
+\chapter{Inverse Problem}
+\label{Chapter3}
+In Chapter~\ref{Chapter2}, I defined the linear equations relating density and magnetization to gravity and magnetic data. I now review the theory needed to solve the inverse problem, such that I can recover a 3D representation of the subsurface from the observed data.
+A key issue related to the inverse problem is that there is an infinite number of
+possible models that can satisfy the data. Field measurements are generally acquired from the surface resulting in the inverse problem to be ill-posed. The presence of experimental noise further complicates the problem.
+To circumvent these issues, the inversion is often formulated as an optimization problem of form
+\begin{equation}
+\begin{split}\label{GenMinProb}
+\underset{\mathbf{m}}{\text{min}}\; \phi(m) & = \; \phi_d + \beta \phi_m \\
+\text{subject to} \; \phi_d & \leq \phi_d^* \; .
+\end{split}
+\end{equation}
+where $\phi_d$ is the misfit function
+\begin{equation}\label{eq:misfit}
+\phi_d =\sum_{i=1}^{N}\left(\frac{d_i^{pred} - {d}_i^{obs}}{\sigma_i}\right)^2 \;,
+\end{equation}
+that measures the residuals between the observed and predicted data $\mathbf{d}^{pre}$, normalized by the estimated data uncertainties $\boldsymbol{\sigma}$.
+
+The regularization function $\phi_m$, or model objective function, serves as a vehicle to introduce \emph{a priori} information in the inversion.
+Several regularization strategies have been developed over the last decades such that the solution remains geologically plausible.
+I focus on the generic $\ell_p$-norm regularization of the form
+\begin{equation}
+\begin{split}\label{intSmall}
+\phi_m &= \sum_{r=s,x,y,z} \alpha_r \int_V |f_r (m)|^{p_j} \;dV\;. \\
+\end{split}
+\end{equation}
+The functions $f_j$ can take many forms but most often have been
+\begin{equation}
+\begin{split}\label{fj}
+f_s= m-m^{ref},\;f_x= \frac{d m}{dx},\; f_y= \frac{d m}{dy},\;f_z= \frac{d m}{dz}\;.
+\end{split}
+\end{equation}
+Thus $f_s(m)$ measures the deviation from a reference model $m^{ref}$ and $f_x(m)$, $f_y(m)$ and $f_z(m)$ measure the roughness of the model $m$ along orthogonal directions in 3D.
+This optimization problem has multiple terms scaled by hyper-parameters. The first parameter is $\beta$ which controls the balance between misfit and regularization. It is assumed that a value can be found such that the target misfit is reached.
+The $\alpha$'s are constants that control the relative influence of the different regularization functions. A larger $\alpha$-value increases the focus of the optimization on the corresponding penalty function.
+
+Most often the $\ell_2$-norms measure has been used giving rise to a discrete linear system of form
+\begin{equation}\label{leastSquaresLin}
+\begin{split}
+\phi_m &= \alpha_s \phi_s + \alpha_x \phi_x +\alpha_y \phi_y+\alpha_z \phi_z\\
+& = \sum_{r=s,x,y,z} \alpha_r \|\mathbf{W}_r \;\mathbf{V}_r \;\mathbf{G}_r \;(\mathbf{m}-\mathbf{m}^{ref})\|_2^2 \;,\\
+\end{split}
+\end{equation}
+where $\phi_s$ measures the deviation from a reference model and $\phi_x$, $\phi_y$ and $\phi_z$ measure the roughness of the model along Cartesian directions. The reference model is sometimes omitted in the roughness terms. The matrices $\mathbf{G}_x,\;\mathbf{G}_y,$ and $\mathbf{G}_z$ are discrete gradient operators. For the smallness component, $\mathbf{G}_s$ reduces to the identity matrix. Volumes of integration for each function are stored in their respective diagonal matrices $\mathbf{V}_r$.
+What is sometimes sought, at least as a first pass, is that if $\phi_s$, $\phi_x$, $\phi_y$, $\phi_z$ have about the same numerical value then they are contributing equally. Dimensional analysis shows that for a uniform discretization $h$:
+\begin{equation}\label{lengthScale}
+\frac{[\phi_x] }{ [\phi_s]} = {[h]}^{-2}\;.
+\end{equation}
+The common approach is to set $\alpha_s$ accordingly in order to scale the components of the regularization function.
+
+Lastly, the sensitivity weighting functions $\mathbf{W}_{r}$ are used to counteract spatial changes in sensitivities; designing these weights is the main focus of this chapter. In the work of \cite{LiOldenburg1996}, a \emph{distance weighting} function is employed fixed at the onset.
+In this thesis I advocate for an iterative re-weighting strategy calculated directly from the sensitivity of a given problem. Adapted from \cite{Haber1997}, I formulate the sensitivity-based weighting function:
+\begin{equation}\label{iter_sens_weight}
+\begin{split}
+\mathbf{W}_r &= \mathbf{P}_C^{F_r} \rm{diag} \left[ {\left[\frac{\mathbf{ w}}{\rm{max}(\mathbf{ w})}\right]}^{1/2}\right]\\
+%\mathbf{\hat w}_r &= \frac{\mathbf{ w}_r}{max(\mathbf{ w}_r)}\\
+w_{j} &= {\left[\sum_{i=1}^{N}{J_{ij}}^2 + \delta \right]}^{1/2}\;,
+\end{split}
+\end{equation}
+where weights $w_j$ measures the sum square of the columns of sensitivity matrix $\mathbf{J}$
+\begin{equation}\label{Jk}
+\mathbf{J} = \frac{\partial \; F[\mathbf{m}]}{\partial \boldsymbol{\mathbf{m}}}\;,
+\end{equation}
+and $\mathbf{P}_C^{F_r}$ is projection matrix moving sensitivity weights from cell-center to faces. This is necessary since the model gradients are evaluated on cell faces. For $\phi_s$, this projection reduces to the identity matrix. The constant $\delta$ is a small value (near machine precision) added to avoid singularity. For non-linear problems, $\mathbf{J}$ needs to be evaluated after each model update. Since volumetric information is already encoded in the sensitivity matrix $\mathbf{J}$, equation~\eqref{leastSquaresLin} simplifies to
+\begin{equation}\label{leastSquaresLinNoVol}
+\begin{split}
+\phi_m = \sum_{r=s,x,y,z} \alpha_r \|\mathbf{W}_r \;\mathbf{G}_r \;(\mathbf{m}-\mathbf{m}^{ref})\|_2^2 \;.\\
+\end{split}
+\end{equation}
+This sensitivity weighting strategy is general and adaptable to any inverse problems where the sensitivity matrix can be calculated explicitly.
+While the initial purpose of the sensitivity weighting function of \cite{LiOldenburg1996} is to simply counteract the decay of potential fields, I will show numerically that the iterative re-scaling process can also be beneficial in improving the convergence of gradient methods applied to non-linear inverse problems.
+
+The usual strategy to solve \eqref{GenMinProb} is through a gradient descent algorithm, such as a Gauss-Newton approach, where we attempt to find a solution that has zero gradients
+\begin{equation}\label{gradPhi}
+\mathbf{g} = \nabla_m \phi(\mathbf{m}) = \nabla_m \phi_d + \beta \bigg[ \alpha_s \nabla_m \phi_s + \alpha_x \nabla_m \phi_x + \alpha_y \nabla_m \phi_y + \alpha_z \nabla_m \phi_z \bigg] = \mathbf{0} \;.
+\end{equation}
+where $\nabla_m$ stands for the partial derivatives of the function with respect to the discrete parameterization $\mathbf{m}$.
+A solution to \eqref{gradPhi} can readily be calculated by gradient descent methods \cite[]{HestenesStiefel1952, NocedalWright99}.
+
+A large number of studies have made use of this formulation to incorporate a variety of \emph{a priori} information: physical property data from rock and core samples \cite[]{LelievreOldenburgWilliams09}, structural knowledge \cite[]{LiDWO2000, PhDLelievre09} and advanced 3D geological modeling (\cite[]{Phillips1996, Williams08, Bosh2001, Fullagar2008}.
+Although successful in identifying imaging anomalies at depth, penalty functions that rely on $\ell_2$-norm measures have a limited range of possible outcomes. The models tend to be smooth and difficult to interpret in relation to known geological domains with discrete boundaries. Moreover, substantial modelling work is generally required by experts to manually refine these constraints in order to test different geological scenarios.
+
+\subsection{Synthetic gravity example}
+I demonstrate the limitations of the \emph{least-squares} penalties on a synthetic gravity example. I define a volume of interest 600 m wide by 300 m deep, over which I place a uniform survey grid of 21 x 21 stations placed 5 m above a flat topography.
+The core region directly below the survey grid is discretized at a 5 m resolution as shown in Figure~\ref{GRAV_model}(a)
+Within the core region, I build a geophysical target made up of a single dense cube, 25 m in width. I set the density contrast of the prism to 0.2 g/cc in a uniform zero background. From \eqref{g_discrete}, I simulate the vertical gravity field of the block and add random Gaussian noise with $10^{-3}$ mGal standard deviation. Figures~\ref{GRAV_model}(b) and (c) display the simulated data and `noisy' observations $\mathbf{g}_z^{obs}$ used in the inversion. I revisit this example in Chapter~\ref{Chapter4} to demonstrate the inversion process on magnetic data.
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{GRAV_Synthetic_True_data_model.png}}
+\caption{(a) Vertical section through a 25 m cube with uniform density $\rho$=0.2 g/cc. (b) Simulated gravity data responses on a $21 \times 21$ survey grid placed 15 m above the anomaly. (c) Gravity data with random Gaussian noise added, $10^{-3}$ mGal standard deviation.}
+\label{GRAV_model}
+\end{figure}
+
+
+From the noisy data I will attempt to recover the block anomaly by the inverse process. The objective function to be minimized takes the form:
+\begin{equation}
+\begin{split}
+\underset{\mathbf{m}}{\text{min}}\; \phi(m) & = \; \|\mathbf{G}\;\boldsymbol{\rho} - \mathbf{d}^{obs}\|_2^2 + \beta \sum_{r=s,x,y,z} \alpha_r \|\mathbf{W}_r \;\mathbf{G}_r \;\boldsymbol{\rho}\|_2^2 \\
+\text{subject to} \; \phi_d & \leq \phi_d^* \;
+\end{split}\label{gravLineObjFun}
+\end{equation}
+where I set the reference density $\boldsymbol{\rho}^{ref}$ to zero.
+Since \eqref{gravLineObjFun} is linear with respect to the density contrast model $\boldsymbol{\rho}$, I can solve it uniquely for a fixed trade-off parameter $\beta$. I repeat this process for variable $\beta$ values until a find a solution that satisfies $\phi_d \approx N$. Figure~\ref{Grav_l2model}(a) presents a vertical section through the recovered density model. The density anomaly is imaged at roughly the right position, but the edges of the block are poorly defined. As normally obtained with $\ell_2-norm$ penalties, the solution is smooth and density values remain small (near zero reference model). Hence the need to explore different regularization functions that can better resolve compact objects.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Grav_Inv_l2model.png}
+\caption{(a) Vertical section through the inverted density model using the conventional $\ell_2$-norm regularization, (b) predicted and (c) normalized data residual. Outline of the true model (red) is shown for reference.}
+\label{Grav_l2model}
+\end{figure}
+
+
+\section{General $\ell_p$-norm regularization}
+Alternatively, researchers have explored the use of non-$\ell_2$ measures to promote the recovery of compact anomalies. Approximations to $\ell_1$-norm such as the Huber norm \cite[]{Huber64}
+\[
+\sum_{i} {|m_i|}^p \approx \sum_{i} \left\{\begin{array}{lr}
+m_i^2, & |m_i| \leq \epsilon,\\
+2\epsilon|m_i|-\epsilon^2, & |m_i| > \epsilon,
+\end{array}\right\}
+\]
+and the Ekblom norm \cite[]{Ekblom73}:
+\begin{equation}\label{Ekblom}
+\sum_{i} {|m_i |}^p \approx \sum_{i} {(m_i^2 + \epsilon^2)}^{p/2} \;
+\end{equation}
+have received considerable attention in geophysical inversion and signal processing \cite[]{Li93, Gorodnitsky97, FarquharsonOldenburg98, Daubechies10, SunLi14}.
+Likewise, the Lawson's measure \cite[]{Lawson61}
+\begin{equation}\label{eq:IntegralIRLS}
+\begin{split}
+	\sum_{i} {|m_i |}^p \approx \sum_{i} {\frac{ {m_i}^2}{\left( {{m_i}}^{2} + \epsilon^2 \right)^{1-p/2 }}} \;,	
+\end{split}
+\end{equation}
+has been proposed to approximate $\ell_0$-norm and it has proven useful in generating minimum support models. This formulation has received considerable attention in the literature. \cite[]{Portniaguine1999, LastKubik83,BarbosaSilva94, Ajo-Franklin07}.
+Figure~\ref{NormIRLS} compares the $\ell_p$-norms with the Lawson approximation over a range of model values. As $\epsilon \rightarrow 0$, the approximation approaches the $\ell_p$-norm on the complete interval $p \in [0, 2]$.
+While \eqref{eq:IntegralIRLS} would in theory permit us to explore a wide range of solutions for $0\leq p\leq 2$, its numerical implementation remains challenging. Most algorithms have been limited to the $\ell_0$, $\ell_1$, and $\ell_2$-norm measure applied evenly to all components of the model objective function.
+\begin{figure}
+\includegraphics[width=\columnwidth]{NormIRLS.png}
+\caption{Approximated $\ell_p$-norm using the Lawson measure \cite[]{Lawson61} over a range of $p$-values and for a fixed threshold parameter $\epsilon=10^{-1}$.}
+\label{NormIRLS}
+\end{figure}
+
+Recent efforts by \cite{SunLi14} has shown promise in further exploring the model space by varying $\ell_p$-norm measures locally. They divided the inversion domain into regions reacting favourably to either the $\ell_1$ or $\ell_2$-norm regularization. The automated process could adapt to complex geological scenarios where both smooth and blocky anomalies are present.
+Building upon the work I introduced in my M.Sc. thesis \cite[]{Fournier2015}, I want to extend the work of \cite{SunLi14} and further generalized the mixed norm inversion for $p \in [0\;2]$.
+
+\subsection{Synthetic 1D problem}
+To develop my methodology it suffices to work with a simple test example.
+In Figure~\ref{Problem1D}(a) I present a synthetic 1D model made up of a boxcar anomaly. The region is divided into 50 uniform cells distributed along the interval $[0 \le x \le 1]$. I define a synthetic geophysical experiment such that the data ($\mathbf{d}^{obs}$) are
+\begin{equation}\label{Forward_Noisy}
+\mathbf{d}^{obs} = \mathbf{F\;m}^{true} + \mathbf{e} \;,
+\end{equation}
+The kernel coefficients ${F}_{ij}$ are sampled from a standard normal distribution of positive values. Choosing a stochastic kernel function for a linear inverse problem is unusual. Smooth functions are usually employed (polynomials, decaying exponentials, sinusoidals), but my choice will serve to highlight the effects of various regularization functions. I generate 10 data, so $\mathbf{F}\in \mathbb{R}^{N \times M}$ where $M=50$ and $N=10$. Random Gaussian error $\mathbf{e}$ ($\sigma$=0.025) is added to simulate noise (Fig.~\ref{Problem1D}(c)).
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_KernelModel.png}
+\caption{Linear forward problem made up of: (a) an example kernel function ; (b) model; (c) observed data with assigned standard errors.}
+\label{Problem1D}
+\end{figure}
+
+To begin my analysis, I invert my synthetic dataset with two simple regularization functions. Figure~\ref{Problem1D_l2Result}(a) presents the recovered model after reaching the target misfit ($\phi_d^*=N$) using the smallness term alone ($\alpha_x=0$). The solution exhibits high variability similar to the stochastic kernel function, but model parameters remain near the zero reference value. Next, I invert the data using the model gradient term ($\alpha_s=0$); this yields the smoother model presented in \ref{Problem1D_l2Result}(b). The solution shows less spatial variability and the horizontal position of the boxcar anomaly is better located.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_l2l2.png}
+\caption{Solution to the 1D inverse problem using (a) an $\ell_2$-norm on the model ($\alpha_x = 0$), (b) the $\ell_2$-norm on model gradients ($\alpha_s=0$) and (c) combined regularization function ($\alpha_s=2500,\;\alpha_x = 1$). (d) Convergence curve comparing the misfit ($\phi_d$) and the regularization ($\phi_m$) as a function of iterations. (e) Comparative plot for the relative contribution of the different components of the objective function measured in terms of maximum absolute gradient ($\left\| \mathbf{g}_i \right\|_\infty$)}
+\label{Problem1D_l2Result}
+\end{figure}
+
+Next, I combine both regularization functions so that the solution remains close to the reference value and smooth.
+I need to determine the length scale weighting proposed in \eqref{lengthScale}.
+For my problem $h=0.02$ and hence I set $\alpha_x=1$ and $\alpha_s=2500$.
+Inverting with these parameter values yields the model in \ref{Problem1D_l2Result}(c). Convergence curves presented in Figure~\ref{Problem1D_l2Result}(d) show the evolution of $\phi_d$ and $\phi_m$ as a function of iteration. As $\beta$ decreases (shown in Figure~\ref{Problem1D_l2Result}(e)), the misfit, $\phi_d$ progressively decreases while model complexity, indicated by $\phi_m$, progressively increases.
+
+Visually, the solution \ref{Problem1D_l2Result}(c) exhibits characteristics of remaining near the zero reference value while also attempting to be smooth. Numerical evaluation of the two components of the regularization function, presented in Table~\ref{PropRatio}, show that $\phi_s = 3.31$ and $\phi_x = 1.13$. This might suggest that both $\phi_s$ and $\phi_x$ are roughly equal in importance.
+
+Rather than work with global norms, in this study, I propose to quantify the relative importance of the terms in the regularization function based on their partial derivatives, or gradients. From \eqref{gradPhi} I expect to find an optimal solution where the sum of the gradients vanishes, either because all components are equal to zero, or because multiple gradients have opposite signs. To quantify the size of the gradients I use the infinity-norm
+\begin{equation}
+\left\| \mathbf{g}_r \right\|_\infty = \left\| \nabla_m \phi_t\right\|_\infty
+\end{equation}
+The $\left\|\mathbf{g}_r \right\|_\infty$ metric is appealing for a few reasons: (a) it is directly linked to the minimization process because I use gradient descent methods, (b) it does not depend on the dimension $M$ of the parameter space as do other measures that involve a sum of components of the vector, (c) the theoretical maximum can be calculated analytically for any given $\ell_p$-norm function. These properties will become useful in the following section when I attempt to balance different norm penalties applied on a cell-by-cell basis.
+
+Figure~\ref{Problem1D_l2Result}(e) compares $\|\mathbf{g}_d\|_\infty$, $\alpha_s \|\mathbf{g}_s\|_\infty$ and $\alpha_x \|\mathbf{g}_x\|_\infty$ over the iterative process. I note that, under the current $\alpha$-scaling strategy proposed in \eqref{lengthScale}, the individual partial derivatives for $\phi_s$ and $\phi_x$ also appear to be proportional in magnitude.
+To quantify this I define a proportionality ratio:
+\begin{equation}\label{derivRatio}
+\lambda_\infty = \frac{ \alpha_s \left\|\mathbf{g}_s \right\|_\infty}{\alpha_x \left\| \mathbf{g}_x \right\|_\infty}
+\end{equation}
+I shall use $\lambda_\infty$ as an indicator to evaluate the relative influence of (any) two terms in the regularization function.
+For my example $\lambda_\infty = 1.23$, from which I infer that $\phi_s$ and $\phi_x$ are contributing nearly equally to the solution (Table~\ref{PropRatio}). As I further generalize the regularization function for arbitrary $\ell_p$-norm measures, I will attempt to maintain this proportionality ratio ($\lambda_\infty \approx 1$) between competing functions so that my modeling objectives are preserved throughout the inversion process.
+\begin{table}
+\centering
+\begin{tabular}{| c|c | c | c| c|} \hline
+$\alpha_s$&$\alpha_x$ & $\alpha_s\:\phi_s$ & $\alpha_x\:\phi_x$ & $\lambda_{\infty}$ \\ \hline
+2500& 1& 3.31& 1.13& 1.23\\
+\hline
+\end{tabular}
+\caption{Norm values and proportionality ratio obtained for the 1D solution presented in Figure~\ref{Problem1D_l2Result}(c). A proportionality ratio of $\lambda_\infty \approx 1$ indicates that the components of the regularization function are both contributing significantly to the final solution.}
+\label{PropRatio}
+\end{table}
+
+\subsection{Iterative Re-weighted Least Squares algorithm}
+Solutions obtained with $\ell_2$-norm regularization functions provided some insight about the sought model but better representations can be obtained by employing general $\ell_p$-norms:
+\begin{equation} \label{eq:lpreg}
+\phi_s^{p} = \sum_{i} {|m_i|}^{p}
+\end{equation}
+My main focus is in the regularization function in \eqref{intSmall} which I approximate with the Lawson norm such that
+\begin{equation}\label{eq:IntegralIRLSLawson}
+\begin{split}
+	\phi_m = \sum_{r=s,x} \int_V{\frac{ {f_r (m)}^2}{\left( {{f_r (m)}}^{2} + \epsilon_r^2 \right)^{1-p_r/2 }}\;dV} \;,	
+\end{split}
+\end{equation}
+This measure makes the inverse problem non-linear with respect to the model. The common strategy is to linearized the function through the Iterative Reweighted Least-Squares (IRLS) approach where the denominator is replaced by model parameters from the most recent iteration. The smallest model component can be written as:
+\begin{equation} \label{eq:IRLS}
+\phi_s^{p_s} = \sum_{i}\frac{m_i^2}{{{((m^{(k-1)}_i)^{2} + \epsilon_s^2 )}^{1-p_s/2}} }V_i
+\end{equation}
+where $m_i^{(k-1)}$ are model parameters obtained at a previous iteration and $V_i$ are “volume” terms connected with the discretization. In \eqref{eq:IRLS} I have explicitly written the objective function as $\phi_s^{p_s}$ to indicate that I am evaluating a smallest model component with an $\ell_p$-norm with
+$p=p_s$.
+The approximated norm can be expressed in linear form as:
+\begin{equation}\label{IRLSphis}
+\phi_s^{p_s} = \| \mathbf{V}_s\:\mathbf{R}_s\:\mathbf{m}\|_2^2 \;.
+\end{equation}
+\begin{equation}\label{eq:R_w}
+\begin{split}
+	\mathbf{R}_s &= \text{diag} \left[{\Big( {({\mathbf{m}}^{(k-1)})}^{2} + \epsilon_s^2 \Big)}^{p_s/2 - 1} \right]^{1/2} \;,
+\end{split}
+\end{equation}
+Carrying out the same IRLS operation on the derivative component yields
+\begin{equation}\label{phixMatrix}
+\phi_x^{p_x} = \| \mathbf{V}_x\:\mathbf{R}_x\:\mathbf{G}_x\;\mathbf{m} \|_2^2\;,
+\end{equation}
+where the IRLS weights are calculated by:
+\begin{equation}\label{eq:Rx_w}
+\begin{split}
+	\mathbf{R}_x &= \text{diag} \left[{\Big( ({{\mathbf{ G}_x\;\mathbf{m}}^{(k-1)}})^{2} + \epsilon_x^2 \Big)}^{p_x/2 - 1} \right]^{1/2} \;.
+\end{split}
+\end{equation}
+The final regularization function is thus
+\begin{equation}\label{IRLSobjFun}
+\phi_m^p =\alpha_s \| \mathbf{V}_s\:\mathbf{R}_s\;\mathbf{m}\|_2^2 + \alpha_x\|\mathbf{V}_x\:\mathbf{R}_x\:\mathbf{G}_x\;\mathbf{m}\|_2^2 \;.
+\end{equation}
+The core IRLS procedure described in Table~\ref{IRLSalgo} involves two main stages:
+\begin{enumerate}
+\item \label{Stage1} Stage 1 solves the inverse problem using $\ell_2$-norms presented in \eqref{leastSquaresLin}. The assumption is made that the globally convex $\ell_2$-norm regularized inversion is a good approximation of the true solution and it is used to form the initial IRLS weights defined in \eqref{eq:R_w}. The $\beta$ parameter is controlled by a cooling schedule that starts with a high value and is successively decreased until $\phi_d \approx \phi_d^*$.
+
+\item \label{Stage2} Stage 2 starts from the solution obtained in Stage~\ref{Stage1} and solves the inverse problem iteratively using the regularization in \eqref{IRLSobjFun} and a standard Gauss-Newton procedure. A gradient descent direction $\delta \mathbf{m}$ is found by solving
+\begin{equation}\label{GaussNewtStep}
+\mathbf{H}\; \delta \mathbf{m} = \mathbf{g}
+\end{equation}
+where $\mathbf{H}$ is the approximate Hessian and $\mathbf{g}$ is the gradient of the objective function. I use the Conjugate Gradient method \cite[]{HestenesStiefel1952} to solve this system.
+\end{enumerate}
+The model update at the $k^{th}$ iteration is
+\begin{equation}\label{GNmodelUpdate}
+\mathbf{m} = \mathbf{m}^{(k-1)} + \alpha \delta \mathbf{m}
+\end{equation}
+where the step length $\alpha$ is found by a line-search back-stepping method \cite[]{NocedalWright99}.
+Gradient steps are only performed if the data misfit remains within the user-defined tolerance $\eta_{\phi_d}$.
+\begin{equation}\label{phidTol}
+\frac{|\phi_d- \phi_d^*|}{\phi_d^*} \leq \eta_{\phi_d}
+\end{equation}
+If outside the tolerance, the algorithm repeats the Gauss-Newton calculation with the previous $\mathbf{m}^{(k-1)}$ and a different $\beta$-value, either lower or higher depending on the achieved $\phi_d$. This $\beta$-search step is an important component in the workflow when the minimization switches between an $l_2$ to an $l_p$ objective function because $\phi_m^p$ can vary markedly. This can force a change of $\beta$ by a few orders of magnitude in some cases.
+Once an appropriate $\beta$ has been found such that \eqref{phidTol} is respected, the model update $\mathbf{m}^{(k)}$ is accepted and used for the next iteration cycle. The IRLS process continues until the change in regularization falls below some pre-defined tolerance $\eta_{\phi_m}$
+\begin{equation}\label{phimTol}
+\frac{|\phi_m^{(k-1)}-\phi_m^{(k)}|}{\phi_m^{(k)}} < \eta_{\phi_m}
+\end{equation}
+I set to $\eta_{\phi_m} =10^{-5}$ ($0.01\%$ change) in all my experiments.
+Using the above algorithm I now explore specific inversions for a fixed $\epsilon=10^{-3}$ and uniform norms, with $p=1$ and $p=0$, applied on the model and model gradients.
+
+\begin{table}\centering
+\def\arraystretch{1.25}
+\begin{tabular}{|c|}\hline
+\bf{Stage~\ref{Stage1}}: Initialization ($\phi_m^2$)	\\ \hline
+$\underset{m}{\text{min}}\; \phi_d + \beta \phi_m^2$\\
+s.t. $\phi_d = \phi_d^*$ \\
+$\beta^{(0)}$, $\mathbf{m}^{(0)}$, $\mathbf{R}^{(0)}$, $\phi_m^{(0)}$\\\hline
+\end{tabular}
+\begin{tabular}{|c|}\hline
+\bf{Stage~\ref{Stage2}}: IRLS ($\phi_m^p$)	\\ \hline
+\bf{while} \; $\frac{|\phi_m^{(k-1)}-\phi_m^{(k)}|}{\phi_m^{(k)}} > \eta_{\phi_m}$ \\
+do \textbf{$\beta$-Search} \\
+$k := k+1$\\
+$\beta^{(k)}$, $\mathbf{m}^{(k)}$, $\mathbf{R}^{(k)}$\\\hline
+\end{tabular}
+\begin{tabular}{|c|}\hline
+\textbf{$\beta$-Search} \\ \hline
+Solve $\mathbf{H}\; \delta \mathbf{m} = \mathbf{g}$ \\
+$\mathbf{m} = \mathbf{m}^{(k-1)} + \alpha \delta \mathbf{m}$ \\
+\textbf{if} $\frac{|\phi_d - \phi_d^*|}{\phi_d^*} > \eta_{\phi_d} $ \\
+adjust $\beta$, re-do\\
+\textbf{else} \\
+continue \\ \hline
+\end{tabular}
+\caption{IRLS algorithm in pseudo-code made of two stages: Stage~\ref{Stage1} Initialization with convex least-squares inversion, Stage~\ref{Stage2} IRLS updates with inner $\beta$-search steps.}
+\label{IRLSalgo}
+\end{table}
+
+\subsection{Case 1: $\ell_1$-norm ($p_s=p_x=1$)}\label{l1norm}
+I first address the convex case for $p_s = p_x = 1$ for which optimality can be guaranteed \cite[]{Osborne1985, Daubechies10}.
+Using the procedure prescribed in Table~\eqref{IRLSalgo}, I invert the 1D problem with three different regularization functions: (a) $l_1$-norm measure of the model ($\alpha_x = 0$), (b) $l_1$-norm measure of the model gradients ($\alpha_s = 0$) and (c) for the combined penalties using $\alpha_s=2500,\;\alpha_x = 1$, which I previously used for the $l_2$-norm inversion.
+
+As shown in Figure~\ref{Problem1D_l1Result}(a), the first inversion is successful in recovering a sparse solution. From Linear Programming (LP) theory, the expected optimal solution would have as many non-zero parameters as there are linearly independent constraints or 10 values in this case. For comparison, I solve the LP problem by the Simplex routine from the open-source library \texttt{Scipy.Optimization.linprog} \cite[]{Scipy2001}. Figure~\ref{Problem1D_l1Result}(a) compares both solutions and shows that my implementation of IRLS for $l_1$-norm yields a solution in close agreement with the Simplex routine. A better approximation could be obtained (not shown here) by lowering the threshold parameter $\epsilon$. I will examine this aspect of the algorithm in the following section.
+
+Figure~\ref{Problem1D_l1Result}(b) presents the solution for the $l_1$-norm applied to the model gradients. The final solution is $blockier$ and the general shape of the boxcar model has been improved. Lastly, the solution obtained with the combined $l_1$-norm regularization on the model and gradients is shown in Figure~\ref{Problem1D_l1Result}(c); it is similar to that in Figure 5 (a). This shows that the smallest model component has dominated the solution. This is quantified by the evaluated proportionality ratio $\lambda_\infty=50$; setting $\alpha_s=2500$ is too large.
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_Results_l1.png}
+\caption{(a) Two solutions using an $\ell_1$-norm on the model: (blue) Simplex, and (black) IRLS method. (b) Solution obtained with the approximated $\ell_1$-norm (IRLS) penalty on model gradients alone and (c) with the combined penalty functions ($\alpha_s=2500,\;\alpha_x = 1$). The calculated proportionality ratio $\lambda_\infty$ indicates that the combined penalties is dominated by the $\phi_s^1$ term. (d) Convergence curve and (e) maximum partial derivatives associated with the components of the objective function as a function of iterations for the inversion in (c). }
+\label{Problem1D_l1Result}
+\end{figure}
+
+I can re-adjust the importance of $\phi_s^p$ by setting $\alpha_s=50$ in accordance to the relationship in \eqref{lengthScale}.
+After applying this change I recover the model presented in Figure~\ref{Problem1D_l1l1}(a). The combined assumption of a piece-wise continuous and sparse model yields a solution that closely resembles the true boxcar model. The recovery of $\mathbf{m}^{true}$ has remarkably improved compared to the $\ell_2$-norm solutions (Fig.~\ref{Problem1D_l2Result}), and this demonstrates the power of customizable objective functions.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_l1l1.png}
+\caption{(a) Solution obtained with the combined penalty functions $\alpha_s \phi_s^1 + \alpha_x \phi_x^1$ after re-adjustment of $\alpha_s=50,\;\alpha_x = 1$. (b) Convergence curve and (c) maximum partial derivatives associated with the components of the objective function as a function of iteration.}
+\label{Problem1D_l1l1}
+\end{figure}
+It is important to notice that the re-adjustment of $\alpha_s$ has brought the partial derivatives of $\phi_s^{p_s}$ and $\phi_x^{p_x}$ to a comparable level, with a final proportionality ratio $\lambda_\infty=1.01$. Even though I have changed the norms during the inversion, the contribution of both penalty functions has remained at a comparable level during the transition between Stage~\ref{Stage1} and \ref{Stage2} of the algorithm (Fig~\ref{Problem1D_l1l1}(c)).
+
+The previous experiment highlights the importance of adjusting the $\alpha$-values depending on both the chosen $p$-value as well as on the choice of discretization $h$. This dependency on $h$ complicates matters when dealing with variable cell-size $h$ such that the relative importance between $\phi_s$ and $\phi_x$ changes spatially.
+To overcome this, I replace the gradient term by a finite difference so that
+\begin{equation}\label{phixMatrixUnit}
+\phi_x^{p_x} = \| \mathbf{V}_x\:\mathbf{R}_x\:\mathbf{D}_x\;\mathbf{m} \|_2^2
+\end{equation}
+where
+\begin{equation}\label{1D_Grad}
+\mathbf{D}_x =
+		\begin{bmatrix}
+			-1		& 		1	& 	0		& \dots 		& 0 \\
+			0 		& 	\ddots	& 	 \ddots	& \ddots 	& \vdots \\
+			\vdots	& 		 \ddots	& 0	& -1 & 1\\
+		 \end{bmatrix}\;.
+\end{equation}
+The IRLS weights are then defined as:
+\begin{equation}\label{eq:Rx_w}
+\begin{split}
+	\mathbf{R}_x &= \text{diag} \left[{\Big( ({{\mathbf{D}_x\;\mathbf{m}}^{(k-1)}})^{2} + \epsilon_x^2 \Big)}^{p_x/2 - 1} \right]^{1/2} \;,
+\end{split}
+\end{equation}
+Replacing the gradient with a finite difference makes $\phi_m$ and $\phi_x$ dimensionally equivalent and the default scaling values can be reset to $\alpha_s=\alpha_x=1$. Re-inverting my 1D problem with this new strategy results in the solution and convergence curves presented in \ref{Problem1D_l1l1_finiteDiff}. For the uniform discretization in this example, both the $\alpha_s$ scaling and the finite difference approach yields identical results (Figure~\ref{Problem1D_l1l1}, \ref{Problem1D_l1l1_finiteDiff}(a)). In both cases $\phi_m^p$ changes rapidly between Stage~\ref{Stage1} and \ref{Stage2}, associated with an equivalent change in the trade-off parameter $\beta$, while the relative importance of $\phi_s$ and $\phi_x$ is preserved. The equivalence of the two solutions validates my procedure of replacing gradients with a dimensionless difference matrix.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_l1l1_finiteDiff.png}
+\caption{(a) Solution obtained with the combined penalty functions $\alpha_s \phi_s^1 + \alpha_x \phi_x^1$ using dimensionless gradient measure $\mathbf{D}_x$ ($\alpha_s=1,\;\alpha_x = 1$). (b) Convergence curve and (c) maximum partial derivatives associated with the components of the objective function as a function of iterations.}
+\label{Problem1D_l1l1_finiteDiff}
+\end{figure}
+
+
+\subsection{Case 2: $\ell_0$-norm ($p_s=p_x=0$)}
+The main advantage of the IRLS formulation is that it permits, in theory, approximating any norm including the non-linear approximation for $p < 1$. The goal is to potentially recover a model with even fewer non-zero parameters than that obtained by solving the problem with $p=1$.
+The IRLS formulation for $p=0$ has been implemented for various geophysical problems under different names: such as the \textit{compact} inversion \cite[]{LastKubik83}, \textit{minimum support} functional \cite[]{PortniaguineZhdanov02}, and others \cite[]{BarbosaSilva94, Chartrand07, Ajo-Franklin07, Blaschek2008, Stocco09}.
+
+Following the same IRLS methodology as described in Table~\ref{IRLSalgo}, I invert the synthetic 1D problem with three assumptions: (a) $\ell_0$-norm applied on the model ($\alpha_x = 0$), (b) $\ell_0$ on model gradients ($\alpha_s = 0$) and combined penalties ($\alpha_s=1,\;\alpha_x = 1$). Figure~\ref{Problem1D_l0Result} presents the solutions for all three cases. I note that in the first case, (a), the approximate $\ell_0$-norm inversion recovers a sparser solution than obtained with the $\ell_1$-norm; there are only eight non-zeros parameters. Similarly for case (b), I recover a model with fewer changes in model values. Finally in case (c) the solution obtained with the combined $\ell_0$-norm penalties matches almost perfectly the true boxcar anomaly. The final proportionality ratio as calculated from \eqref{derivRatio} indicates once again a good balance between the penalty functions ($\lambda_\infty = 1.13$).
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_Results_l0.png}
+\caption{Solution to the 1D inverse problem using an approximate $\ell_0$-norm (a) on the model, (b) on model gradients and (c) combined penalty functions using the IRLS algorithm ($\alpha_s=1,\;\alpha_x = 1$). All three solutions honor the data within the target misfit $\phi_d^*$.}
+\label{Problem1D_l0Result}
+\end{figure}
+
+To summarize this section, I have now recovered nine models using different $\ell_p$-norm penalties applied on the model and model gradient. All solutions presented in Figure~\ref{Problem1D_l2Result}, \ref{Problem1D_l1Result}, \ref{Problem1D_l1l1_finiteDiff} and \ref{Problem1D_l0Result} can reproduce the data within the predefined data tolerance ($\phi_d^{(k)} \approx N$). Without prior knowledge about the true signal, all these solutions would be valid candidates to explain the observed geophysical data.
+
+
+
+\section{Mixed norm regularization}
+While I was successful in recovering a solution that closely resembles the boxcar model, the same penalty functions might not be appropriate for other models, such as compact targets with smooth edges. I thus explore a broader range of solutions by using the Lawson approximation in \eqref{eq:IRLS} for any combination of norms on the range $0 \leq p \leq 2$.
+
+The idea of combining different norm measures for the simultaneous recovery of smooth and compact features has partially been explored by \cite{SunLi14} on a 2D seismic tomography problem. They demonstrated the benefits of dividing model space into regions with different $\ell_p$-norm penalties. The choice of norms was limited to be either $l_1$ or $l_2$.
+Little has been published however on the independent mixing of model and gradient norms on the range $p \in [0,2]$, although this problem was initially addressed in \cite[]{Fournier2015}.
+I now apply my algorithm to minimize
+\begin{equation}\label{mixNorm}
+\phi_m^{\:p} = \alpha_s \phi_s^{\:0} + \alpha_x \phi_x^{\:2}\,.
+\end{equation}
+Based upon my previous work, I expect the solution to be sparse, in terms of non-zero model parameters, while smooth with respect to the model gradients.
+Unfortunately, following the current IRLS strategy, I recover the model presented in Figure~\ref{Mixed1DnoEta}(a). The anomaly is concentrated near the boxcar but appears to be dominated by $\phi_s^{\:0}$. There seems to be only marginal influence from $\phi_x^{\:2}$.
+Comparing the partial derivatives of the objective function confirms this. After convergence the calculated proportionality ratio is $\lambda_\infty = 159$.
+This is a significant change from the end of Stage~\ref{Stage1} where $\lambda_\infty \approx 1$. Clearly, iteration 6, at Stage 2 of the IRLS, took the solution away from the proportionality condition (Fig~\ref{Mixed1DnoEta}(c)).
+I hypothesize that a more desirable solution could be obtained if proportionality was preserved among the components of the objective function throughout the IRLS process. In the following sections, I provide an important modification to the standard IRLS algorithm to achieve this goal.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_l0l2_NotCooled_noEta.png}
+\caption{(a) Recovered model and (b) convergence curves using the conventional IRLS method for $p_s=0,\;p_x=2$ and a fixed threshold parameter $\epsilon=10^{-3}$ ($\alpha_s=\alpha_x=1$). (c) Trade-off parameter and maximum gradients for the different components of the objective function. At the start of Stage~\ref{Stage2} (iteration 6), the sudden increase in $\left\| \mathbf{g}_s \right\|_\infty$ is matched with a decrease in $\beta$. Throughout the inversion, $\left\| \mathbf{g}_x \right\|_\infty$ remains small in magnitude.
+}
+\label{Mixed1DnoEta}
+\end{figure}
+
+
+
+\subsection{Scaled-IRLS steps}
+Since the inverse problem is solved using gradients of the composite objective function $\phi(\mathbf{m})$, the relative magnitude of the individual gradients is a driving force in controlling the iteration step in \eqref{GaussNewtStep}. I want to ensure that each penalty term in the objective function is playing a significant role.
+Taking the partial derivatives of the linearized Lawson norm as prescribed in \eqref{eq:IRLS} yields:
+\begin{equation} \label{eq:IRLS_Grad_generic}
+{g}^{p} = \frac{\partial \phi^{p}}{\partial {m}} = \frac{f(m)}{{{({f(m^{(k-1)})}^{2} + \epsilon^2 )}^{1-p/2}} }V\;.
+\end{equation}
+From Figure~\ref{NormDeriv}(a), I note that the magnitude of the derivatives increases rapidly for small $p$ values as $m_i \rightarrow 0$. This trend is accentuated for small $\epsilon$ values as demonstrated in Figure~\ref{NormDeriv}(b) for $p=0$. The magnitude of derivatives for $p<2$ increase rapidly as $m\rightarrow 0$ and $\epsilon\rightarrow 0$. This results in gradient steps in equation \eqref{gradPhi} that are dominated by sparse norms.
+This property of the Lawson approximation is important because, when attempting to combine different norm penalties within the same objective function, there will be a systematic bias towards small $\ell_p$-norm penalties.
+To circumvent this bias I define the following gradient-based scaling
+\begin{equation}\label{gammaScale}
+\gamma = \left[\frac{\|g^2\|_\infty}{\|g^p\|_\infty}\right]^{1/2}
+\end{equation}
+By using this scaling I can equalize the size of the gradients associated with any $\ell_p$ -norm.
+I can easily compute $\|g^p\|_\infty$ for any function $f(m)$ by taking the partial derivative of \eqref{eq:IRLS_Grad_generic} and setting it to zero. This maximum gradient of the Lawson approximation occurs at ${f(m)^*}$
+\begin{equation}\label{mMaxGrad}
+f(m)^* =
+\begin{cases}
+\infty \;\text{or}\; f(m)_{\text{max}},& p \geq 1 \\
+\frac{\epsilon}{\sqrt{1-p}} ,&p < 1 \;,
+\end{cases}
+\end{equation}
+from which I can calculate $\|g^p\|_\infty$ by substituting ${f(m)^*}$ into \eqref{eq:IRLS_Grad_generic}.
+Figure~\ref{NormDeriv}(c) presents the derivatives for different approximated $\ell_p$-norms after applying the corresponding $\gamma$-scale. Note that the largest derivative of any norm is at most as large as the $\ell_2$-norm penalty for $m \in \mathbb{R}$.
+The scaling of the norm derivatives guarantees that two penalties can co-exist and impact the solution at every step of the IRLS, regardless of the chosen $\{p,\epsilon\}$-values.
+\begin{figure}
+\includegraphics[width=\columnwidth]{NormDeriv.png}
+\caption{Derivatives of the Lawson approximation over a range of model values for (a) a fixed threshold parameter $\epsilon=10^{-1}$ over a range of $p$ values and for (b) a fixed $p=0$ over a range of $\epsilon$ values. (c) Applying the $\gamma$-scaling to the gradients brings all maximums to be equal irrespective of $p$ and $\epsilon$.}
+\label{NormDeriv}
+\end{figure}
+
+I therefore define Scaled-IRLS weights such that \eqref{eq:R_w} and \eqref{eq:Rx_w} become:
+\begin{equation}\label{etaScale}
+\begin{split}
+\mathbf{R}_s &= \gamma_s\; \text{diag} \left[{\Big( {({\mathbf{m}}^{(k-1)})}^{2} + \epsilon_s^2 \Big)}^{p_s/2 - 1} \right]^{1/2} \\
+\mathbf{R}_x &= \gamma_x\; \text{diag} \left[{\Big( {({\mathbf{D}_x \mathbf{m}}^{(k-1)})}^{2} + \epsilon_x^2 \Big)}^{p_x/2 - 1} \right]^{1/2} \;,
+\end{split}
+\end{equation}
+where the scaling parameters $\gamma_s$ and $\gamma_x$ are:
+\begin{equation}
+\begin{split}
+\gamma_s &= \left[\frac{ \left\| \mathbf{g}_s^2 \right\|_\infty}{\left\|\mathbf{g}_s^{p_s}\right\|_\infty}\right]^{1/2} \;,\; \gamma_x = \left[ \frac{ \left\|\mathbf{g}_x^2\right\|_\infty}{\left\|\mathbf{g}_x^{p_x}\right\|_\infty}\right]^{1/2},
+\end{split}
+\end{equation}
+Their role is to reference the partial derivatives of the approximated $\ell_p$-norms to the derivatives of their respective $\ell_2$-norm measures. This re-scaling is done for two reasons. First, at the transition between Stage~\ref{Stage1} and \ref{Stage2}, it preserves the balance between the misfit and regularization terms and thus no large adjustment in the trade-off parameter $\beta$ is needed. Secondly, this ensures that proportionality between $\phi^0_s $ and $\phi^2_x$ is preserved during the $\ell_p$-norm inversion.
+
+Two options are possible to compute the $\gamma$-scalings: (a) take the maximum absolute gradient directly from the gradient values in \eqref{eq:IRLS_Grad_generic}, or (b) calculate $\left\|\mathbf{g}_j^p\right\|_\infty$ analytically from \eqref{mMaxGrad}. I have found that Option 2 is more stable since it is based upon a theoretical maximum of the gradient and not on a particular realization of that maximum that arises from the distribution of values in the current model $\mathbf{m}^{k}$.
+
+The outcome of the re-scaling strategy is shown in Figure~\ref{Mixed1DnotCooledEta}(a). The solution seems to have my desired properties of being sparse in terms of the number of non-zero model values and the model has smooth edges. The maximum partial derivatives, shown in Figure~\ref{Mixed1DnotCooledEta}(c), confirm that the scaling strategy was successful in balancing the impact of the two components of the regularization. This is quantified by the calculated proportionality ratio $\lambda_\infty = 0.7$. It is an improvement over the previous solution with a ratio of 150 (Figure~\ref{Mixed1DnoEta}), but it appears that the algorithm has reached a steady state solution with slightly more influenced from $\phi_s$.
+In the following section I provide a strategy to better preserve proportionality between each model update through a cooling strategy.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_l0l2_NotCooled_Eta.png}
+\caption{(a) Recovered model and (b) convergence curves using the Scaled-IRLS approach for $p_s=0,\;p_x=2$ and a fixed threshold parameter $\epsilon=1e-3$ ($\alpha_s=\alpha_x=1$). (c) Trade-off parameter and maximum gradients for the different components of the objective function. The scaling procedures preserves the proportionality between $\left\| \mathbf{g}^{p_s}_s \right\|_\infty$ and $\left\| \mathbf{g}^{p_x}_x \right\|_\infty$ throughout the iteration process. The trade-off $\beta$-parameter needed only to be adjusted slightly at the beginning of Stage~\ref{Stage2}.
+}
+\label{Mixed1DnotCooledEta}
+\end{figure}
+
+
+
+\subsection{Threshold $\epsilon$-parameter}
+While I have improved the flexibility of the IRLS algorithm, I have yet to address the threshold $\epsilon$-parameter which has been held fixed.
+The choice of threshold parameters remains a subject of disagreement among researchers.
+In the early work of \cite{LastKubik83}, it was suggested that the threshold value should be small or near machine error ($\epsilon < 10^{-8}$) in order to best approximate the $\ell_p$-norm. The same strategy was later adopted by others \cite[]{BarbosaSilva94, Stocco09}.
+Other researchers, such as in \cite{Ajo-Franklin07} observed instabilities with small values, and opted for a wider range ($10^{-4} < \epsilon < 10^{-7}$).
+
+More recently, \cite{SunLi14} proposed an $\epsilon$-search phase to highlight regions reacting favourably to the sparsity constraints. A final inversion step was then carried out with a fixed threshold value ($\epsilon \ll 1e-4$). A similar strategy has also been proposed by \cite{ZhdanovTolstaya2004} after selecting an optimal point on a trade-off curve.
+
+Selecting an appropriate threshold value becomes more complicated when combining different penalty functions. I not only need to contend with the range of model values, but also with the relative influence of the components of a non-linear regularization function. To illustrate the challenge, I invert the 1D example again with the mixed norm penalty function ($\phi_m = \alpha_s\phi^0_s + \alpha_x\phi^2_x$) but this time over a range of threshold values ($10^{0} < \epsilon_s < 10^{-5}$). The resulting models are shown in Figure~\ref{Mixed1DnotCooledEps}. I identify the following trends:
+\begin{itemize}
+\item For large values ($\epsilon > 10^{-1}$), no sparsity is achieved and the model resembles the solution previously obtained with $\phi_m = \alpha_s \phi_s^2+\alpha_x \phi_x^2$.
+\item With small values ($\epsilon < 10^{-4}$), $\phi_s^{p_s}$ appears to have little influence on the solution and the model resembles the solution obtained with smooth penalties $\alpha_s=0$. The proportionality ratio $\lambda_\infty \ll 1$ confirms this bias towards $\phi_x^2$.
+\item The mid-range values ($\epsilon^{-1}<\epsilon < 10^{-3}$) show the most significant variability in the solutions with an achieved proportionality ratio $\lambda_\infty \approx 1$.
+\end{itemize}
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_Results_NotCooledEps.png}
+\caption{Recovered 1D models with variable threshold parameter on the range $10^{-5} < \epsilon < 10^{0}$ using a mixed-norm penalty function $\phi_m = \alpha_s\phi^0_s + \alpha_x\phi^2_x$.
+}
+\label{Mixed1DnotCooledEps}
+\end{figure}
+
+From this numerical experiment, there appears to be an optimal $\epsilon$-parameter in the mid-range ($\epsilon^{-1}<\epsilon < 10^{-3}$) that can promote both a sparse and smooth solution.
+Ideally, I want to automate the selection process.
+
+In this study, I opt for a cooling strategy. Threshold values $\epsilon_j$'s are initialized at a large value then monotonically reduced such that:
+\begin{equation}\label{CoolingRate}
+\begin{split}
+\epsilon_j^{(k)} &=\frac{\|f_j({m})^{(0)}\|_\infty}{\eta^k}\;,\\
+\end{split}
+\end{equation}
+In \eqref{CoolingRate}, $\eta$ is a user-defined cooling rate constant and $\|f_j({m})^{(0)}\|_\infty$ denotes the largest function value obtained at the end of Stage~\ref{Stage1} of the algorithm.
+At the start of Stage~\ref{Stage2}, the Lawson approximation with large $\epsilon$ is effectively an $\ell_2$-norm. Thus there is only a small change in regularization between Stages~\ref{Stage1} and \ref{Stage2} of the algorithm.
+This is desired since the $\ell_p$-norm regularization is highly non-linear and I want to reduce the risk of moving away from my initial proportionality conditions.
+
+I proceed with an inversion with a cooling rate $\eta=1.25$. Recovered models as a function of iterations are shown in Figure~\ref{Mixed1DIterates}(a) to (d).
+As the number of iterations increases and $\epsilon \rightarrow 0$, the emphasis of the sparse penalties ($\gamma_s^2 \mathbf{g}_s^0$) sweeps through the range of model values, progressively focusing on smaller model parameters. Figure~\ref{Mixed1DIterates}(e) plots the scaled gradients as a function of absolute model values obtained at iteration $k$=10, 15, 24 and 55. This plot can be compared to Figure~\ref{NormDeriv}(c). The gradients associated with sparse penalties ($g^0_s$) force small model values ($m\approx \epsilon$) towards the reference ($m^{ref}=0$). Large model values ($m >> \epsilon$) are free to increase unless penalized by the other competing functions ($\phi_x^{p_x},\; \phi_d$).
+Figure~\ref{Problem1D_CooledEta_dphi} illustrates the evolution of penalties by plotting the partial derivatives of the objective function for iteration k=15 (early stage) and iteration k=55 (late stage).
+As $\epsilon \rightarrow 0$, small model values are primarily influenced by $\frac{\partial \phi_d}{\partial \mathbf{m}}$ and $\beta \alpha_s \frac{\partial \phi_s}{\partial \mathbf{m}}$, while large model values are influenced by $\frac{\partial \phi_d}{\partial \mathbf{m}}$ and $\beta \alpha_x \frac{\partial \phi_x}{\partial \mathbf{m}}$.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_l0l2_Cooled_Eta_Iterates.png}
+\caption{(a)-(d) Recovered 1D models at different iteration steps $(k)$. The value of $\epsilon$ (dash) is shown for reference, highlighting the idea of a progressive thresholding of model values. (e) Scaled partial derivatives ($\gamma^2 \mathbf{g}_s^0$) as a function of the sorted model values and at various iteration stages.
+}
+\label{Mixed1DIterates}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_CooledEta_dphi.png}
+\caption{Partial derivatives of the objective function for iteration (top) k=15 and (bottom) k=55. The recovered models are shown in red for reference.
+}
+\label{Problem1D_CooledEta_dphi}
+\end{figure}
+
+
+From a user standpoint, the cooling strategy is attractive as it eliminates the requirement to predetermine an optimal $\epsilon$ threshold values and instead relies on a cooling rate $\eta$.
+To investigate the impact of the cooling rate on the solution, I solve the inverse problem ($p_s=0,\: p_x=2$) for various cooling rates $\eta=[6,\:3,\:1.5,\:1.125]$.
+For each independent trial, the iteration process continues until reaching the additional criteria that $\epsilon_j^{(k)} = 10^{-6}$ (near machine single precision).
+Recovered solutions for the 4 cooling rates are presented in Figure~\ref{Mixed1DCooledEta}(a-d). I note important differences between the solutions. A summary of the inversions is provided in Table~\ref{table:Cooling}.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem1D_ps0px2Cooled_eta.png}
+\caption{(a-d) Recovered models and (e) convergence curves for the minimization of $\phi_d +\beta \phi_m^p$ with various cooling rates $\eta$ but with a final $\epsilon_s^* = 1e-6$.
+}
+\label{Mixed1DCooledEta}
+\end{figure}
+\begin{table}
+\centering
+\begin{tabular}{| c | c | c | c | c | c |} \hline
+$\eta$ & $\#$ Iterations &$\phi_m^{p} $& $\epsilon_j^{(k)}$ & $\phi_d^{(k)}$ & $\lambda$ \\ \hline
+1.125 	& 77	& 12.6 & 1e-06& 9.2& 0.97\\
+1.5 		&39		& 17.8 & 1e-06& 9.1& 1.27\\
+3 		&24		& 24.1 & 1e-06& 8.5& 0.68\\
+6 		&23		& 31.1 & 1e-06& 8.9& 0.54\\ \hline
+\end{tabular}
+\caption{Inversion summary after convergence of the S-IRLS for various cooling rates $\eta$ as presented in Figure~\ref{Mixed1DCooledEta}. Each inversion trial was required to reach the target misfit $\phi_d^*$ and target $\epsilon^* =
+1e-6$ .}
+\label{table:Cooling}
+\end{table}
+
+Figure~\ref{Mixed1DCooledEta}(e) displays convergence curves for each inversion trial. The final norm $\phi_m^p$ is evaluated by using the expression \eqref{IRLSobjFun}, that is, all $\gamma$ scaling parameters have been removed. Thus I am comparing my ability to minimize the global objective function even though the algorithm has used variable scalings to reach that result. This promotes insight into the robustness of the final model as a function of the cooling rate.
+I note that a lower model norm can be obtained by cooling slowly. Cooling at an even slower rate (not shown here) has reaffirmed this. A rate of $\eta=1.025$ yielded $\phi_m$ = 12.5 in 155 iterations. It appears that $\phi_m^p \rightarrow 12.5$ as $\eta \rightarrow 1$.
+I found experimentally that for $\eta \approx 1.25$ generally yielded an optimal trade-off between computational time (number of iterations) and convergence to a suitable solution.
+
+\subsection{Summary}
+My goal is to solve an inverse problem where the regularization function is composed of multiple terms, each defined as an $\ell_p$-norm premultiplied by a scaling parameter. The scaling parameters, $\alpha$'s, are used to control how much each component contributes to the final solution. The relative influence of these components is quantified by evaluating the proportionality ratio $\lambda_\infty$ \eqref{derivRatio}. If two components contribute equally, then $\lambda_\infty$ should be close to unity. Unfortunately, when the components of the regularization include model and gradient terms, the scaling is affected by the cell size chosen for discretization and by the $\ell_p$-values. To ameliorate this I remove the length scales from the measure of model gradients and replace gradients with a finite difference. This makes $\phi_s^{p_s}$ and $\phi_x^{p_x}$ dimensionally equivalent. The default values for obtaining equal contributions are thus $\alpha_s=\alpha_x=1$ for all combinations of $\ell_p$-norms on the gradients.
+
+I solve the inverse problem by replacing the $\ell_p$-norms with their Lawson norm approximations. Thus I search for the model that minimizes
+
+\begin{equation}\label{eq:GeneralLPProblem}
+\begin{split}
+\phi (m) =& \| \mathbf{W}_d\;\Delta\mathbf{d}\|_2^2 +\\
+& \beta \alpha_s \sum_{i=1}^{M}\frac{m_i^2}{{{(m_i^{2} + \epsilon_s^2 )}^{1-p_s/2}} } V_{s_i} +\\
+& \beta \alpha_x \sum_{i=1}^{M-1}\frac{(m_{i+1} - m_{i})^2}{{{((m_{i+1} - m_{i})^{2} + \epsilon_x^2 )}^{1-p_x/2}} } V_{x_i} \;,
+\end{split}
+\end{equation}
+for arbitrarily small $\epsilon_s$, $\epsilon_x$ values.
+I solve the inverse problem using a two-stage approach. I first find a solution for the $\ell_2$-norm problem and then I change the objective functions to their final desired $\ell_p$-norms and solve the optimization problem using IRLS. To keep stability in the iterative process I successively rescale the IRLS weights $\mathbf{R}$. Thus at each iteration I solve a locally convex problem
+\begin{equation}\label{eq:LocalIRLS}
+\begin{split}
+\phi(m^{(k)}) =&\;\| \mathbf{W_\text{d}}\;\Delta\:\mathbf{d}\|_2^2 +\\
+& \beta \left( \alpha_s \| \mathbf{V}_s\:\mathbf{R}_s\;\mathbf{m}\|_2^2 + \alpha_x\|\mathbf{V}_x\:\mathbf{R}_x\:\mathbf{D}_x\;\mathbf{m}\|_2^2 \right) \;,
+\end{split}
+\end{equation}
+
+Although the local minimization problems involve scaled gradients, the final desired solution is that which minimizes \eqref{eq:GeneralLPProblem}. My ability to achieve this goal depends upon the value of $\epsilon$ and the chosen cooling rate. I find that the best (i.e. minimum norm) solution is obtained when $\epsilon$ is cooled slowly to a final small value. If the cooling is too fast then I obtain a substandard solution in which $\lambda_\infty$ is not close to unity and my modelling objectives are not satisfied. Slower cooling and the frequent re-scaling of the gradients keeps the proportionality ratio near unity.
+
+\section{Exploring the model space}
+
+The smooth density model presented in Figure~\ref{Grav_l2model} was a poor approximation of a compact block, but it is one of many possible solutions.
+Now that I have developed an algorithm that can combine multiple regularization functions with different $\ell_p$-norm measure, I can explore the model space by generating a suite of solutions that have variable characteristics.
+I will demonstrate this on the synthetic gravity example shown in Figure~\ref{GRAV_model}. The function to be minimized for the 3D gravity problem becomes
+\begin{equation}\label{ObjFun3D}
+\begin{split}
+\underset{\boldsymbol{\rho}}{\text{min}}\; \phi(\rho) & = \; \|\mathbf{G}\;\boldsymbol{\rho} - \mathbf{d}^{obs}\|_2^2 + \beta \sum_{r=s,x,y,z} \alpha_r \|\mathbf{W}_r \;\mathbf{R}_r\;\mathbf{D}_r \;\boldsymbol{\rho}\|_2^2 \\
+\text{s.t.} \; \phi_d & \leq \phi_d^* \;
+\end{split}
+\end{equation}
+I carry out eight additional inversions. I use a combination of norms on a range of $p_s,\; p_{[x,y,z]}, \in {[0,1,2]}$ values. I set $p_x=p_y=p_z$ in all cases. The solutions, nine models in total, are presented in Figure~\ref{GravMixedNorms}. All models have a final misfit $\phi_d^* \approx 441$ and use the same $\ell_2$-norm solution to initiate the IRLS steps.
+I make the following general observations.
+There is a progressive transition from a smooth model (upper left) to a blocky solution (lower right) as $p_s$, $p_{x}$, $p_y$ and $p_z$ decrease. The top of the density high is most often recovered at 10 m depth. Away from the anomalous region the velocity is relatively smooth and close to the background reference model of 0 g/cc. There is also a clear trend in the data misfit map such that the correlated residual decreases as $p_s$, $p_{x}$,$p_{y}$, $p_{z}\rightarrow 0$.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Grav_Inv_modelSpace.png}
+\caption{(a-i) Vertical section through a suite of density models recovered for varying $\ell_p$-norm penalties applied on the model and model gradients for $p_s\in[0,\:1,\: 2]$ and $p_{x}=p_{y}=p_{z}\in[0,\:1,\: 2]$.
+}
+\label{GravMixedNorms}
+\end{figure}
+
+\subsection{Interpretation}
+Accessing a range of solutions is important to assess the stability of different features and to avoid over-interpreting one specific realization. The next step requires to compare this ensemble of models and make a geological interpretation. In Chapter~\ref{Chapter6} I provide a more evolved methodology to extract local parameters, but for now, I will compare the solutions visually. Figure\ref{GravMixedNormContours} presents an overlay for the 10th and 90th percentiles anomalous densities calculated from the suite of models shown in Figure~\ref{GravMixedNorms}. I can assess the robustness of features by comparing the iso-contour lines of each model: tight clustering of the contours indicates that several models agree on the position of an edge, while a large spread indicates high variability. At the center of the model, I note that the top of the anomaly (solid) is highly correlated among models, but less so the bottom limit. This is expected as the resolution of the survey decreases with depth. Meanwhile, on the edges of the domain, the shape and sign of density contrasts vary substantially. From this simple analysis, I would assign high confidence on the horizontal and top of the positive density anomaly, and low confidence on features on either side of the inversion domain.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Grav_Inv_modelSpaceContour.png}
+\caption{Iso-contour values for the $10^{th}$ and $90^{th}$ percentile of anomalous density calculated from the suite of models shown in Figure~\ref{GravMixedNorms}. The outline of the target (red) is shown for reference. Contour lines tightly clustered indicate coherence between inversion trials. Negative anomalies (dash) appear to change significantly, to which I would assign lower confidence.
+}
+\label{GravMixedNormContours}
+\end{figure}
+
+The normalized data residual maps for each inversion are shown in Figure~\ref{GravMixedNorms_dpred}.
+The decrease in correlated residual observed on the misfit maps (Figure~\ref{GravMixedNormContours}) is also an important aspect to consider. While all the inversions have achieved the global target misfit, only after applying the proper constraints (blocky and compact) that the inversion was able to predict the short wavelength information present in the data. This is an important aspect of this research as it further stresses the importance of exploring a range of solutions with broadly different characteristics such that more subtle features can be extracted. It is also a motivation to automate the search for suitable inversion parameters that can better resolve the geophysical data.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Grav_Inv_modelSpace_dpred.png}
+\caption{(a-i) Residual data map calculated from the suite of density models for varying $\ell_p$-norm penalties applied on the model and model gradients for $p_s\in[0,\:1,\: 2]$ and $p_{x}=p_{y}=p_{z}\in[0,\:1,\: 2]$.
+}
+\label{GravMixedNorms_dpred}
+\end{figure}
+
+
+
+\endinput
+
+
+

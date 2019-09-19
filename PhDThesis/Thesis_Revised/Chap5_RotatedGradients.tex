@@ -1,0 +1,312 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./../../Figures/}}
+\chapter{Rotated $\ell_p$-norm Regularization}
+\label{Chapter5}
+
+In Chapter~\ref{Chapter3}, I introduced a mixed-norm regularization function that could be used to recover a suite of models that had a broad range of characteristics. This was accomplished by altering the norms on the model and model derivatives independently. I have shown the value in interpreting an ensemble of models to assess the robustness of certain features. When inverting gravity data arising from a buried prism, I managed to recover an anomaly at the right depth and with sharp edges. In this case, the prism was aligned with the Cartesian frame.
+In most cases, however, the shape of geophysical anomalies can take many forms. Dip and strikes of geological contacts rarely occur at right angles and aligned with the geographic grid. I, therefore, need a more general strategy that is adaptable to any geological scenarios.
+
+Some research has addressed this issue by imposing directionality in the inversion.
+\cite{Barbosa2006} introduce a regularization function to force anomalies to be closer to geometric elements in 2D. Their approach can recover compact and elongated bodies, but it requires direct input from the user to define the location of different anomalies.
+In \cite{LiDWO2000}, directionality is enforced by rotating the objective function along preferential axes.
+The method was later revised by \cite{PhDLelievre09} and \cite{Davis2012} who advocated the use of forward and backward difference operators to improve symmetry. While successful in recovering elongated bodies, their approach still requires manual adjustment of inversion parameters to control stretching factors along different orientations.
+As a natural extension to their work, I am proposing in this chapter to combine the mixed norm regularization function with the rotation strategy for the recovery of sharp and oriented edges.
+
+\section{Rotated objective function}
+I begin by reviewing the strategy presented in \cite{LiDWO2000} for the rotation of the objective function using the conventional $\ell_2$-norm regularization
+\begin{equation}\label{integralReg}
+\begin{split}
+\phi_m &= \alpha_s \int_V m^2 \;dV + \sum_{r=x,y,z} \alpha_r \int_V \left( \frac{d m}{dr}\right)^2 \;dV\;. \\
+\end{split}
+\end{equation}
+Model gradients are traditionally calculated along the Cartesian axes $x$, $y$ and $z$. Evaluating the integral over the discrete domain gives rise to linear penalty functions introduced in equation \eqref{leastSquaresLin}
+\begin{equation}
+\begin{split}
+\phi_s = \alpha_s \|\mathbf{W}_s \mathbf{V}_s\;(\mathbf{m}-\mathbf{m}^{ref})\|_2^2 + \sum_{r=x,y,z} \alpha_r \|\mathbf{W}_r \mathbf{V}_r \mathbf{D}_r \;\mathbf{m}\|_2^2 \;,\\
+\end{split}
+\end{equation}
+where $\mathbf{W}$ matrices contain sensitivity or volumetric based weighting and weighting parameters set by the user. As explained in Section~\ref{l1norm}, I use finite difference operators $\mathbf{D}$ rather than the conventional gradient operators $\mathbf{G}$ to simplify the implementation.
+The scaling parameters $\alpha_r$ control the stretching along the three axes. This formulation is restrictive however as the dip and strike of geological boundaries can occur at any orientation. To address this shortcoming, \cite{LiDWO2000} introduced rotated gradient measures of the form
+\begin{equation}\label{RotGradients}
+\begin{split}
+\frac{\partial m}{\partial x'} = \omega_{xx} \frac{\partial m}{\partial x} + \omega_{xy} \frac{\partial m}{\partial y} + \omega_{xz} \frac{\partial m}{\partial z} \\
+\frac{\partial m}{\partial y'} = \omega_{yx} \frac{\partial m}{\partial x} + \omega_{yy} \frac{\partial m}{\partial y} + \omega_{yz} \frac{\partial m}{\partial z} \\
+\frac{\partial m}{\partial z'} = \omega_{zx} \frac{\partial m}{\partial x} + \omega_{zy} \frac{\partial m}{\partial y} + \omega_{zz} \frac{\partial m}{\partial z}
+\end{split}
+\end{equation}
+Rotation coefficients $\boldsymbol{\omega}$ are defined by the triple rotation around the Cartesian axes such that
+\begin{equation}\label{RotationMatrix}
+\begin{split}
+\boldsymbol{\Omega} =& \boldsymbol{\Omega}_z\boldsymbol{\Omega}_x\boldsymbol{\Omega}_y =
+\begin{bmatrix}
+\omega_{xx} & \omega_{xy} & \omega_{xz} \\
+\omega_{yx} & \omega_{yy} & \omega_{yz}\\
+\omega_{zx} & \omega_{zy} & \omega_{zz}
+\end{bmatrix} \\
+=&\begin{bmatrix}
+\cos \phi \cos \psi - \sin \phi \cos \theta \sin \psi & \sin \phi \cos \psi + \cos \phi \cos \theta \sin \psi & \sin \theta \sin \psi \\
+- \sin \phi \sin \theta & \cos\phi \sin \theta & -\cos \theta\\
+-\cos \phi \sin \psi - \sin \phi \cos \theta \cos \psi & -\sin \phi \sin \psi + \cos \phi \cos \theta \cos \psi & \sin \theta \cos \psi
+\end{bmatrix}
+\end{split}
+\end{equation}
+where the matrix $\boldsymbol{\Omega}_y$ defines the rotation angle $\psi$ counterclockwise around the $y$-axis (dip)
+\begin{equation}
+\boldsymbol{\Omega}_x =
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & \cos(\psi) & \sin(\psi) \\
+0 & -\sin(\psi) & \cos(\psi) \\
+\end{bmatrix}
+\end{equation}
+followed by $\boldsymbol{\Omega}_x$ defining the rotation angle $\theta$ around the $x$-axis (plunge)
+\begin{equation}
+\boldsymbol{\Omega}_y =
+\begin{bmatrix}
+\cos(\theta) & 0 & \sin(\theta) \\
+0 & 1 & 0\\
+-\sin(\theta) & 0 & \cos(\theta) \\
+\end{bmatrix}
+\end{equation}
+and a final $\boldsymbol{\Omega}_z$ defining the rotation $\phi$ around the $z$-axis (strike)
+\begin{equation}
+\boldsymbol{\Omega}_z =
+\begin{bmatrix}
+\cos(\phi) & \sin(\phi) & 0 \\
+-\sin(\phi) & \cos(\phi) & 0\\
+0 & 0 & 1
+\end{bmatrix}\;.
+\end{equation}
+Figure~\ref{Rotation} depicts the rotation angles with respect to the Cartesian system.
+\begin{figure}[h!]\centering
+\includegraphics[width=0.3\columnwidth]{Rotation.png}
+\caption{Rotation parameters with respect to the Cartesian axes.}
+\label{Rotation}
+\end{figure}
+The regularization functions along the rotated axis $x'$ is defined by substituting \eqref{RotGradients} into \eqref{integralReg}
+\begin{equation}
+\begin{split}\label{rot2norm}
+\phi_{x'} &= \alpha_x \int_V \left( \omega_{xx}\frac{d m}{dx} + \omega_{xy}\frac{d m}{dy} + \omega_{xz}\frac{d m}{dz}\right)^2 \;dV\;. \\
+\end{split}
+\end{equation}
+which after expanding can be written in discrete form as:
+\begin{equation}\label{phixRot}
+\begin{split}
+\phi_{x'} = \alpha_x \mathbf{m}^\top \bigg(&\omega_{xx}^2\mathbf{D}_x^\top\mathbf{W}_x^\top \mathbf{W}_x\mathbf{D}_x + \omega_{xy}^2\mathbf{D}_y^\top\mathbf{W}_y^\top\mathbf{W}_y \mathbf{D}_y + \omega_{xz}^2\mathbf{D}_z^\top\mathbf{W}_z^\top \mathbf{W}_z\mathbf{D}_z +\\
+&2*\omega_{xx}\omega_{xy}\mathbf{D}_x^\top \mathbf{W}_x^\top\mathbf{W}_y\mathbf{D}_y +\\
+&2*\omega_{xx}\omega_{xz}\mathbf{D}_x^\top \mathbf{W}_x^\top\mathbf{W}_z\mathbf{D}_z +\\
+&2*\omega_{xy}\omega_{xz}\mathbf{D}_y^\top \mathbf{W}_y^\top\mathbf{W}_z\mathbf{D}_z \bigg) \mathbf{m}
+\end{split}
+\end{equation}
+where I absorbed the volumes of integration $\mathbf{V}_r$ in the weighting terms $\mathbf{W}_r$ for clarity.
+Derivation from the integral to discrete form of \eqref{phixRot} can be found in \cite{LiDWO2000}.
+It is important to point out that the difference operators in \eqref{phixRot} require square matrices such that $\mathbf{D}_x,\;\mathbf{D}_y,\;\mathbf{D}_z \in \mathbb{R}^{M \times M}$. This is done by adding a backward difference to the edge cells such that the divergence operator in \eqref{1D_Grad} becomes
+\begin{equation}\label{1D_GradSquare}
+\mathbf{D}_x =
+		\begin{bmatrix}
+			-1		& 		1	& 	0		& \dots 		& 0 \\
+			0 		& 	\ddots	& 	 \ddots	& \ddots 	& \vdots \\
+			\vdots	& 		 \ddots	& 0	& -1 & 1\\
+			\vdots	& 		 \dots	& 0	& 1 & -1\\
+		 \end{bmatrix}\;.
+\end{equation}
+Carrying out the same procedure for $\phi_{y'}$ and $\phi_{z'}$, I obtain the rotated regularization function $
+\phi_{m'}$ made up of seven terms:
+\begin{equation}\label{RotatedLiDWO}
+\begin{split}
+\phi_{m'} = \mathbf{m}^\top \mathbf{W}_s^\top \mathbf{W}_s \mathbf{m} + &\\
+\mathbf{m}^\top \bigg(
+&\mathbf{D}_x^\top\mathbf{W}_x^\top \mathbf{B}_{xx}\mathbf{W}_x \mathbf{D}_x +
+\mathbf{D}_y^\top\mathbf{W}_y^\top \mathbf{B}_{yy}\mathbf{W}_y \mathbf{D}_y +
+\mathbf{D}_z^\top\mathbf{W}_z^\top \mathbf{B}_{zz}\mathbf{W}_z \mathbf{D}_z +\\
+&2*\mathbf{D}_x^\top \mathbf{W}_x^\top\mathbf{B}_{xy}\mathbf{W}_y \mathbf{D}_y +
+2*\mathbf{D}_x^\top \mathbf{W}_x^\top\mathbf{B}_{xz}\mathbf{W}_z \mathbf{D}_z +
+2*\mathbf{D}_y^\top \mathbf{W}_y^\top\mathbf{B}_{yz}\mathbf{W}_z \mathbf{D}_z \bigg) \mathbf{m}
+\end{split}
+\end{equation}
+Rotation coefficients $\omega_\square$ and $\alpha_\square$ parameters corresponding to each term are collected and added to form the different diagonal matrices $\mathbf{B}_\square$. Rotation parameters can be defined on a cell by cell basis.
+
+\cite{PhDLelievre09} found experimentally that this formulation resulted in asymmetric solutions due to the cancellation of rotation parameters. Checkerboard patterns were observed for rotation angles at $45^\circ$. This was addressed with an averaged combination of forward and backward difference operators. Equation~\eqref{RotatedLiDWO} becomes
+\begin{equation}\label{RotatedLelievre}
+\begin{split}
+\phi_{m'} = \mathbf{m}^\top \mathbf{W}_s^\top \mathbf{W}_s \mathbf{m} +& \\
+\mathbf{m}^\top \frac{1}{8}\sum_{i=1}^8 \bigg(&
+\mathbf{D}_{x,i}^\top\mathbf{W}_x^\top \mathbf{B}_{xx}\mathbf{W}_x \mathbf{D}_{x,i} + \\
+&\mathbf{D}_{y,i}^\top\mathbf{W}_y^\top \mathbf{B}_{yy}\mathbf{W}_y \mathbf{D}_{y,i} + \\
+&\mathbf{D}_{z,i}^\top\mathbf{W}_z^\top \mathbf{B}_{zz}\mathbf{W}_z \mathbf{D}_{z,i} +\\
+&2*\mathbf{D}_{x,i}^\top\mathbf{W}_x^\top \mathbf{B}_{xy}\mathbf{W}_y \mathbf{D}_{y,i} + \\
+&2*\mathbf{D}_{x,i}^\top \mathbf{W}_x^\top \mathbf{B}_{xz}\mathbf{W}_z \mathbf{D}_{z,i} + \\
+&2*\mathbf{D}_{y,i}^\top\mathbf{W}_y^\top \mathbf{B}_{yz}\mathbf{W}_z \mathbf{D}_{z,i} \bigg) \mathbf{m}
+\end{split}
+\end{equation}
+such that the $i^{th}$ components correspond to all the combination of forward and backward difference operators.
+\begin{table}\centering
+\begin{tabular}{|c|c|c|c|}\hline
+ID & $\mathbf{D}_{x,i}$ & $\mathbf{D}_{y,i}$ & $\mathbf{D}_{z,i}$ \\ \hline
+1 & Forward & Forward & Forward \\ \hline
+2 & Backward & Forward & Forward \\ \hline
+3 & Forward & Backward & Forward \\ \hline
+4 & Forward & Forward & Backward \\ \hline
+5 & Forward & Backward & Backward \\ \hline
+6 & Backward & Forward & Backward \\ \hline
+7 & Backward & Backward & Forward \\ \hline
+8 & Backward & Backward & Backward \\ \hline
+\end{tabular}
+\end{table}
+Figure~\ref{Grad_Stencils}(a) and (b) compares the different gradient scheme along the xy-plane.
+For 3D problems, this formulation results in a regularization function containing 49 terms in total.
+\begin{figure}[h!]\centering
+\includegraphics[width=\columnwidth]{Grad_Stencils.png}
+\caption{Two-dimensional representation of finite difference operators using a combination of (a) 3-cell \cite[]{LiDWO2000}, (b) 5-cell \cite[]{PhDLelievre09} and (c) the 7-cell scheme used for the rotation of the objective function. Only the 7-cell strategy allows for the interaction between diagonal neighbors.}
+\label{Grad_Stencils}
+\end{figure}
+
+I showcase the effect of rotation with three inversions applied to the density block model introduced in Chapter~\ref{Chapter2}. I will take advantage of the non-uniqueness of potential fields to accentuate trends in the model, even though the true block anomaly is a single prism orientated parallel to the Cartesian axes.
+In the first inversion, I use the conventional $\ell_2$-norm regularization for a rotation angle of $\phi = 45^\circ$. Since I am dealing with smooth assumption, I must impose a stretching factor along one of the rotated axes ($\alpha_x = 100$, $\alpha_s=\alpha_y=\alpha_z=1$). As expected the recovered density anomaly is stretched and symmetric about the rotated axis $x'$ (Figure\ref{BlockModelRotated}(a)). I have managed to replicate the implementation of \cite{PhDLelievre09}.
+
+For the second inversion, I attempt to impose sparse assumptions ($p_s=p_x=p_y=p_z=0$) to recover a compact block anomaly oriented at $45^\circ$.
+As a first pass, I attempt to directly incorporate the IRLS weights into the rotated regularization function such that
+\begin{equation}\label{RotatedLelievre_IRLS}
+\begin{split}
+\phi_m = \mathbf{m}^\top \mathbf{W}_s^\top \mathbf{R}_s^\top \mathbf{R}_s \mathbf{W}_s \boldsymbol{\rho} +& \\
+\mathbf{m}^\top \frac{1}{8}\sum_{i=1}^8 \bigg(&
+\mathbf{D}_{x,i}^\top \mathbf{R}_{xx}^\top\mathbf{W}_{x}^\top\mathbf{B}_{xx}\mathbf{W}_{x}\mathbf{R}_{xx} \mathbf{D}_{x,i} +\\
+&\mathbf{D}_{y,i}^\top \mathbf{R}_{yy}^\top\mathbf{W}_{y}^\top\mathbf{B}_{yy}\mathbf{W}_{y} \mathbf{R}_{yy} \mathbf{D}_{y,i}+\\
+&\mathbf{D}_{z,i}^\top \mathbf{R}_{zz}^\top\mathbf{W}_{z}^\top\mathbf{B}_{zz}\mathbf{W}_{z} \mathbf{R}_{zz}\mathbf{D}_{z,i} +\\
+&2*\mathbf{D}_{x,i}^\top \mathbf{R}_{xy}^\top\mathbf{W}_{x}^\top\mathbf{B}_{xy}\mathbf{W}_{y}\mathbf{R}_{xy} \mathbf{D}_{y,i} +\\
+&2*\mathbf{D}_{x,i}^\top \mathbf{R}_{xz}^\top\mathbf{W}_{x}^\top\mathbf{B}_{xz}\mathbf{W}_{z} \mathbf{R}_{xz}\mathbf{D}_{z,i} +\\
+&2*\mathbf{D}_{y,i}^\top \mathbf{R}_{yz}^\top\mathbf{W}_{y}^\top\mathbf{B}_{yz}\mathbf{W}_{z}\mathbf{R}_{yz} \mathbf{D}_{z,i} \bigg) \mathbf{m}
+\end{split}
+\end{equation}
+The IRLS weights for the model derivatives are defined as
+\begin{equation}
+\begin{split}
+	\mathbf{R}_{ij} &= \text{diag} \left[{\Big( |{({\mathbf{ G}_i\;\mathbf{m}}^{(k-1)}})\odot({{\mathbf{ G}_j\;\mathbf{m}}^{(k-1)}})| + \epsilon_{ij}^2 \Big)}^{p_{ij}/2 - 1} \right]^{1/2} \;.
+\end{split}
+\end{equation}
+where $\odot$ denotes the Hadamard (element-wise) product between the model derivatives.
+Figure \ref{BlockModelRotated}(b) shows the recovered density models after convergence of the IRLS.
+While the general orientation of the anomaly appears to be aligned at $45^\circ$, edges are poorly defined and the solution is not exactly symmetric about the $x'$ axis.
+Similarly for the third inversion, I rotate the objective function by a smaller angle of $30^\circ$. The solution in Figure \ref{BlockModelRotated}(c) shows little difference from the $45^\circ$ rotation. This is primarily due to the averaging over the 8 combination of backward and forward measures. The regularization function in \eqref{RotatedLelievre_IRLS} also comes with a significant increase in computational cost as it involves 16 times more operations compared to the conventional Cartesian approach.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Grav_Block_Rotation.png}
+\caption{Horizontal cross section through the recovered model with rotation of the objective function using (top) 5-point and (bottom) 7-point gradient operators. Blue and red arrows indicate the rotation frame. (a, d) Recovered models with smooth assumptions ($p_s=p_x=p_y=p_z=2$) stretched along the rotate x-axis at $45^\circ$ ($\alpha_{x'}=100$). (b, e) Sparse solutions ($p_s=p_x=p_y=p_z=0$) with rotation at $45^\circ$. The target orientation of the rotated block is marked by the black dashed line. (c, f) Sparse solutions for a $30^\circ$ rotation of the objective function.}
+\label{BlockModelRotated}
+\end{figure}
+
+\subsection{Diagonal derivatives}
+Building upon the previous results, I will attempt to improve the recovery of oriented bodies by employing a new derivative scheme.
+Rather than adding and averaging the contribution of gradient operators along the Cartesian axes, I propose to also measure the interaction with diagonal neighbours. For clarity, I first examine the rotated finite difference operator $\mathbf{D}_{x'}$ along the xy-plane (rotation about $\hat z$).
+For a given cell $m_i$, there are 8 cells that either share a node or a face. Given a rotation angle $\theta$, I need to determine which of the 8 neighbours participate in the finite difference. I determine the contribution of each cell based on the intersecting volume with a test cell $m_{x'}$ as shown in Figure~\ref{Grad_Stencils}(c). To determine the position of $m_{x'}$, I calculate the displacement of its nodes about the center of $m_i$
+\begin{equation}\label{rotUnitVector}
+	\mathbf{M}_{x'} = \mathbf{R}(\theta)
+	\begin{bmatrix}
+	1 & 1 \\ 0& 0 \\ 0 & 0
+	\end{bmatrix} +
+	\begin{bmatrix}
+	x_U & x_L \\ y_U & y_L \\ z_U & z_L\\
+	\end{bmatrix}
+\end{equation}
+where $U$ and $L$ define the lower southwest and upper northeast node locations of the target cell $m_i$.
+The rotated finite difference is calculated by a weighted average
+\begin{equation}
+d_{x'} = m_i - \frac{\sum_{i=1}^8 v_i m_i}{\sum_{i=1}^8 v_i}
+\end{equation}
+where the weights $v_i$ are partial volume intersected with $m_{x'}$ as presented in the Appendix.
+The same calculation can be carried out for rotated test cells $m_{y'}$ and $m_{z'}$ and rotation angle $\psi$ and $\phi$. To improve symmetry, this process is repeated for both a forward and backward difference.
+These calculations are performed for each cell and their neighbors in our 3D domain, giving rise to the regularization function:
+\begin{equation} \label{phi_m_ROT}
+\begin{split}
+\phi_m
+= &{\|\alpha_s \mathbf{W}_s\;\mathbf{V}_s\;\mathbf{R}_s\; \;( \boldsymbol{\rho - \rho^{ref}})\|}^2_2 + \\
+\sum_{r = x',y',z'}& {\|\alpha_r\mathbf{W}_r\;\mathbf{V}_r\;\mathbf{R}_r \; \; \mathbf{D}^F_r \; \mathbf{m}\|}^2_2 + {\|\alpha_r\mathbf{W}_r\;\mathbf{V}_r\;\mathbf{R}_r \; \; \mathbf{D}^B_r \; \mathbf{m}\|}^2_2 \;,
+\end{split}
+\end{equation}
+where $\mathbf{D}^F_r$ and $\mathbf{D}^B_r$ denotes the rotated forward and backward difference operators. The upfront cost to build the finite difference operators is higher than for simple Cartesian operators but the regularization function has only seven terms in total. This translates to about 6 times fewer operations needed during the inversion process compared to the methodology proposed by \cite{PhDLelievre09}.
+
+For comparison, I re-invert the synthetic data using this new regularization function. Models are presented in Figure~\ref{BlockModelRotated} for (d) $45^\circ$ rotation with smooth $\ell_2$-norm ($\alpha_{x'}=100$), (e) $45^\circ$ rotation with $\ell_p$-norm ($p_s=p_x=p_y=p_z=0$) and (f) $30^\circ$ rotation. In the case of the smooth inversion, both formulations give equivalent results with anomalous density stretched along the rotated $x'$-axis. I note a significant improvement however in the geometry of the rotated sparse models, with good symmetry and better edge definition along the rotation angle.
+
+I have achieved my initial goal of recovering rotated anomalies, even though in this specific case the true model is a simple prism oriented along the Cartesian axes.
+Figure~\ref{BlockModelRotatedResiduals} presents the normalized data residual calculated from the last three experiments. It is important to note that all solutions fit the observed data within the tolerance $\phi_d - \phi_d^* \leq \delta d$, yet large correlated residuals are clearly visible. I have forced the solution to exhibit characteristics that are not consistent with the true solution. This reinforces the importance of designing an objective function that can satisfy subtle information that may be present in the data in order to better represent the local geology.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Grav_Block_Rotation_Residual.png}
+\caption{Normalized data residuals calculated from the recovered models presented in Figure~\ref{BlockModelRotated}(d), (e) and (f) respectively.}
+\label{BlockModelRotatedResiduals}
+\end{figure}
+
+\section{Synthetic fold model}
+I have so far demonstrated the use of rotated sparse norms for the recovery of oriented blocks by taking advantage of the non-uniqueness of the inverse problem.
+The true value of this strategy is to promote the recovery of oriented edges to better represent geological units of arbitrary shapes.
+I demonstrate this by simulating a more realistic scenario. I generate a synthetic fold model made up of a layer with density contrast of 0.1 g/cc placed in uniform background as shown in Figure~\ref{FoldModel}.
+The axial plane of the syncline strikes NS and dips $75^\circ$E. The fold axis plunges $15^\circ$ S. The intersection of the axial plane with the various cross-sections are shown as red dashed lines in Figure~\ref{FoldModel}. I divide the ground into an OcTree mesh with core cells that are 20 m meters in width.
+
+I simulate gravity data at 560 stations placed one meter above the topography. The locations are randomly sampled from a grid to emulate a field survey with unevenly spaced data.
+From the linear relation introduced in \eqref{g_discrete}, the density anomaly of the syncline gives rise to the gravity response presented in Figure~\ref{FoldData}.
+I will attempt to use the rotated mixed-norm regularization to recover the folded layer.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Synthetic_Fold_Model.png}
+\caption{Synthetic density model made up of a folded layer with a N-S oriented axial plane dipping $75^\circ$E. The intersection between the fold axial plane and the cross-sections are marked by a red-dashed line: (left) topography draped section and (right) vertical cross-sections along (A-A') and (B-B'). The hinge axis of the fold is plunging $30^\circ$S. Two strike and dip measurements are provided at the surface and used as structural constraints.}
+\label{FoldModel}
+\end{figure}
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{FoldData.png}
+\caption{Synthetic gravity data generated 1 m above topography over the synthetic density fold model. Gravity station locations (dot) and topographic contours (lines) are shown for reference. Structural data (dip, strike) are provided at two locations on opposite of the syncline. Dip direction of the fold axis ($15^\circ$ S) and limbs are shown with arrows .}
+\label{FoldData}
+\end{figure}
+
+
+\subsection{$\ell_p$-norm inversion}
+I begin exploring model space by first generating a density model that is smooth and has minimum structure.
+Using the regularization function in \eqref{phi_m_ROT} for $p_s=p_x=p_y=p_z=2$, I recover the density model presented in Figure~\ref{Synthetic_Fold_l2Model}. As expected from the smooth regularization function, the thickness of the layer near the surface is not clearly defined; there is a wide transition from a positive to a negative density contrast. More importantly, the dip and extent of the fold limbs at depth are poorly resolved. Without prior knowledge, geological interpretation of this result would be difficult with low confidence about the geometry of the fold.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\columnwidth]{GRAV_Synthetic_l2l2.png}
+\caption{Recovered smooth solution with $\ell_2$-norm regularization of the synthetic fold anomaly. The dip of the fold limbs are poorly recovered and there is no indication of the limbs being connected at depth.}\label{Synthetic_Fold_l2Model}
+\end{figure}
+
+I follow up with a mixed norm inversion and attempt to reduce the complexity of the solution, with sparsity assumptions applied on the model ($p_s=0$) and smooth model gradients ($p_{x,y,z} = 2$). Figure~\ref{Synthetic_Fold_lpModel} presents a vertical section at the center of the recovered density model. I note that this solution is an improvement over the smooth model for at least three reasons.
+\begin{enumerate}
+\item The density contrasts values are mostly positive with the maximum density approaching the true density of 0.1 g/cc. The near-surface trace of the fold appears thinner with fewer negative density contrasts seen along the horizontally draped section.
+\item The fold is imaged as a continuous body connected at depth along the section A-A'
+\item The dip angle along the fold axis (B-B') is improved.
+\end{enumerate}
+While I have made some progress in imaging a continuous layer connected at depth, there is still space for improvement about the shape and thickness of the fold. This is a motivation for incorporating geological information in the inversion. Rather than building a 3D model to constrain the solution (the usual path), I will attempt to drive the solution with $soft$ directional constraints in the form of dip and strike measurements and let the data determine the position and shape of the fold.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\columnwidth]{GRAV_Synthetic_l0l2.png}
+\caption{Recovered density model from the mixed norm regularization ($p_s=0$, $p_{x,y,z} = 2$). Sparse assumptions helped in simplifying the density model over the smooth assumption.}\label{Synthetic_Fold_lpModel}
+\end{figure}
+
+\subsection{Directional $\ell_p$-norms}
+My goal is to introduce stratigraphic constraints in order to recover a continuous layer connected at depth.
+Apart from the gravity data, structural data are often available in the form of dip and strike information measured on outcrops. I will include three points of structural data: one on each limb and one on the fold axis (Fig.~\ref{FoldData}).
+I will use this information to build a rotated objective function as prescribed in \eqref{phi_m_ROT}.
+
+First I need to extrapolate the structural data to the full 3D domain.
+I use a minimum curvature approach \cite[]{Briggs74}. The interpolated normal vectors are shown in Figure~\ref{InterpolatedDip}. The orientation is then used to rotate the derivative terms on a cell-by-cell basis such that $\mathbf{D}_{x'}$ points along the normal of the fold, while $\mathbf{D}_{y'}$ and $\mathbf{D}_{z'}$ are parallel to the stratigraphy.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\columnwidth]{InterpolatedDip.png}
+\caption{Interpolated dip and strike information used for the rotation of the objective function. The direction of the arrows define the estimated normal or the folded layer.}
+\label{InterpolatedDip}
+\end{figure}
+
+I then invert the gravity data with sparse rotated norms. To re-enforce lateral continuity, I lower the norm applied to model derivatives parallel to the stratigraphy ($p_{x'}=2,\: p_{y'}, p_{z'} = 0$). Keeping smooth penalties on the normal component ($\mathbf{D}_{x'}$) helps for gradual readjustment of the fold position. Sparsity on the model values are also used ($p_s=0$). Figure~\ref{Synthetic_Fold_RotatedlpModel} presents sections through the final model. The dip and lateral continuity of the layer has improved remarkably, which has been achieved with only three-point constraints at the surface
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\columnwidth]{GRAV_Synthetic_ROTl0220.png}\label{Synthetic_Fold_ROT_lpModel}
+\caption{Recovered density model from the mixed-norm regularization. Data locations (dots), topography and the outlines of the true model (black) are shown for reference. Rotated $\ell_p$-norm oriented along the folded layer helped in resolving a continuous geological unit at depth.}
+\label{Synthetic_Fold_RotatedlpModel}
+\end{figure}
+
+\section{Summary}
+
+In this chapter, I have successfully combined sparse norms and rotation of the objective function for the modelling of geological bodies with oriented edges. I have shown that it is possible to use point structural measurements, in the form of strike and dip angles, to constrain the model. The recovered fold model closely matched the true solution even though I did not specify the position of the anomaly or its physical property contrast. In this regard, sparse rotated norms can be seen as a \emph{soft} geological constraint that requires only a general understanding of the geometry of the problem. The resulting model, or suite of models, could subsequently be used as a reference for more advanced modelling efforts.
+
+The main challenge with the methodology presented so far is in generating rotation parameters in 3D. Simple extrapolation of scarce structural measurement may not accurately capture complex geological settings involving multiple folding and faulting events. For such complicated cases, such as the Kevitsa deposit introduced in Chapter~\ref{Chapter1}, some level of 3D modelling and interpretation may be required by experts. Surface mapping and other types of geophysical data may be available to infer strike and dip information. In the following chapter, I will investigate ways to learn about preferential orientations using geophysical inversion.
+
+
+\endinput

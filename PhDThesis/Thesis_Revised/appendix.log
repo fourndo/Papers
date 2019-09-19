@@ -1,0 +1,28 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.3.21)  17 SEP 2019 12:51
+entering extended mode
+**C:/Users/DominiqueFournier/Dropbox/UBC/ResearchDomFournier/PhDThesis/Thesis_R
+evised/appendix.tex
+
+(C:/Users/DominiqueFournier/Dropbox/UBC/ResearchDomFournier/PhDThesis/Thesis_Re
+vised/appendix.tex
+LaTeX2e <2017/01/01> patch level 1
+Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
+! Undefined control sequence.
+l.4 \chapter
+            *{Appendix}\label{AppendixA}
+? 
+! Emergency stop.
+l.4 \chapter
+            *{Appendix}\label{AppendixA}
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 7 strings out of 493333
+ 344 string characters out of 3139158
+ 53255 words of memory out of 3000000
+ 3636 multiletter control sequences out of 15000+200000
+ 3640 words of font info for 14 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 5i,0n,1p,136b,8s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!

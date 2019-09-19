@@ -1,0 +1,227 @@
+\documentclass{segabs}
+
+% An example of defining macros
+\newcommand{\rs}[1]{\mathstrut\mbox{\scriptsize\rm #1}}
+\newcommand{\rr}[1]{\mbox{\rm #1}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\renewcommand{\figdir}{Fig}
+\begin{document}
+
+\title{Robust and flexible mixed-norm inversion}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}} 
+
+\author{Dominique Fournier \footnotemark[1], Kristofer Davis and
+Douglas W. Oldenburg, UBC-Geophysical Inversion Facility}
+
+\lefthead{Fournier et al.}
+\righthead{Robust and flexible mixed-norm inversion}
+
+\maketitle
+
+\begin{abstract}
+In this paper, we propose a robust mixed-norm regularization method for the inversion of geophysical data.
+Our regularization function is an improvement over previous methods as it can approximate any $l_p$-norm on the range $0 \le p \le 2$ applied independently to the model and its gradients.  
+The model space can easily be divided into sub-regions with different norms to recover both smooth and compact anomalies.
+The inversion procedure is implemented by a modified Scaled Iteratively Re-weighted Least Squares (S-IRLS) method, improving the convergence of the algorithm. 
+A rational is also provided for determining an adequate stabilization parameter required by the conventional IRLS method.
+Sparse norms are applied on a rotated objective function in order to enforce lateral continuity of oriented discrete anomalies.
+We first illustrate the flexibility of our formulation on a simple 1-D synthetic example. The algorithm is then implemented on an airborne magnetic data set over the Tli Kwi Cho kimberlite complex.  \vspace{-5pt} 
+\end{abstract}
+\vspace{-5pt}
+\section{Introduction}\vspace{-5pt}
+
+Geophysical data are increasingly important in mineral exploration, as they can be inverted to image geological features at depth. A solution to the inverse problem is commonly found by minimizing a global objective function with measures of data misfit $\phi_d$ and model structure $\phi_m$ of the form: 
+\begin{equation} \label{eq:obj_func}
+\begin{split}
+\underset{m}{\text{min}}\; \; & \phi_d \;+\; \beta \phi_m \\
+s.t. \;& \phi_d = \phi_d^*  
+\end{split}
+\end{equation}
+where $\phi_d^*$ is the target data misfit.
+The trade-off parameter $\beta$ balances the relative importance between both components.
+Commonly referred to as the model objective function, $\phi_m$ serves as a vehicle to add additional information to the inversion. 
+The general $l_p$-norm measure has received considerable attention:
+\begin{equation} \label{eq:lpnorm}
+\phi_m = \sum_{i=1}^{M} {|x_i|}^p \;,
+\end{equation}
+where $p \in \mathbb{R}_{\ge 0}$ defines some $l_p$-norm measure of a model function $\mathbf{x}(m)$.
+For $p=2$, we recover the least squares penalty adopted by \cite{LiOldenburg1996}, \cite{Pilkington97} and many others.
+The linear $l_2$-norm has long been favored over other functions due to its closed form and guaranteed convergence to a minimum.
+Solutions penalizing outliers are generally smooth however, lacking the spatial resolution for direct interpretation. This is especially problematic in areas where geology is known to have discrete boundaries or compact bodies. Hence the need for an objective function that allows for a sharper, blockier solution.
+
+Designing an objective function that promotes sparse solutions has dominated the literature over the past few decades. Much effort has been invested in approximating the non-linear measures, for example the popular Ekblom norm \cite[]{Ekblom73}:
+\begin{equation}\label{Ekblom}
+\phi_m = \sum_{i=1}^{M} {(x_i^2 + \epsilon^2)}^{p/2} \;
+\end{equation}
+where a small quantity $\epsilon$ is added to remove the singularity for $x_i = 0$.
+This formulation has been used extensively in various forms for $1 \leq p \leq 2$ \cite[]{Li93, Gorodnitsky97, FarquharsonOldenburg98, Daubechies10}. 
+Fewer have explored the non-convex cases for $p < 1$, such as the \textit{compact} inversion formulation by \cite{LastKubik83}, minimizing the number of non-zero model parameters. 
+This approximate $l_0$-norm has been borrowed by other researchers in various branches of geophysics \cite[]{BarbosaSilva94, Chartrand07, Ajo-Franklin07, Stocco09}. 
+The function is commonly linearized by the Iteratively Re-weighted Least Squares (IRLS) method \cite[]{Lawson61}.
+\cite{PortniaguineZhdanov02} developed a similar strategy, called \textit{minimum support} functional, where penalties are directly applied to the forward model operator.
+\cite{SunLi14} recently took this concept further in designing a flexible $l_p$-norm regularization algorithm, also based on the IRLS method. They introduce an automated process to extract structural information from the data and impose either an $l_1$ or $l_2$-norm penalties on specific regions of the model. 
+
+Building upon the work of \cite{SunLi14}, we further generalize the regularization function to allow for any $l_p$-norm penalty on the interval $0 \leq p \leq 2$. We introduce a Scaled IRLS (S-IRLS) method with dual $l_p$-norm penalties applied to the model and its gradients independently. Our formulation greatly increases the flexibility of current methods. We tackle convergence issues for non-convex norms ($ p < 1$) by re-scaling the components of the model objective function. We demonstrate the capability of our S-IRLS algorithm on a 1-D synthetic example and an airborne magnetic survey over the Tli Kwi Cho kimberlite deposit, Northwest Territories.
+\vspace{-5pt}
+\section*{Regularized Inversion}\vspace{-5pt}
+As a general introduction to the problem at hand, we formulate a synthetic 1D example similar to the problem used by \cite{LiOldenburg1996}.
+The model consists of a rectangular pulse and a Gaussian function on the interval [0 1] and is discretized with 200 uniform intervals. Data are generated from the equation:
+\begin{equation} \label{eq:9}
+  d_j = \int_0^1 e^{-\alpha\:x }\cdot cos(2 \pi j x)\; m \; dx, \:\: j = 0, ..., N\;,
+\end{equation}
+%where the kernel functions relating the model and the data are defined as:
+%\begin{equation} \label{eq:kernel_1D}
+%  f_j(z) =  \;,
+%\end{equation}
+where $x$ represents the distance from the origin. 
+The model and kernel functions for $j \in [0 , 5]$ are shown in Figure~\ref{fig:1D_Model_Kernel}. 
+The integral can be evaluated analytically giving rise to a linear problem of the form:
+\begin{equation}\label{eq:Fmd}
+	\mathbf{F \; m = d} ,
+\end{equation}
+where the discretized forward operator $\mathbf{F} \in \mathbb{R}^{N \times M}$ holds the system of equations relating a set of model parameters $\mathbf{m} \in \mathbb{R}^{M}$ to the observed data $\mathbf{d} \in \mathbb{R}^{N}$. 
+%Two percent random noise is added to the data in order to simulate a true geophysical experiment. 
+
+\plot{1D_Model_Kernel}{width=\columnwidth}{(a) Synthetic 1D model made up of a rectangular pulse and a Gaussian function. (b) Kernel functions consisting of exponentially decaying cosine functions of the form $ f_j(x) = e^{-\alpha\:x }\cdot cos(2 \pi j x)$.}
+
+From a geophysical standpoint, we are interested in solving the inverse problem to recover a geologically reasonable model that can explain the observed data.
+In most cases, the inverse of $\mathbf{F}$ cannot be computed directly as $ N \ll M$, giving rise to an undetermined system of equations.
+We begin our discussion by expanding Eq.~\eqref{eq:obj_func} with the optimization problem adopted by \cite{LiOldenburg1996}, \cite{Pilkington97} and several others such that:
+\begin{equation}\label{l2_phid}
+\phi_d =  \| \mathbf{W}_{\text{d}} (\mathbf{Fm - d} )\|_2^{2} 
+\end{equation}
+\begin{equation}\label{l2_phim}
+\phi_m =   {\alpha_{\text{s}} \| \mathbf{W}_{\text{s}}\;  ( \mathbf{m - m}^{ref})\|}^2_2  +  {\alpha_{\text{x}} \|\;   \mathbf{W}_{\text{x}}  \; \mathbf{G}_{\text{x}} \; \mathbf{m}\|}^2_2 \;,
+\end{equation}
+where $\phi_d$, measures the residual between observed and predicted data. A diagonal data-weighting matrix $\mathbf{W}_d$ holds the estimated uncertainties associated with the observed data $\mathbf{d}$.
+The regularization functions $\phi_m$ penalizes model $smallness$ and $roughness$; the latter in terms of spatial gradients calculated by a finite-difference operator $\mathbf{G}_x$.
+Weighting matrices $\mathbf{W}_s$ and $\mathbf{W}_x$ are cell-based weights added to the system to reflect specific characteristics expended from the solution, including distance-based weights to counteract the decay in sensitivity. Constants $\alpha_{\text{s}}$ and $\alpha_{\text{x}}$ control the relative contribution between the two model functions. 
+The $l_2$-norm measure is applied on both the misfit and regularization functions yielding a least squares problem.
+An optimal solution for $\mathbf{m}$ is found at the point of vanishing gradients of the objective function, which for a linear system of equation reduces to an inverse problem of the form:
+\begin{equation}\label{eq:dphi_dm}
+\begin{split}
+\left[\mathbf{F^T W_\text{d}^T W_\text{d}}  \mathbf{F} + \beta \left(\alpha_s \mathbf{W_\text{s}^T} \mathbf{W_\text{s}} + \alpha_x \mathbf{W_\text{x}^T} \mathbf{G_\text{x}^T} \mathbf{G_\text{x}} \mathbf{W_\text{x}} \right) \right]  \mathbf{m} \\
+ = \mathbf{F^T W_\text{d}^T} \mathbf{d} + \beta \mathbf{W_\text{s}^T}  \mathbf{W_\text{s}} \; \mathbf{m}^{ref}  \;.
+\end{split}
+\end{equation}
+The inversion process is often repeated for multiple trade-off parameters $\beta$ until a suitable model is found that can honor the target misfit $\phi_d^*$.
+Figure~\ref{fig:1D_Model_lp}(a) compares the true (dash) and recovered model (bold) after reaching the target data misfit.
+As expected from an $l_2$-norm penalty, the solution is smooth and diffused over the entire model space.
+While we managed to recover two large anomalies centered at the right depth, the lateral extent of both the rectangular and Gaussian functions are poorly defined. 
+Hence the need for a regularization function that can allow for sparse and blocky models.
+
+\plot{1D_Model_lp}{width=\columnwidth}{Comparative plot between the true (dash) and recovered 1D models using various regularization functions. (a) The solutions using the end members of lp-norm for (bold) the smooth $l_2$-norm regularization, (solid) the sparse $l_0$-norm on the model and (dotted) the blocky $l_0$-norm on model gradients. (b) Recovered model using a mixed-norm regularization for both a sparse and smooth regularization. All models shown reproduce the data within 1\% of the target misfit.}
+\vspace{-5pt}
+
+\section{Scaled IRLS Method}\vspace{-5pt}
+The use of non-linear penalties promoting sparsity have dominated the literature as an alternative to the smooth $l_2$-norm measure.
+As demonstrated by  \cite{SunLi14}, the Ekblom norm presented in Eq.~(\ref{Ekblom}) can be formulated as an IRLS problem.
+In matrix form, the general regularization function \eqref{l2_phim} becomes:
+ \begin{equation} \label{eq:Lp_phi_1D}
+\phi_m^{(k)} = \alpha_s\| {\mathbf{W_\text{s}} \; \mathbf{R_\text{s}}\; (\mathbf{m - m}^{ref})\|}^2_2  + \alpha_x{\|   \mathbf{W}_\text{x}  \; \mathbf{R}_\text{x}\; \mathbf{G}_\text{x} \; \mathbf{m}\|}^2_2 \;,
+\end{equation}
+where we added the IRLS weights $\mathbf{R}_\text{s}$ and $\mathbf{R}_\text{x}$ defined as:
+\begin{equation}\label{eq:Rs_Rx}
+\begin{split}
+	{R}_{s_{ii}}  &= {\Big[ {({m}^{(k-1)})_i}^{2} + \epsilon_p^2 \Big]}^{(p/2 - 1)/2} \\
+	{R}_{x_{ii}}  &= {\Big[ {\left ({\frac{\partial m^{(k-1)} }{\partial x}}\right)_i}^{2} + \epsilon_q^2 \Big]}^{(q/2 - 1)/2}  \;.
+\end{split}
+\end{equation}
+We use the subscript $p$ and $q$ to differentiate between the $l_p$-norm applied on the model and its gradients respectively.
+The superscript $(k)$ denotes the IRLS step. 
+In order to initiate the iteration process, we first solve for a smooth solution using Eq.~(\ref{eq:dphi_dm}) which provides a starting model $m^{(0)}$ and optimal trade-off parameter $\beta$. 
+Rather than choosing arbitrarily small values as it is commonly done in the literature, we fix $\epsilon_p$ and $\epsilon_q$ based on the distribution of $m^{(0)}$ and $\frac{\partial m^{(0)} }{\partial x}$ for reasons that will be discussed later. 
+
+Figure \ref{fig:1D_Model_lp}(a) presents solutions to the previous 1-D problem using an approximated $l_0$-norm on the model (solid) resulting in sparse solution made up of only four peaks. Similarly, we inverted the same data with an $l_0$-norm on the model gradients (dotted), resulting in blocky solution with four non-zero model gradients.
+Other than experimenting with the $l_0$-norm, this regularization function is so far identical to the one used by \cite{SunLi14}.
+
+While the regularization function presented in Eq.~\eqref{eq:Lp_phi_1D} can approximate well the $l_p$-norm, we found severe instability when trying to combine different $p$ and $q$ value within the same regularization function. 
+We demonstrate the difficulty in using a mixed-norm regularization function on our 1D example as shown in Figure \ref{fig:1D_Model_lp}(b). The left half penalizes both the model and its gradients with an $l_0$-norm, resulting in a sparse and blocky solution. For the right half, we attempt to recover a sparse but smooth solution.  Clearly, the influence of the sparsity constraint completely dominated the minimization process with no influence from the smooth constraint. 
+This study aims at improving the flexibility and robustness of the IRLS method by the use of an iterative re-scaling strategy.
+
+Since we are solving along the gradient of the objective function, we need to assure equal contribution from its parts.
+We first introduced a scaled weighting matrix $\mathbf{\hat R}$ such that:
+\begin{equation} \label{eq:eta}
+\begin{split}
+{\hat R}_{s_{ii}}  &= \sqrt{\eta_p} \; {R}_{s_{ii}} \\
+{\hat R}_{x_{ii}}  &= \sqrt{\eta_q} \; {R}_{x_{ii}}  \\
+\eta_p &=  {\epsilon_p}^{(1-p/2)} \;,\;\eta_q =   {\epsilon_q}^{(1-q/2)}  \;, 
+\end{split}
+\end{equation}
+The effect of the scaling parameter $\eta$ can be seen in Figure~\ref{fig:1D_Model_lp_scaled_crop}(a). 
+We note that the re-scaling procedure forces the gradients to intersect with the smooth $l_2$-norm exactly at $\sqrt{\epsilon}$, which can be interpreted as $effective$ zero value.
+The smooth solution used to initiate the IRLS provides a distribution of model values that can be used to determine the stabilizing parameters $\epsilon_p$ and $\epsilon_q$. 
+Small values judged insignificant get penalized strongly, yielding a simpler, more compact model. We found that this targeted approach improves the rate of convergence and the predictability of the algorithm.  
+\plot{1D_Model_lp_scaled_crop}{width=\columnwidth}{(a) Scaled gradients of the model norm as a function of model value and for various approximated $l_p$-norms after scaling. (b) Recovered model using a mixed-norm regularization for both a sparse and smooth regularization. This result is an improvement over the non-scaled IRLS as both the sparsity and smooth constraints are expressed.}\vspace{-10pt}
+
+In order to preserve the relative importance between misfit and regularization functions, we also propose an iterative re-scaling of the model objective function such that:
+\begin{equation}\label{eq:scaled_Lp_phi}
+\begin{split}
+\hat \phi_m^{(k)} = \gamma^{(k)}\; \phi_m^{(k)} \\
+\gamma^{(k)} = \frac{\phi_m^{(k-1)}}{\phi_m^{(k)}}
+\end{split}
+\end{equation}
+where $\phi_m^{(k-1)}$ is the model objective function obtained at a previous iteration, and $\gamma^{(k)}$ is a scalar computed at the beginning of each IRLS iterations. 
+Effectively we are searching  for model parameters that are close to the present solution.
+Since we are changing the $rule$ by which the size of the model is measured, we attempt to account for it. 
+Figure~\ref{fig:1D_Model_lp_scaled_crop}(b) presents the mixed-norm solution after scaling of the IRLS. Note that the recovered model over the Gaussian anomaly is both sparse, in terms of lateral extent, while also being smooth. 
+
+\subsection{Rotated penalty function}
+Having formulated a robust inversion algorithm in 1-D, we want to generalize the S-IRLS regularization function to recover oriented blocky anomalies in 3-D. Our goal is to incorporate strike and dip information by imposing sparsity constraints along specific directions. We write the regularization function as:
+ \begin{equation} \label{eq:Lp_phi_1D}
+\hat \phi_m^{(k)} = \alpha_s\| {\mathbf{W}_s \; \mathbf{\hat R}_s\; ( \mathbf{m - m}^{ref})\|}^2_2  + \sum_{i=x,y,z}{\alpha_i\|   \mathbf{W}_\text{i}  \; \mathbf{ \hat R}_\text{i}\; \mathbf{\hat G}_\text{i} \; \mathbf{m}\|}^2_2 \;,
+\end{equation}
+where $\mathbf{\hat G}_x,\;\mathbf{\hat G}_y$ and $\mathbf{\hat G}_z$ are rotated =difference operators along three orthogonal directions. This rotated objective function is similar to the dipping objective function previously introduced \cite[]{LiOldenburg2000, Davis12}, but differs in the construction of  gradient operators. As pointed out by \cite{PhDLelievre09}, the simple rotation of the three gradients along the Cartesian axes results in an asymmetric objective function. We instead use a linear combination of forward and backward difference operators that can reach all 26 neighbors of a cell as illustrated in Figure~\ref{fig:Gradients_cropped}. \vspace{-5pt}
+\plot{Gradients_cropped}{width=0.4\columnwidth}{Rotated gradients using a linear combination of 26 forward and backward difference operators.  }\vspace{-10pt}
+
+We illustrate the benefits of using both the sparse norms and rotated penalty function on a 3-D magnetic example (Fig.~\ref{fig:Plane_model_data_cropped}). The model consists of a magnetically susceptible plate dipping $30^\circ$ towards North-East subject to a vertical inducing field. Magnetic field data are calculated on a grid 40 m above the top of the anomaly and corrupted with 1 nT Gaussian noise.  We first invert the data with a smooth $l_2$-norm regularization function rotated along the axis of the plane (Strike: $-30^\circ$, Dip: $30^\circ$). As expected from a minimum structure penalty, the dip and extent of the plate are poorly recovered as shown in Figure~\ref{fig:Plane_inv_model_cropped}(a). Using this model to initiate the IRLS, we then proceed with a compact $l_0$-norm applied on the model and its gradients. Both the geometry and location of the recovered anomaly are greatly improved (Fig.~\ref{fig:Plane_inv_model_cropped}(b)).
+\plot{Plane_model_data_cropped}{width=0.9\columnwidth}{(a) Dipping magnetic plane model and (b) predicted data. }\vspace{-5pt}
+\plot{Plane_inv_model_cropped}{width=0.9\columnwidth}{Recovered susceptibility models using (a) a smooth $l_2$-norm and (b) a mixed-norm regularization rotated along the axis of the plane. }\vspace{-5pt}
+
+\section{Case Study - TKC Deposit}\vspace{-10pt}
+We showcase the capabilities of the mixed-norm S-IRLS algorithm on a magnetic data set from the Tli Kwi Cho (TKC) diamondiferous kimberlite complex.
+The property is located in the Lac de Gras region,  approximately 350 km northeast of Yellowknife, Northwest Territories, Canada.
+The TKC deposit was originally discovered by an airborne DIGHEM survey in 1992, a system that collects both frequency-domain EM and magnetic data. 
+Two kimberlite pipes, named DO27 and DO18, were later confirmed by drilling in 1993.  
+The pipes are intruding into older granitic rocks of the Archean Slave Province, known to have little to no magnetite content.
+A magnetic susceptibility contrast between the kimberlite and the country rocks gives rise to noticeable anomalies as observed on the  total magnetic intensity (TMI) data (Fig~\ref{fig:TKC_data_cropped} (a)).
+Strong linear features associated with the Mackenzie dyke swarms can be observed on the eastern part of the survey.
+They are known to be near vertical and are typically between 20-50 m wide \cite[]{Wilkinson2001}. 
+This geological setting is therefore ideal for implementing a mixed-norm algorithm.
+\plot{TKC_data_cropped}{width=0.9\columnwidth}{(a) Airborne magnetic data over the TKC property and (b) regions of variable mixed-norm regularization.}
+
+The region of interest is discretized into 25 m cubic cells.
+Prior to the S-IRLS method, a smooth solution is found with the $l_2$-norm regularization as shown in Figure \ref{fig:TKC_models_cropped}(a).
+The inversion recovers two discrete bodies corresponding to the known location of DO18 and DO27.
+Two linear anomalies striking north-south correspond with the Mackenzie dyke swarms as well as a third anomaly intersects at right-angle running $90^{\circ}$N.
+As expected from the $l_2$-norm regularization, the solution is smooth and edges are not clearly defined.
+We note also that the highest recovered susceptibilities are strongly correlated with the observation locations.
+Dykes appear to break up between each survey line, which is clearly an inversion artifact due to the model smallness constraint. \vspace{-10pt}
+\plot{TKC_models_cropped}{width=1\columnwidth}{Comparative sections at 75 m depth through the inverted susceptibility model using the (a) smooth $l_2$-norm regularization and (b) after convergence of the S-IRLS method.   } \vspace{-10pt}
+
+We then use the mixed-norm regularization function to impose \emph{soft} geological constraints.
+Note that each model cell can have its own $p, \; q_x, \; q_y,$ and $q_z$ value, as well as rotation parameters.
+In general terms, we would like to recover piece-wise continuous anomalies along the strike of the dykes, while imposing a sparsity constraint over the kimberlite pipes.
+We divide the region of interest into sub-regions with different combination of sparse and blocky norms as illustrated in Figure~\ref{fig:TKC_data_cropped}(b). Sparsity on the model gradients is imposed along the axis of the dykes in order to favor continuous anomalies.
+Figure \ref{fig:TKC_models_cropped}(b) presents the recovered model obtained after convergence of the S-IRLS algorithm. 
+In comparison with the smooth inversion, the edges of all three dykes are better defined and extend vertically at depth. 
+Both DO18 and DO27 are recovered as compact bodies with higher susceptibility and well defined edges compared to the smooth $l_2$-norm inversion. 
+
+\subsection{Summary}
+In this paper, we introduce a mixed-norm penalty function to constrain the magnetic susceptibility inversion. The minimization process is carried out with a Scaled-IRLS method, yielding a robust and predictable inversion algorithm. We also implement a rotated objective function made up of a 26-point forward and backward difference operators for symmetry in 3-D. The combined sparse norms and rotation of the objective function allows us to better recover elongated and narrow anomalies over conventional smooth regularization. Our formulation is general and has the potential to be applied to wide range of inverse problems.
+
+%
+%Figure \ref{fig:TKC_sus_Hist} compares the distribution of susceptibility values before and after the S-IRLS iterations. Notice that the sparse norm imposed on the model forces a large number of model parameters to move away from threshold parameter $\epsilon$.
+%Our re-scaling procedure creates a sparse regularization function that converges and is predictable.
+%
+%\plot{TKC_sus_Hist}{width=0.9\columnwidth}{Histogram of recovered susceptibility values using the smooth $l_2$-norm regularization (light grey) and  after convergence of the S-IRLS algorithm (dark grey). The gradient of the $l_0$-norm regularization is shown in black for a given threshold parameter ($\epsilon_p = 1e-3$). High penalties are assigned to small susceptibility values, forcing the solution to be compact.}
+
+
+
+
+\bibliographystyle{seg}  % style file is seg.bst
+\bibliography{reference}
+
+\end{document}

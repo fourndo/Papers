@@ -1,0 +1,112 @@
+% LaTeX file for resume 
+% This file uses the resume document class (res.cls)
+
+\documentclass[10pt,a4paper]{article}
+\usepackage{apacite}
+\usepackage{bibentry}
+\makeatletter\let\saved@bibitem\@bibitem\makeatother
+\usepackage[colorlinks=true]{hyperref}
+\makeatletter\let\@bibitem\saved@bibitem\makeatother
+  \usepackage{hanging}
+\newcommand\publication[1]{%
+	\smallskip\par\hangpara{1.5em}{1}\bibentry{#1}\smallskip
+}
+\usepackage[left=2.5cm,right=2.5cm,top=1.5cm,bottom=2.5cm]{geometry}
+
+%\usepackage{helvetica} % uses helvetica postscript font (download helvetica.sty)
+%\usepackage{newcent}   % uses new century schoolbook postscript font  
+\topmargin=-0.5in  % start text higher on the page
+\setlength{\textheight}{10in} % increase text height to fit resume on 1 page
+\begin{document}  
+
+\nobibliography{../reference}
+\bibliographystyle{apacite}
+
+\section*{DOMINIQUE FOURNIER}
+
+\emph{ fourndo@gmail \\12-1390 $14^{th}$ ave W \\   Vancouver, BC V6H 1R1 \\  (604) 715-0323}
+                           
+                                           
+ 
+\section{Current Occupations} 
+\textbf{Scientific programmer}: Mira Geoscience Ltd.  May 2012 - present (Part-time)\\
+Research and Development\\ \\
+\textbf{Contributor to open-source projects}:
+\begin{itemize}
+	  \item \emph{SimPEG}: Forward and inversion code in Python (simpeg.xyz)
+        \item \emph{GIFtools}: Inversion tools for the support of UBC-GIF inversion codes (giftoolscookbook.readthedocs.io)
+        \item \emph{GeoSci} : Web-based educational material in geophysics (geosci.xyz)
+        \item \emph{GeoToolkit}: Simple interpretation tools for potential fields. Collaboration between MDRU and GIF (geotoolkit.readthedocs.io)
+        \end{itemize}
+
+
+\section{Professional Experience}      
+		   \begin{tabular}{p{3in} r}
+		    \textbf{Candente Copper Corp.} &  Summer 2011 \\
+                  GIS Technician \\
+                  \end{tabular}	
+                   \begin{itemize} % \item[] prevents a bullet from appearing
+                   \setlength\itemsep{00em}
+                    \item[] Mapping and modeling of drilling program
+                    \item[] Database management 
+		   \end{itemize} 
+		 \begin{tabular}{p{3in} r}
+		 \textbf{Environnement Illimit\'{e} Inc.} &  2005-2008 \\
+                  Field Survey Technician \\
+                  \end{tabular}	
+                   \begin{itemize} % \item[] prevents a bullet from appearing
+                   \setlength\itemsep{00em}
+                    \item[] Hydrological surveys (Bathymetry, Doppler Profiler, Water/Soil Sampling)
+                    \item[] Land surveys (GPS, Total Stations)
+		   \end{itemize} 
+
+\section{Education}      
+
+ 		\textbf{University of British Columbia}, Vancouver \\
+                Ph.D Geophysics, September 2019 \\ \\
+                M.Sc Geophysics, November 2015 \\ \\
+                B.Sc Honours Geophysics, May 2012 \\
+                \underline{Honours Thesis}: 
+                Solution to the muon tomography problem: Implementation of an hybrid objective function \\\\
+		\textbf{College Ahuntsic}, Montreal \\
+                Civil Engineering Diploma, May 2005 \\       
+
+\section{Publications} 
+\subsection{Lead Author}
+\begin{itemize}
+	\item \publication{Fournier2019b}
+	\item \publication{FournierDWO2019}
+	\item \publication{Fournier2017}
+	\item \publication{FournierDavis2016a}
+	\item \publication{Fournier2015}
+\end{itemize}
+\subsection{Co-Author}
+\begin{itemize}
+	\item \publication{Miller2018}
+	\item \publication{Abedi2018}
+	\item \publication{Abedi2018a}
+	\item \publication{Yang2018}
+	\item \publication{Schermerhorn2017}
+	\item \publication{Miller2017}
+	\item \publication{Devriese2017a}
+	\item \publication{Kang2017}
+\end{itemize}
+\section{Awards} Dean's List (x3 years) \\
+                 Thomas and Maguerite MacKay scholarship (x3 years) \\
+                 APEGBC Achievement Award in Geoscience, May 2012 \\
+                 DuMoulin Black Award in Geological Sciences, May 2011
+                 	   
+
+
+
+                 
+%\section{HOBBIES}  
+%\begin{ncolumn}{2}
+%Growing food & Tennis \\ Surfing & Competitive Fitbit Walking
+%\end{ncolumn}             
+
+\end{document}
+
+
+
+

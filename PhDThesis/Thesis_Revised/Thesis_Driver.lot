@@ -1,0 +1,19 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Summary table for the forward modeling of a magnetized sphere using a Tensor and Octree discretization\relax }}{21}{table.caption.17}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Norm values and proportionality ratio obtained for the 1D solution presented in Figure\nobreakspace {}\ref {Problem1D_l2Result}(c). A proportionality ratio of $\lambda _\infty \approx 1$ indicates that the components of the regularization function are both contributing significantly to the final solution.\relax }}{39}{table.caption.28}
+\contentsline {table}{\numberline {3.2}{\ignorespaces IRLS algorithm in pseudo-code made of two stages: Stage\nobreakspace {}\ref {Stage1} Initialization with convex least-squares inversion, Stage\nobreakspace {}\ref {Stage2} IRLS updates with inner $\beta $-search steps.\relax }}{43}{table.caption.29}
+\contentsline {table}{\numberline {3.3}{\ignorespaces Components of the objective function corresponding to the inversion results presented in Figure\nobreakspace {}\ref {Mixed1D_p1_normalizedTest} for $p_s=p_x=1$. \relax }}{55}{table.caption.38}
+\contentsline {table}{\numberline {3.4}{\ignorespaces Inversion summary after convergence of the S-IRLS for various cooling rates $\eta $ as presented in Figure\nobreakspace {}\ref {Mixed1DCooledEta}. Each inversion trial was required to reach the target misfit $\phi _d^*$ and target $\epsilon ^* = 1e-6$ .\relax }}{60}{table.caption.43}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Summary table grouping the various lithological units logged from bore hole. Expected density and magnetic susceptibility contrasts are derived from Figure\nobreakspace {}\ref {Kevitsa_PhysProp}.\relax }}{121}{table.caption.88}
+\contentsline {table}{\numberline {7.2}{\ignorespaces Intervals along boreholes KV200 and KV297 reporting significant remanent magnetization \cite []{Montonen2012}\relax }}{124}{table.caption.90}
+\addvspace {10\p@ }

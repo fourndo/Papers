@@ -1,0 +1,210 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./../Figures/}}
+\chapter{Forward modeling of potential field data}
+\label{Chapter2}
+My goal is to characterize the sub-surface in terms of density and magnetization. In Chapter~\ref{Chapter1}, I have introduced the basic physics describing the relation between density and magnetization and their respective anomalous fields in integral form. In this chapter, I provide numerical details about the transformation from the continuous space to a discrete linear system of equations. I also provide efficiency improvements over conventional implementations for the processing of large scale data sets.
+
+\section{Discrete systems}
+The usual strategy is to represent the continuous Earth in terms of unit elements each contributing to the total response observed at a given position in space.
+For the gravity problem, the integral in \eqref{g_integral} can be evaluated analytically over a discrete prism with uniform density $\rho$. As derived by \cite[]{Nagy66}, the integration gives rise to a linear system:
+\begin{equation} \mathbf{g} = \begin{bmatrix} T_{x} \\ T_{y} \\ T_{z} \end{bmatrix} \; \rho \;, \label{gfield} \end{equation}
+where $\mathbf{T}$ relates the cell-centered density value to the observed gravity field $\mathbf{g}$ at some location $P(x_P, y_P, z_P)$:
+\begin{equation}
+\begin{split}
+T_{x} &= -G \bigg( \arctan \frac{dy\;dz}{r\:dx} + \log \left[\; dz + r\;\right] + \log \left[\; dy + r\;\right] \bigg) \bigg|_{x_L}^{x_U} \bigg|_{y_L}^{y_U} \bigg|_{z_L}^{z_U}\\
+T_{y} &= -G \bigg( \arctan \frac{dx\;dz}{r\:dy} + \log \left[\; dz + r\;\right] + \log \left[\; dx + r\;\right] \bigg) \bigg|_{x_L}^{x_U} \bigg|_{y_L}^{y_U} \bigg|_{z_L}^{z_U}\\
+T_{z} &= -G \bigg( \arctan \frac{dy\;dy}{r\:dz} + \log \left[\; dy + r\;\right] + \log \left[\; dy + r\;\right] \bigg) \bigg|_{x_L}^{x_U} \bigg|_{y_L}^{y_U} \bigg|_{z_L}^{z_U}\\
+r &= (dx^2 + dy^2 + dz^2)^{1/2} \\
+dx &= (x_P - x), \; dy = (y_P - y),\; dz = (z_P - z)\\
+\end{split}
+\label{Tmatrix}
+\end{equation}
+and $G$ is Newton's gravitational constant.
+Parameters needed to define the position and shape of a unit cell are presented in Figure~\ref{UnitCube}. Only the lower southwest $L(x_L,y_L,z_L)$ and upper northeast $U(x_U,y_U,z_U)$ corner coordinates are needed to define the relative distance $\mathbf{r} (dx,\:dy,\:dz)$ between the observation point and the nodal limits. In this research I use right-handed Cartesian coordinate system such that the $\hat x$, $\hat y$ and $\hat z$ coordinate axes point along the east, north and vertical (up) direction respectively.
+\begin{figure}[h!]
+\centering{
+\includegraphics[width=0.55\columnwidth]{PF_UnitCube.png}}
+\caption{Parameters describing the spatial relationship between an observation point $P$ and a rectangular prism $C$.}
+\label{UnitCube}
+\end{figure}
+
+For most gravity field experiments only the vertical component of field $g_z$ is measured, such that \eqref{gfield} reduces to
+\begin{equation}
+\begin{split}
+g_z =\;& {T}_z \;{\rho} \\
+\end{split}\label{g_discrete}
+\end{equation}
+Equation~\eqref{g_discrete} defines the gravity response of a single rectangular prism as observed at a single position in space. I can augmente equation \eqref{g_discrete} to describe a gravity experiment conducted over a large volume of earth and at many observation stations
+\begin{equation}\label{g_discrete_large}
+	\mathbf{g}^{pre} = \mathbf{G} \boldsymbol{\rho}
+\end{equation}
+such that the linear forward operator $\mathbf{G}\in \mathbb{R}^{N\times M}$ maps the contribution of $M$ number of prisms ($\boldsymbol{\rho} \in \mathbb{R}^M$), each contributing to the response measured over $N$ observation locations ($\mathbf{g}^{pre} \in \mathbb{R}^{N}$).
+There are many ways to organize the cells making up this discrete model.
+In all the work presented in this thesis, I use an Octree-based discretization.
+More details regarding this choice of parameterization are provided in the following section.
+
+Similarly for the magnetic response, the integral equation in \eqref{b_integral} can be evaluated analytically for a single prism \cite[]{Sharma66}. This gives rise to a linear system of the form
+\begin{equation}\label{b_discrete}
+\begin{split}
+	\mathbf{b} = \mathbf{T} \mathbf{m} \;,
+\end{split}
+\end{equation}
+where $\mathbf{T}$ is a dense 3-by-3 symmetric matrix describing the linear relation between a prism with magnetization $\mathbf{m} = [M_x,\;M_y,\;M_z]^T$ to the components of the field $\mathbf{b} = [b_x,\;b_y,\;b_z]^T$.
+\begin{equation}
+\begin{split}
+\mathbf{T} & = \frac{\mu_0}{4\pi} \begin{bmatrix} T_{xx}& T_{xy}& T_{xz} \\T_{xy} & T_{yy} & T_{yz} \\ T_{xz}&T_{yz} & T_{zz} \end{bmatrix} \\
+\end{split}
+\label{Tmatrix}
+\end{equation}
+where $\mu_0$ is the magnetic permeability of free-space. It is important to note that the tensor $\mathbf{T}$ is a symmetric matrix with zero trace. Therefore only five of the nine tensor components need to be calculated.
+\begin{equation}
+\begin{split}
+T_{xx} &= -\arctan \frac{dx\;dy}{{dx}^2 + r\:dz + {dz}^2} \bigg|_{x_L}^{x_U} \bigg|_{y_L}^{y_U} \bigg|_{z_L}^{z_U} \\
+T_{yy} &= -\arctan \frac{dx\;dy}{{dy}^2 + r\:dz + {dz}^2} \bigg|_{x_L}^{x_U} \bigg|_{y_L}^{y_U} \bigg|_{z_L}^{z_U} \\
+T_{xy} &= \log \left[\; dz + r\;\right] \bigg|_{x_L}^{x_U} \bigg|_{y_L}^{y_U} \bigg|_{z_L}^{z_U}\\
+T_{xz} &= \log \left[\; dy + r\;\right] \bigg|_{x_L}^{x_U} \bigg|_{y_L}^{y_U} \bigg|_{z_L}^{z_U}\\
+T_{yz} &= \log \left[\; dx + r\;\right] \bigg|_{x_L}^{x_U} \bigg|_{y_L}^{y_U} \bigg|_{z_L}^{z_U}\\
+%T_{zz} &= -\arctan \frac{dx\;dy}{r\:dz} \bigg|_{L_x}^{U_x} \bigg|_{L_y}^{U_y} \bigg|_{L_z}^{U_z} \\
+\end{split}
+\end{equation}
+
+
+For most geophysical applications, we do not measure the vector field $\vec b$, but rather the Total Magnetic Intensity (TMI) of the field that includes both the geomagnetic and secondary fields. Since we are only interested in the anomalous response from rocks, the approximation is generally made that
+\begin{equation}\label{TMIprojection}
+{b}^{TMA} = \vec{b} \cdot {{\hat H_0}} - \mu_0\|\vec{H}_0\|;
+\end{equation}
+such that the Total Magnetic Anomaly $b^{TMA}$ is assumed to be small and parallel to Earth's field $\vec{H}_0$.
+The simulated magnetic datum in \eqref{b_discrete} simplifies to
+\begin{equation}
+\begin{split}
+{b}^{pre} =\; \left[ \mathbf{ {\hat H}}_0^\top \cdot \mathbf{T}\right]\;\mathbf{m}
+\end{split}
+\end{equation}
+Just as for the gravity experiments, this system can be augmented for $M$ number of prisms ($\mathbf{m} \in \mathbb{R}^{3M}$) and $N$ observation locations ($\mathbf{b}^{pre} \in \mathbb{R}^{N}$)
+\begin{equation}\label{magLinearOpt}
+\mathbf{b}^{pre} =\; \mathbf{F} \;\mathbf{m}
+\end{equation}
+such that $\mathbf{F}\in \mathbb{R}^{N\times 3M}$. This linear system has three times the number of parameters compared to the gravity problem as magnetization is a vector property.
+As part of my contribution to the open-source community, both the gravity and magnetic kernels have been added to the \texttt{SimPEG.PF} library.
+
+\subsection{Choice of discretization}
+I have so far established the linear equations \eqref{g_discrete_large} and \eqref{magLinearOpt} that map the gravity and magnetic response for a collection of rectangular prisms making up a discrete Earth. I have yet to define how these cells are organized in a 3D space. This decision will directly affect the size of the forward (and later inverse) calculations as the size of the linear operators scale linearly with respect $M$. Approximating the Earth more efficiently will allow me to process large data sets.
+
+The usual strategy is to define a core region of interest with a fine discretization and surround it by coarser cells (padding) to absorb regional signals that may be present in the data.
+Two options are available to organize rectangular prisms.
+The simplest implementation uses a regular grid, or tensor mesh shown in Figure~\ref{MeshType}(a). Each unit element shares a face with 6 neighbours. Changes in cell size propagate throughout the domain along the orthogonal direction. The use of tensor meshes has dominated the inversion literature due to the ease of storing and viewing uniformly gridded models.
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{MeshType.png}}
+\caption{Simple representation of (a) tensor and (b) Octree meshes for the organization of rectangular prisms within a core domain (red) and padding region over a square domain 4 x 4 m in width. The Tensor mesh can fill the space with 64 cells, compared to only 40 cells with the Octree mesh.}
+\label{MeshType}
+\end{figure}
+
+In an Octree mesh, unit cells are organized in a hierarchical structure as shown in Figure~\ref{MeshType}(b). The resolution of the grid is increased by dividing a parent cell into 8 children (or 4 in 2D). This type of discretization offers the most flexibility for increasing the resolution of the mesh in a specific region without affecting the resolution of boundary cells.
+The main challenge is in generating a mesh that honours the geometry of the problem in terms of data location, topography and geological contacts.
+Over the course of my research, I contributed to the open-source community with a suite of refinement functions to facilitate the creation process of Octree meshes.
+As part of the \texttt{SimPEG.discretize} library, I implemented the following three strategies:
+\begin{itemize}
+\item Box refinement includes all cells intersected by a rectangular box containing the input points.
+\item Radial refinement is performed inside spheres centered on each input points. The radial distance is determined by the user.
+\item Surface refinement is defined by a continuous Delaunay triangulation of the input points \cite[]{Barber1996}. The Octree refinement is determined based on the vertical distance between cell centers and the nearest triangle. 
+\end{itemize}
+Figure~\ref{Refinements} compares the three refinement methods for the discretization of points (red) placed on a  Gaussian surface. The \texttt{box} refinement is the simplest but also the least efficient strategy as it yields a uniform grid similar to the Tensor discretization. For the \texttt{radial} refinement, I end up with a small number of cells concentrated around the input points. It is an optimal refinement for scattered observation points. The \texttt{surface} is well suited to describe continuous features such as topography and geological contacts. It gives, in this case, the most accurate representation of the Gaussian surface.
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{Refinements.png}}
+\caption{Three refinement strategies used to discretize a Gaussian curve defined by scattered points (red): (a) \texttt{box}, (b) \texttt{radial} and (c) \texttt{surface} refinement strategy from the \texttt{SimPEG.discretize} library. Cells are coloured by their corresponding Octree level.}
+\label{Refinements}
+\end{figure}
+
+\subsubsection{Forward simulation test}
+I demonstrate the benefit of an Octree discretization by forward modelling the response of a 1 m sphere shown in Figure~ \ref{Discretization}. I want to compare the numerical cost to perform forward simulations using the standard Tensor discretization and an Octree mesh with \texttt{surface} refinement.
+Octree refinement uses scatter points placed on the outer surface of the sphere. Using equation \eqref{b_discrete}, I calculate the magnetic response over an 11-by-11 grid of observations placed 1 m above the anomaly. I repeat the forward simulation over a range of cell sizes. Only cells inside the sphere are considered.
+The forward calculations are compared to the analytical vertical response ($b_z^{ana}$) for a vertical magnetization:
+\begin{equation}
+b_z^{ana} = \frac{\mu_0}{4\pi}\left[ -\frac{{\bf M}}{r^{\,3}} + \frac{3\,({\bf M}\cdot{\bf r})\,{\bf r}}{r^{\,5}} \right] \cdot \hat z
+\end{equation}
+where $\mathbf{M}=[0\:\hat x\;, 0\:\hat y,\; 1\:\hat z]$ and $\mathbf{r}$ defines the vector between the center of the sphere and the observation location.
+Table~\ref{AnalyticSphere} summarizes the forward calculations in terms of total number of cells, run time and data residual between the simulation and the analytic solution.
+\begin{equation}\label{dataResidual}
+\phi_d = \sum_{i=1}^{121} (b_{i} - b_{i}^{ana})^2
+\end{equation}
+All calculations were performed on a single thread 2.4 GHz Intel processor.
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{Discretization.png}}
+\caption{(a) Discretization of a sphere defined by discrete points (red) using the conventional Tensor mesh with a core region and padding cells. Octree meshes refined by (b) \texttt{box}, (c) \texttt{radial} and (d) \texttt{surface} methods from the \texttt{SimPEG.discretize} library. }
+\label{Discretization}
+\end{figure}
+
+For the Tensor mesh, a reduction in core cell size increases the total number of cells by a factor 8. For the same reduction in cell size using the surface refinement increases the number of cells by a factor 4. This is anticipated as only cells at the surface of the sphere decrease in size compared to a full volume refinement in the Tensor mesh. Both discretizations can reproduce the analytical response with roughly the same accuracy. Including padding cells to this problem would further increase the efficiency gap between the two discretization methods as the Octree mesh can rapidly increase the cell size with little influence from the discretization in the core region.
+\begin{table}\centering
+\begin{tabular}{|c|c|c|c||c|c|c|}\hline
+& \multicolumn{3}{c}{Tensor} \vline \vline & \multicolumn{3}{c}{Octree (Surface)}\vline \\ \hline
+Cell size (m) & \# Cells & Time (s) & $\phi_d$ & \# Cells & Time (s) & $\phi_d$ \\ \hline
+1.00e-01 & 544 & 1.8e-01 & 4.2e+02 & 496 & 1.6e-01 & 7.7e+02 \\
+5.00e-02 & 4196 & 9.6e-01 & 4.7e+01 & 2516 & 5.1e-01 & 7.1e+01 \\
+2.50e-02 & 33478 & 6.5e+00 & 4.2e+00 & 10836 & 2.1e+00 & 5.2e+00 \\
+1.25e-02 & 268080 & 6.5e+01 & 2.0e+00 & 47276 & 1.0e+01 & 2.7e+00 \\
+\hline
+\end{tabular}
+\caption{Summary table for the forward modeling of a magnetized sphere using a Tensor and Octree discretization}
+\label{AnalyticSphere}
+\end{table}
+
+
+\section{Large scale problems}\label{MeshDecoupling}
+The amount of memory needed to store the dense linear operators for gravity and magnetics is a limiting factor for the simulation of potential field data with the integral formulation. As prescribed in \eqref{magLinearOpt}, the size of the problem is linearly scaled by the number of model parameters $M$ and the number of the data $N$. For moderate size problems encountered in exploration geophysics ($M\approx 10^6$, $N\approx10^4$) the memory requirement to store a dense $M\times N$ matrix can exceed hundreds of gigabytes. While modern supercomputers can handle problems of this size, it is still out of reach for common desktop computers.
+
+A number of strategies have been proposed in the past to reduce the size of the problem. Compression methods, either in the Fourier \cite[]{Pilkington97} or wavelet domain \cite{LiOldenburg03}, have proven successful in reducing the size of the forward operators. On the downside, compression methods are prone to introducing modelling artifacts, which can be hard to differentiate from true anomalies. This is especially an issue for the magnetic vector inversion explored in Chapter~\ref{Chapter3}.
+
+Another group of methods takes advantage of the rapid decay of geophysical signals to reduce the size of individual forward simulations. The assumption is made that model parameters in the far-field of measurements contribute little to the total response and can, therefore, be approximated with fewer parameters. In this regard, the concept is loosely related to the Fast Multipole Method \cite[]{Engheta1992}. This is especially valid for airborne EM experiments where cells beyond roughly 10 times the flight height of airborne EM systems have a negligible impact on the measured response \cite[]{Reid2006}. In its simplest implementation, \cite[]{Cox2010} define a footprint approach such that model parameters outside a pre-defined tolerance are simply ignored.
+
+More recently, \cite{Yang2014} introduced a mesh decoupling approach. Local meshes are designed based on the source location and decay rate of the geophysical signal. Cell-centered conductivity values are homogenized using volumetric-weighted averaging. Similarly, \cite{Haber2014} designed a nested Octree mesh strategy. The core region of local meshes is co-located with cells in the global mesh and cover the same lateral extent. Physical property values are homogenized from small cells in the global mesh to larger (or equal) cells in the local meshes. This strategy assures that far-field features can still contribute to the total response. The accuracy of individual forward simulations depends primarily on the interpolation scheme used to transfer physical properties from the global to the local meshes.
+
+In this research, I employ the methodology of \cite{Haber2014}. I want to divide the full data set into subsets (or tiles), each associated with a local mesh. Physical property values are transferred to local meshes using a volumetric weighted average. In order to further minimize the memory footprint of the simulation, I make use of the parallel \texttt{Dask} package \cite[]{dask2016}. The library was designed by the data science community for out-of-core processing of large datasets \cite[]{Scipy2015}. The \texttt{zarr} file format allows the storage of dense arrays on a solid-state drive (SSD) in compressed memory chunks. Out-of-core storage is appealing as it reduces the amount of Random-Access Memory (RAM) needed to store the large forward operators. Read and write operations are done in parallel. The runtime depends largely on the hardware used in terms of processor speed, number of processors and communication speed between the workers and the solid-state memory. The size of individual memory chunks can be adjusted to optimize the processing speed depending on the resources available.
+
+In the case of potential field data, the source of geophysical signals can span a broad range of wavelengths, from tens of meters (local) to hundreds of kilometres (regional). The memory footprint of a problem can be reduced considerably if we manage to approximate far-field features with fewer cells. In the most extreme case, each observation point could have its own local mesh.
+Choosing the number of tiles becomes a trade-off between accurately capture the heterogeneity of the model for forward modeling while minimizing traffic between the parallel workers and the SSD memory.
+
+\subsection{Numerical test}
+I investigate this trade-off between accuracy and efficiency with a numerical example.
+I create a synthetic gravity model shown in Figure~\ref{Tiled_Test_model}. The model contains both short wavelength information from a small block anomaly and long wavelength signal from large domains in the north and southeast quadrants. From equation \eqref{g_discrete_large}, I compute gravity data on $21 \times 21$ grid placed 1 m above a flat topography.
+Forward simulation of the global model required 4.3 Mb of memory and was performed in parallel in 6.7 s with 4 processors (2.4 GHz). It is a relatively small example compared to industry standards, but similar trends are to be expected on larger scale problems.
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{Tiled_Test_model.png}}
+\caption{(a) Horizontal and (b) vertical sections through the synthetic density model used to test the mesh decoupling strategy. (c) The simulated data contain short and long wavelength information.}
+\label{Tiled_Test_model}
+\end{figure}
+
+I will assess the trade-off between efficiency and numerical accuracy by performing a series of five forward simulations using a range of tiling patterns. I break up the dataset into 2, 4, 9, 12 and 16 square tiles.
+For each tiling experiment, I calculate the total memory footprint (Gb) and the computation time (s) to perform the forward simulations. I also compute the data residual between the global simulation (single mesh) and the tiled simulation using the $\ell_2$-norm measure in equation \eqref{dataResidual}.
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{Tiled_Dask.png}}
+\caption{Example of mesh decoupling of the forward problem into nested Octree tiles. (Middle) Local meshes are generated for a pre-defined number of tiles nested inside the global domain. (Bottom) The forward modelling operator for each tile is stored in compressed \texttt{Zarr} file format on solid-state memory. Memory chunks (grey) are accessed in parallel by the \texttt{Dask} library to perform the forward calculations.}
+\label{Tiled_Dask}
+\end{figure}
+
+As seen in Figure~\ref{Tiled_Test_Size}, the memory needed to perform the forward calculations rapidly decreases but eventually levels-off as the number of tiles increases. This is expected as local meshes necessitate a minimum number of cells to fill out the global domain and a minimum number of small padding cells near the edge of the tiles to reduce interpolation artifacts. The reduction in problem size is inversely correlated with an increase in computational time as communication between the workers and the SSD memory becomes a bottleneck.
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{Tiled_Test_Size.png}}
+\caption{Trade-off curves between the size of the forward problem (blue) and data residual (red) over a range of number of tiles. The total size of the problem is calculated based on the sum of cells in all the local meshes times the number of data. The optimal number of tiles would be at the point of intersection where both the cost of forward calculations and the data residual remain small.}
+\label{Tiled_Test_Size}
+\end{figure}
+
+I also note an increase in data residual as a function of tile size.
+Figure~\ref{Tiled_Residual} compares the simulated data from the global mesh (single tile) to the combined forward simulation calculated with 16 tiles (last experiment). From the residual map, it is possible to distinguish short wavelength discrepancies between adjacent forward simulations (tiles). These residuals are primarily due to the homogenization of anomalies near the edges of tiles, which in turn is a function of the wavelength information contained in the data. As a first pass, I establish experimentally the appropriate padding distance based on the estimated data uncertainties, such that the maximum residual falls below the experimental error. For this experiment, the meshing artifacts are at most $2\%$ of the data amplitude (or 0.004 mGal), which I achieved with a minimum padding distance of 4 cells per Octree level. Determining an optimal padding distance as a function of the geophysical signal would warrant further research. 
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{Forward_Tiles.png}}
+\caption{Simulated gravity data calculated from (a) the global model and (b) the 16 forward tiled calculations. (c) Data residuals show short wavelength discrepancies between adjacent tiles due to interpolation effects.}
+\label{Tiled_Residual}
+\end{figure}
+
+
+\endinput
+

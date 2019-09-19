@@ -1,0 +1,243 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./../Figures/}}
+\chapter{Automated mixed-norm modeling}
+\label{Chapter6}
+I have so far developed a methodology that can generate a suite of models that adequately fit the data and, at the same time, sample model space in a consistent fashion.
+This flexibility promotes two objectives.
+First, inverting for diverse models provides immediate insight about non-uniqueness and that can prevent practitioners from over-interpreting a single inversion result. This is one of the most important aspects of my work.
+
+The next objective is more challenging. I want to use different combinations of norms on different parts of the model space so that I obtain solutions that are geologically informative.
+As exemplified with the residual shown in Figure~\ref{GravMixedNorms_dpred}, certain assumptions may be better suited to fit portions of the data.
+However, the selection of different norms to be used in different portions of the model can rapidly become overwhelming for large problems in complex geological settings. A semi-automated approach that can capture the heterogeneity of the Earth, with minimal intervention from an expert, is needed. I am proposing the following strategy:
+\begin{enumerate}
+\item Run a suite of inversions over a range of $p$ parameters applied to the model norm and its spatial gradients. I will assume that the suit of models is a representative sampling of diverse solutions from the $\ell_p$-space.
+\item Form an \emph{average} model ($\mathbf{m}_A$) that captures most of the variability in the solution space
+\item Extract $p$ parameters or rotation angles for windowed portions of model space based on the correlation between the average $\mathbf{m}_A$ and individual models.
+\item Carry out a final SVMN inversion with local parameters.
+\end{enumerate}
+There are numerous ways to implement the above strategy. Here, I use Principal Component Analysis. I illustrate my approach with a 2D seismic tomography example and on the 3D fold example introduced in Chapter~\ref{Chapter5}.
+
+\section{Selecting local $p$-parameters}
+I will first demonstrate how it is possible to extract local $p$ parameters for the simultaneous recovery of smooth and compact features as introduced in Chapter~\ref{Chapter3}.
+To demonstrate my methodology I use the 2D travel-time tomography example presented in \citet{SunLi14}. The synthetic velocity model shown in Figure~\ref{Problem2DTrue}(a) is made up of a smooth velocity high and a blocky velocity low centered at a 1,000 m along the x-axis; the background velocity is $2000$ m/s. Contour lines, corresponding to the 25th and 75th percentile values for both anomalies, are also plotted for reference. An array of 11 transmitters and 13 receivers is positioned on either side of the model which is discretized into $32 \times 64$ square $25$ m cells.
+First arrival data are calculated for each transmitter-receiver pair by taking the line integral of slowness (reciprocal of velocity) along each ray path; this yields a total of 143 observations.
+Gaussian noise of $5\%$ is added to the simulated data shown in Figure~\ref{Problem2DTrue}(b).
+I will first attempt to invert this data with mixed-norm penalties that are applied to the entire model.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem2D_True.png}
+\caption{(a) Synthetic 2D travel-time tomography problem made up of a rectangular velocity low, and a smooth Gaussian velocity high. Contour lines ($25^{th}$ and $75^{th}$ percentile) are shown in black for the true position and shape of the velocity anomalies. Transmitters (red) and receivers (green) are positioned on opposite sides of the model domain. (b) Data map for the 143 line integral data calculated for each transmitter-receiver pair.
+}
+\label{Problem2DTrue}
+\end{figure}
+
+\subsection{Model space inversions}
+Having dealt with scaling issues between $\ell_p$-norm measures, I can now exploit the full flexibility of the regularization function in \eqref{intSmall}.
+My goal is to generate a suite of models under a broad range of assumptions.
+For this 2D problem, the objective function to be minimized takes the form:
+\begin{equation}\label{ObjFun2D}
+\begin{split}
+\underset{\mathbf{m}}{\text{min}}\; \phi(m) & = \; \|\mathbf{F}\;\mathbf{m} - \mathbf{d}^{obs}\|_2^2 + \beta \sum_{r=s,x,y} \alpha_r \|\mathbf{W}_r \;\mathbf{R}_r\;\mathbf{D}_r \;\mathbf{m}\|_2^2 \\
+\text{s.t.} \; \phi_d & \leq \phi_d^* \;
+\end{split}
+\end{equation}
+To demonstrate the flexibility of S-IRLS algorithm, I carry out nine inversions, using a combination of norms on a range of $p_s,\; p_{x},\;p_y \in {[0,1,2]}$ values ($p_x=p_y$ in all cases). The solutions, nine in total, are presented in Figure~\ref{Mixed2DSolutions}. All models have a final misfit $\phi_d^* \approx 143$ and use the same $\ell_2$-norm solution to initiate the S-IRLS steps.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem2D_Tomo2D_9x9_Results.png}
+\caption{Suite of inverted models for various combinations of norms $p_s,\; p_{x}=p_{y} \in {[0,1,2]}$ ($\alpha_s=\alpha_x=\alpha_y=1$). Contour lines ($25^{th}$ and $75^{th}$ percentile) are shown in black for the true position and shape of the velocity anomalies.}
+\label{Mixed2DSolutions}
+\end{figure}
+I make the following observations:
+\begin{itemize}
+\item The two velocity anomalies centered at $1000$ m on the $x$-axis are dominant features.
+\item Anomalies are generally stretched along the ray path due to the experimental bias, even though I have attempted to compensate for it with the sensitivity weighting $\mathbf{W}_r$. It is less pronounced for $p\leq1$.
+\item There is a progressive transition from a smooth model (upper left) to a blocky solution (lower right) as $p_s$, $p_{x}$ and $p_y$ decrease.
+\item The upper body (velocity low) appears to be most often represented as a blocky body with sharp edges.
+\item The lower anomaly (velocity high) tends to be more smooth.
+\item Away from the anomalous regions the velocity is relatively smooth and close to the background reference model of $2000$ m/s.
+\end{itemize}
+
+Figure~\ref{Mixed2DResiduals} presents the data residual maps predicted by these nine inversions. The random noise originally added to the data is shown in Figure~\ref{Mixed2DResiduals}(j) for comparison. I note that the strongest correlated residuals appear as \emph{pant-legs}, which corresponds to ray paths travelling through the velocity anomalies. The residual trend associated with the blocky velocity low (low Tx\# to high Rx\#) is generally more obvious, which indicates that the experiment may be more sensitive to uniform velocity anomalies with sharp edges as it is the source of coherent signal. This pant-leg vanishes as $p,\:q\rightarrow 0$. Meanwhile, the residual trend associated with the smooth velocity high (low Rx\# to high Tx\#) diminishes for $p_s=p_x=p_y=1$. This change in data residual is a strong indicator that a specific combination of norms may be better suited to represent individual velocity anomalies.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Problem2D_Tomo2D_9x9_Residuals.png}
+\caption{(a) to (i) Data residual contour map for the nine inversions presented in Figure~\ref{Mixed2DSolutions}. Contour lines ($\pm 1$ standard deviation) are shown in black. (j) Random noise added to the experiment.}
+\label{Mixed2DResiduals}
+\end{figure}
+
+
+\subsection{Average PCA model}\label{PCAmodel}
+I assume that the suite of models presented in Figure~\ref{Mixed2DSolutions} contains sufficient variability to be representative of my solution space and I wish to use these to extract the main features. There are numerous approaches to accomplish this and they vary in complexity from simple averaging to advanced machine learning algorithms.
+I use a Principal Component Analysis \cite[]{Pearson1901, Hotelling1933}.
+Considering each model in Figure~\ref{Mixed2DSolutions} as a \emph{data} vector, the principal components of my solution space can be written as:
+\begin{equation}
+\begin{bmatrix}
+\mathbf{m}_1\;, ...\;, \mathbf{m}_{nM}
+\end{bmatrix} \approx
+\mathbf{A\:W}\;.
+\end{equation}
+such that PCA vectors along the columns of $\mathbf{A} \in \mathbb{R}^{nM \times nV}$ contains a subset of $nV$ eigenvectors spanning the model space. These vectors encode the principal source of variation across the nine models recovered.
+The corresponding weights $\mathbf{W} \in \mathbb{R}^{nV \times nM}$, also known as loadings, are scalars relating to how each principal component contributes to each model. I use the PCA algorithm from the open-source Python library \texttt{Scikit-Learn.decomposition.PCA} \cite[]{Pedregosa2011}. The number of principal components to be used in the analysis is determined by the experimenter.
+Figure~\ref{PCA_vectors} presents the four largest principal components, covering in this case over $75\%$ of the variance present in the model space.
+
+\begin{figure}
+{\centering
+\includegraphics[width=\columnwidth]{Tomo2D_StackPCA.png}
+\caption{PCA vectors covering $75\%$ of the model variances.}\label{PCA_vectors}}
+\end{figure}
+
+Next, I generate a representative model by computing a weighted averaged model based on the positive PCA loadings such that:
+\begin{equation}\label{weightedaverage}
+\mathbf{m}_P = \frac{\sum_{i=1}^{nV} \sum_{j=1}^{nM} W_{ij} \mathbf{m}_i}{ \sum_{i=1}^{nV} \sum_{j=1}^{nM} W_{ij}} \;.
+\end{equation}
+The average model $\mathbf{m}_A$ is presented in Figure~\ref{PCA_model}. I note the close resemblance with the true model. The background is fairly uniform near $2000\;m/s$; the low velocity anomaly appears to be a block with a velocity near $1900\;m/s$, and the high velocity anomaly appears is a smooth feature with a maximum velocity near $2100\;m/s$.
+
+Since $\mathbf{m}_A$ is not the result of inversion, I have no guarantee that this model can satisfy the observed data.
+The corresponding normalized data residual map shows some level of correlation with the anomalies (Figure~\ref{PCA_model}(b)). My next objective is to identify inversion parameters that will allow me to fit both the data and features highlighted by the average model.
+\begin{figure}
+{\centering
+\includegraphics[width=\columnwidth]{Results_PCA_model.png}
+\caption{(a) Averaged PCA model $\mathbf{m}_A$ and (b) corresponding normalize data residual map. Contour lines are shown in (a) for the true position and shape of the velocity anomalies.}\label{PCA_model}}
+\end{figure}
+
+\subsection{Parameter extraction}
+Next, I want to extract optimal inversion parameters on a cell-by-cell basis in order to best describe local features. To do so, I resort to a pattern recognition approach. In order to remove biases towards extreme model values, I transform my model space into a simpler parametric representation. I use a Canny edge detection algorithm from the open-source library \texttt{Scikit-Image.feature.Canny} \cite[]{Pedregosa2011}.
+Figure~\ref{CannyEdges} shows the parametric edges extracted from all nine inversions and the average PCA model $\mathbf{m}_A$
+\begin{figure}
+\includegraphics[width=\columnwidth]{Tomo2D_CannyModels.png}
+\caption{Parametric representation of the nine inverted models derived form the Canny edge detection algorithm.}
+\label{CannyEdges}
+\end{figure}
+
+From this simplified representation of each model, I perform a moving window correlation $r_{\mathbf{m}_i\mathbf{m}_P}$ between the average PCA model $\mathbf{m}_A$ and each of the $\mathbf{m}_i$ solutions:
+\begin{equation}
+r_{\mathbf{m}_i\mathbf{m}_P} = \frac{\sum_{j=1}^n (m_{ij} - \bar m_{i})({m_{Pj}-\bar m_{P}})}{\sqrt{\sum_{j=1}^n(m_{ij} - \bar m_{i})^2\sum_{j=1}^n(m_{P} - \bar m_{Pj})^2}}
+\end{equation}
+where $\bar m_{i}$ and $\bar m_{P}$ are the average model and PCA model values inside the window denoted by the subscript $j$.
+The parameters $p_s,\: p_x,\: p_y$ associated with the highest correlation are used in a weighted average as defined in \eqref{weightedaverage}. The process is repeated over the entire model space. For my example I use $20 \times 20$ pixels window. The recovered $\mathbf{p}_s$ and $\mathbf{p}_x,\:\mathbf{p}_y$ values are presented in Figure~\ref{MixedNorms}(a) and (b) respectively. I note that the norm on the model gradients is generally larger in the bottom region of the model corresponding to the location of the smooth positive anomaly.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Tomo2D_Average_pq.png}
+\caption{Local $p$-values on the (a) the model norm $\phi_s^{p_s}$ and (b) model gradients $\phi_{x}^{\:p_x}$, $\phi_{y}^{\:p_y}$ extracted from the solution space.}
+\label{MixedNorms}
+\end{figure}
+
+I now define Scaled-IRLS weights on a cell-by-cell basis as:
+\begin{equation}\label{mixedIRLS}
+\begin{split}
+\mathbf{\hat R}_s &= \text{diag} \left[\boldsymbol{\gamma}_s \odot \:{\Big( ({{\mathbf{m}^{(k-1)} - \mathbf{m}^{mref}}})^{2} + \epsilon_s^2 \Big)}^{\circ\:\mathbf{p}_s/2 - 1} \right]^{1/2} \;, \\
+\mathbf{\hat R}_x &= \text{diag} \left[\boldsymbol{\gamma}_x \odot\:{\Big( ({{\mathbf{D}_x\;(\mathbf{m}^{(k-1)} - \mathbf{m}^{mref})}})^{2} + \epsilon_x^2 \Big)}^{\odot\:\mathbf{p}_x/2 - 1} \right]^{1/2} \;,\\
+\mathbf{\hat R}_y &= \text{diag} \left[\boldsymbol{\gamma}_y \odot\:{\Big( ({{\mathbf{D}_y\;(\mathbf{m}^{(k-1)} - \mathbf{m}^{mref})}})^{2} + \epsilon_y^2 \Big)}^{\odot\:\mathbf{p}_y/2 - 1} \right]^{1/2} \;,\\
+\end{split}
+\end{equation}
+where $\odot\mathbf{p}_s$, $\odot\mathbf{p}_{x}$ and $\odot\mathbf{p}_y$ define the element-wise Hadamard power and $\boldsymbol{\gamma}_s \odot$, $\boldsymbol{\gamma}_x \odot$ and $\boldsymbol{\gamma}_y\odot$ are the element-wise scaling multiplications defined in \eqref{etaScale}. In this fashion, the approximated mixed norm regularization can vary on a cell-by-cell basis.
+
+Finally, I proceed with my SVMN inversion. The data are now inverted using the extracted local parameters, applied on a cell by cell basis, and the result is shown in Figure~\ref{FinalMixedNorm}(a). There is good correspondence with the true model: both the low-velocity blocky anomaly and the high-velocity smooth anomaly are imaged at the right location, with the right shape and near their respective seismic velocity. The normalized data residual in Figure~\ref{FinalMixedNorm}(b) do not clearly show pant-legs associated with the targets. This is a good indication that most of the important structures have been recovered.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Tomo2D_Reinverted_Variance.png}
+\caption{(a) The final SVMN inversion result and (b) normalized data residual map. Contour lines are shown in (a) for the true position and shape of the velocity anomalies.}
+\label{FinalMixedNorm}
+\end{figure}
+
+\subsection{Summary}
+This example shows that, as long as the data are sufficiently sensitive to the geometry of causative bodies, it is possible to extract preferential inversion parameters. In the original study of \citet{SunLi14}, inversion parameters (either $\ell_2$ or $\ell_1$-norm on the model gradients) were extracted based on the data residual. In this study, I proposed a different path using modelling trends identified in the solution space. I would argue that the modelling route is a more robust approach and easily applicable to other geophysical methods (EM, seismic) as complex signals from multiple sources can be unravelled by the inverse process.
+
+It is also important to note that I have achieved my final result without direct input from the user, other than setting tuning parameters used in the pattern recognition phase. The modelling process is therefore completely replicable. The learning process remains sensitive however to choices made by the user. The size and shape of the averaging window is an important aspect that can significantly impact the outcome. Choosing a window that is too large can lump smaller features together, while a window that is too small might introduce unwanted variability. The work presented here does provide however an interesting basis for more advanced work in machine learning.
+\section{Dip and strike estimation}
+In Chapter\ref{Chapter5}, I have demonstrated the benefits of using rotated sparse gradient to accentuate geological trends and better image continuous bodies at depth. I have used the fold model shown in Figure~\ref{FoldModel_DipStrikeEst} to showcase the use of surface structural data. In most greenfield exploration settings however such data may either not be available or too scarce for accurate interpolation. Practitioners would benefit from being able to estimate the strike and dip of geological features in a semi-automated way.
+In this section, I propose to repeat the rotated sparse norm experiment through a learning process. I will make use of a similar strategy elaborated in the previous section such that preferential orientations are extracted from the solution space with a pattern recognition approach.
+
+\begin{figure}\centering
+\includegraphics[width=\columnwidth]{Synthetic_Fold_Model.png}
+\caption{Synthetic fold model introduced in Chapter~\ref{Chapter5} used here to test the dip and strike estimation learning algorithm.}
+\label{FoldModel_DipStrikeEst}
+\end{figure}
+
+
+I propose to estimate the angle of rotation in two stages: first along a horizontal plane to determine the strike, then on vertical sections to estimate the dips. I create a workflow divided into five steps:
+\begin{enumerate}
+\item Run an unconstrained inversion with sparse and smooth assumptions ($p_s=0$, $p_{[x,y,z]}=2$)
+\item Estimate horizontal trends and rotate the objective function on the $xy$-plane
+\item Run a suite of inversions over a range of dip angles ($p_s=1$, $p_x=2$, $p_{[y,z]}=0$.
+\item From an \emph{average} model ($\mathbf{m}_A$) and extract dip angles locally.
+\item Carry out a final SVMN inversion with local $p$ parameters and rotation angles.
+\end{enumerate}
+I apply this procedure to recover the folded density layer used in Chapter~\ref{Chapter5} (Figure~\ref{FoldModel}).
+I will attempt to do this without any external input from the user other than general tuning parameters in Step 2 and 4.
+
+\subsubsection{Step 1: Unconstrained inversion}
+Potential field data are most sensitive to lateral changes in density and magnetic properties, so it is generally easier to determine horizontal trends related to geology. I am using a mixed norm inversion ($p_s=0$, $p_{[x,y,z]}=2$) to get a first estimate of the geometry of the problem such that physical property contrasts are increased without enforcing assumptions about directionality.
+While similar analysis could be performed directly on a gridded data map at a much smaller computational cost, the inversion route has proven experimentally to be more robust. It can deal with topographic effects and it can isolate long wavelength trends from near surface anomalies. Since I already have inverted this synthetic example with sparsity assumptions in Chapter~\ref{Chapter5} (Figure~
+\ref{Synthetic_Fold_lpModel}), I can advance directly to Step 2.
+
+\subsubsection{Step 2: Azimuth estimation}
+From the recovered model, I want to extract directional information. I resort to an image moment algorithm to extract dominant patterns on the windowed portion of the model. I first demonstrate the procedure on the UBC Crest shown in Figure~\ref{ImageMoment_UBC}.
+\begin{figure}\centering
+\includegraphics[width=\columnwidth]{ImageMoment_UBClogo.png}
+\caption{Example of an automated azimuth estimation using the UBC Crest. (b) The image is first converted to a binary image using the python routine \texttt{ScikitImage.Skeleton}. Image moment calculations are performed on moving windows to determine the position and orientation of dominant features. (c) Vectors are then rotated by $90^\circ$ to point along the normal of edges. The normal vectors are checked for consistency in preparation for interpolation.}
+\label{ImageMoment_UBC}
+\end{figure}
+
+\textbf{2.1}: Density values are converted to a binary image using the python routine \texttt{ScikitImage.Skeleton} to extract dominant feature \cite[]{Lee1994}. The 2D image is reduced to one pixel wide representations by recursively identifying and removing border pixels. The process is carried out until no pixels can be removed without breaking the connectivity of a given feature.
+
+\textbf{2.2}: Position and orientation of dominant features are extracted with an image moment approach \cite[]{Hu1962}. For a set window of the image with pixel intensity defined by $\mathbf{I}(x,y)$, the image moment is given by
+\begin{equation}\label{imagemoment}
+m_{ij} = \sum_x\sum_y x^i y^j I(x,y)\;.
+\end{equation}
+The angle defining the principal axis is calculated by
+\begin{equation}
+\theta = \frac{1}{2}\arctan \left(\frac{2m_{11}}{m_{20}-m_{02}}\right)
+\end{equation}
+and the center of mass of the image is given by
+\begin{equation}
+\begin{split}
+x_c = \frac{m_{10}}{\sum_x\sum_y I(x,y)}\\
+y_c = \frac{m_{01}}{\sum_x\sum_y I(x,y)}\;,
+\end{split}
+\end{equation}
+Calculations are only performed for windows that contain at least $5\%$ of non-zero pixels.
+This process is repeated across the entire section by incrementally moving the window location. Efficiency can be gained by displacing the window based on the calculated orientation.
+This results in a collection of vectors pointing along with the main features, as shown in Figure~\ref{ImageMoment_UBC}(b).
+
+\textbf{2.3}: Orientation vectors are rotated by $90^\circ$ to point normal to the edge of features (Figure~\ref{ImageMoment_UBC}(c)). Neighbouring normals are compared to each other for consistency, such that vectors pointing against the general trend are rotated by $180^\circ$. This final step is important for a smooth interpolation of angles in 3D space. In complex geological settings, this step may require quality control checks from the user.
+
+Carrying out the process described above on a horizontal section of the density model, I recover the orientation vectors presented in Figure~\ref{ImageMoment}. In this case, I choose a square window 200 m in width that sweeps through a draped section of the density model at 40 m depth (two vertical cells). This choice depends on the discretization and wavelength information present in the data. Going down a few cells below topography generally offers a good compromise between damping the near-surface variations while preserving major trends. Just as for the structural data in Chapter~\ref{Chapter5}, I interpolate the normal vectors in 3D using minimum curvature approach \cite[]{Briggs74}.
+\begin{figure}
+\includegraphics[width=\columnwidth]{ImageMoment.png}
+\caption{(a) Image moment calculations over windowed regions of the inverted density model. Arrows are plotted for the principal direction (red) and normal (white) of the main density anomaly. (b) Normal vectors are interpolated in 3D and used to rotate the objective function.}
+\label{ImageMoment}
+\end{figure}
+
+
+\subsubsection{Step 3: Model space inversion}
+Now that I have determined the preferential orientation (normal) of geological bodies, I will attempt to extract preferential dip directions. I proceed with a series of 12 inversions with rotated sparse norms over a range of rotation angles for $\theta \in [-90^\circ,\;75^\circ]$ at $15^\circ$. Figure~\ref{ModelSpace_Dip} compares the recovered models along the EW section B-B'.
+\begin{figure}
+\includegraphics[width=\columnwidth]{GRAV_ModelSpace_Dip.png}
+\caption{Suite of models with directional gradients for $\theta \in [-90^\circ,\;75^\circ]$.}
+\label{ModelSpace_Dip}
+\end{figure}
+
+\subsubsection{Step 4: Dip estimation}
+From the twelve recovered models, I proceed with PCA and form an average model as prescribed in Section~\ref{PCAmodel}. The calculated average model is shown in Figure~\ref{LearnRotation}.
+From this average model, I extract dip information along vertical sections using the image moment strategy presented in Step 2. The resulting angles are extrapolated in 3D and used to rotate the objective function.
+\begin{figure}
+\includegraphics[width=\columnwidth]{LearnedRotation.png}
+\caption{Sections through the average PCA model and rotation vectors (arrow) derived from the image moment analysis.}
+\label{LearnRotation}
+\end{figure}
+
+\subsubsection{Step 5: SVMN inversion}
+In the final step, I re-invert the dataset with rotated sparse norms. The final solution is shown in Figure~\ref{GRAV_SVMN_rotation}. I note the good match between the solution and the true position of the dense layer. I have obtained this solution without external input, other than the window size and threshold value used in the image moment estimation.
+\begin{figure}
+\includegraphics[width=\columnwidth]{GRAV_Synthetic_ROTl0220_Learning.png}
+\caption{(a) Horizontal and (b, c) vertical sections through the recovered model using rotation angles derived from the average PCA model.}
+\label{GRAV_SVMN_rotation}
+\end{figure}
+
+\section{Summary}
+Leveraging the mixed norm regularization function of Chapter~\ref{Chapter3} and pattern recognition algorithms, I have explored ways to extract inversion parameters from the solution space. The assumption is made that the shape and position of robust features can be highlighted, as long as the data is sufficiently sensitive to their geometry. I have shown that gravity surveys could be used to determine the strike and dip of geological features with detectable edges. I have demonstrated this by successfully imaging a continuous and folded density layer. This process was only possible because the edges of the anomaly were detectable from the surface. Similar procedures would not have been successful in a strictly layered environment to which potential fields are not sensitive.
+
+The rotation parameters are \emph{soft} geological constraints that reinforce modelling trends without having to specify the location of physical property contrasts. This is an appealing property of the algorithm for greenfield settings as the implementation requires little input from practitioners and easily be automated.
+
+The methodology developed in this chapter is general and can easily be extended to other geophysical methods, such as electromagnetic and seismic data. The rotation parameters could potentially be derived from multiple physical properties. Preferential orientations could form a basis for joint or cooperative physical property inversion.
+
+\endinput
+

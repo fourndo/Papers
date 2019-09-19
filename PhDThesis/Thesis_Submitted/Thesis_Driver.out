@@ -1,0 +1,64 @@
+\BOOKMARK [0][-]{chapter*.1}{Abstract}{}% 1
+\BOOKMARK [0][-]{chapter*.2}{Preface}{}% 2
+\BOOKMARK [0][-]{chapter*.3}{Table of Contents}{}% 3
+\BOOKMARK [0][-]{chapter*.4}{List of Tables}{}% 4
+\BOOKMARK [0][-]{chapter*.5}{List of Figures}{}% 5
+\BOOKMARK [0][-]{chapter*.6}{Acknowledgments}{}% 6
+\BOOKMARK [0][-]{chapter.1}{1 Introduction}{}% 7
+\BOOKMARK [1][-]{section.1.1}{1.1 Motivation}{chapter.1}% 8
+\BOOKMARK [2][-]{subsection.1.1.1}{1.1.1 Geophysical processing for geological interpretation}{section.1.1}% 9
+\BOOKMARK [2][-]{subsection.1.1.2}{1.1.2 Constraining the inversion}{section.1.1}% 10
+\BOOKMARK [2][-]{subsection.1.1.3}{1.1.3 Exploring the solution space}{section.1.1}% 11
+\BOOKMARK [2][-]{subsection.1.1.4}{1.1.4 Dealing with remanence}{section.1.1}% 12
+\BOOKMARK [1][-]{section.1.2}{1.2 Research objectives}{chapter.1}% 13
+\BOOKMARK [1][-]{section.1.3}{1.3 Thesis arrangement}{chapter.1}% 14
+\BOOKMARK [0][-]{chapter.2}{2 Forward modeling of potential field data}{}% 15
+\BOOKMARK [1][-]{section.2.1}{2.1 Discrete systems}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.1.1}{2.1.1 Choice of discretization}{section.2.1}% 17
+\BOOKMARK [1][-]{section.2.2}{2.2 Large scale problems}{chapter.2}% 18
+\BOOKMARK [2][-]{subsection.2.2.1}{2.2.1 Numerical test}{section.2.2}% 19
+\BOOKMARK [0][-]{chapter.3}{3 Inverse Problem}{}% 20
+\BOOKMARK [1][-]{subsection.3.0.1}{3.0.1 Synthetic gravity example}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.1}{3.1 General p-norm regularization}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Synthetic 1D problem}{section.3.1}% 23
+\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Iterative Re-weighted Least Squares algorithm}{section.3.1}% 24
+\BOOKMARK [2][-]{subsection.3.1.3}{3.1.3 Case 1: 1-norm \(ps=px=1\)}{section.3.1}% 25
+\BOOKMARK [2][-]{subsection.3.1.4}{3.1.4 Case 2: 0-norm \(ps=px=0\)}{section.3.1}% 26
+\BOOKMARK [1][-]{section.3.2}{3.2 Mixed norm regularization}{chapter.3}% 27
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Scaled-IRLS steps}{section.3.2}% 28
+\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Threshold -parameter}{section.3.2}% 29
+\BOOKMARK [2][-]{subsection.3.2.3}{3.2.3 Summary}{section.3.2}% 30
+\BOOKMARK [1][-]{section.3.3}{3.3 Exploring the model space}{chapter.3}% 31
+\BOOKMARK [2][-]{subsection.3.3.1}{3.3.1 Interpretation}{section.3.3}% 32
+\BOOKMARK [0][-]{chapter.4}{4 Sparse Magnetic Vector Inversion}{}% 33
+\BOOKMARK [1][-]{section.4.1}{4.1 Magnetic Vector Inversion - Cartesian parameters}{chapter.4}% 34
+\BOOKMARK [1][-]{section.4.2}{4.2 Magnetic Vector Inversion - Spherical parameters}{chapter.4}% 35
+\BOOKMARK [2][-]{subsection.4.2.1}{4.2.1 Scaled MVI-S algorithm}{section.4.2}% 36
+\BOOKMARK [1][-]{section.4.3}{4.3 Synthesis}{chapter.4}% 37
+\BOOKMARK [0][-]{chapter.5}{5 Rotated p-norm Regularization}{}% 38
+\BOOKMARK [1][-]{section.5.1}{5.1 Rotated objective function}{chapter.5}% 39
+\BOOKMARK [2][-]{subsection.5.1.1}{5.1.1 Diagonal derivatives}{section.5.1}% 40
+\BOOKMARK [1][-]{section.5.2}{5.2 Synthetic fold model}{chapter.5}% 41
+\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 p-norm inversion}{section.5.2}% 42
+\BOOKMARK [2][-]{subsection.5.2.2}{5.2.2 Directional p-norms}{section.5.2}% 43
+\BOOKMARK [1][-]{section.5.3}{5.3 Summary}{chapter.5}% 44
+\BOOKMARK [0][-]{chapter.6}{6 Automated mixed-norm modeling}{}% 45
+\BOOKMARK [1][-]{section.6.1}{6.1 Selecting local p-parameters}{chapter.6}% 46
+\BOOKMARK [2][-]{subsection.6.1.1}{6.1.1 Model space inversions}{section.6.1}% 47
+\BOOKMARK [2][-]{subsection.6.1.2}{6.1.2 Average PCA model}{section.6.1}% 48
+\BOOKMARK [2][-]{subsection.6.1.3}{6.1.3 Parameter extraction}{section.6.1}% 49
+\BOOKMARK [2][-]{subsection.6.1.4}{6.1.4 Summary}{section.6.1}% 50
+\BOOKMARK [1][-]{section.6.2}{6.2 Dip and strike estimation}{chapter.6}% 51
+\BOOKMARK [1][-]{section.6.3}{6.3 Summary}{chapter.6}% 52
+\BOOKMARK [0][-]{chapter.7}{7 Case Study - Kevitsa Ni-Cu-PGE deposit}{}% 53
+\BOOKMARK [1][-]{subsection.7.0.1}{7.0.1 Geological setting}{chapter.7}% 54
+\BOOKMARK [1][-]{section.7.1}{7.1 Geophysical data}{chapter.7}% 55
+\BOOKMARK [2][-]{subsection.7.1.1}{7.1.1 Modeling objectives}{section.7.1}% 56
+\BOOKMARK [1][-]{section.7.2}{7.2 Gravity inversion}{chapter.7}% 57
+\BOOKMARK [1][-]{section.7.3}{7.3 Magnetic inversion}{chapter.7}% 58
+\BOOKMARK [1][-]{section.7.4}{7.4 Summary}{chapter.7}% 59
+\BOOKMARK [0][-]{chapter.8}{8 Conclusion}{}% 60
+\BOOKMARK [1][-]{section.8.1}{8.1 Limitations and future work}{chapter.8}% 61
+\BOOKMARK [0][-]{chapter.9}{9 Appendices}{}% 62
+\BOOKMARK [1][-]{section.9.1}{9.1 Partial volumes}{chapter.9}% 63
+\BOOKMARK [0][-]{chapter*.98}{Bibliography}{}% 64

@@ -1,0 +1,258 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+
+\chapter{Magnetostatic Problem}
+\label{ch:Chap2_Forward}
+
+The general theory describing the magnetic static problem can be derived from Maxwell's equations.
+Assuming no free currents and no time varying electric field, the equations describing the electromagnetic field simplify to:
+\begin{equation} \label{DivB}
+	\nabla \cdot \vec{B} = 0 
+\end{equation}
+\begin{equation} \label{CurlH}
+	\nabla \times \vec{H} = 0 
+\end{equation}
+\begin{equation}
+	\vec{B} = \mu \vec{H} \;,
+\end{equation}
+where $\vec{B}$ is the magnetic flux density in Tesla (T) and $\vec{H}$ is the magnetic field in units of amperes per meter (A/m).
+In matter, the magnetic permeability $\mu$ relates the magnetic flux density $\vec{B}$ to the field $\vec{H}$ such that:
+ \begin{equation}
+	\mu = \mu_0 (1+\kappa) \;,
+\end{equation}
+where $\mu_0$ is the magnetic permeability of free space. The magnetic susceptibility $\kappa$ is a dimensionless positive number describing the ability of certain material to become magnetized under an applied field. 
+From \ref{CurlH}, the magnetic field can be formulated via a potential field formulation such that:
+\begin{equation}
+	 \vec{H} = \nabla \phi \;,
+\end{equation}
+Because Maxwell's equations forbid magnetic monopoles from \ref{DivB}, we approximate the potential field $\phi$ by a magnetic dipole. 
+The potential from a dipole moment $\vec m$ located at some location $r_Q$ as observed at location $r_P$ is given by:
+\begin{equation}
+\phi(r) = \frac{1}{4\pi}\: \vec m \cdot \nabla \left( { \frac{1}{r} } \right) 
+\end{equation}
+\begin{equation*}
+ \begin{split} 
+ 	 r &= |r_Q - r_P| \\
+	  &= \sqrt{ (x_P - x_Q)^2 + (y_P - y_Q)^2 + (z_P - z_Q)^2 } \\
+	 \vec m & = \begin{bmatrix} m_x, & m_y,& m_z \end{bmatrix}\;.
+\end{split}
+ \end{equation*}
+%In order to keep our derivation general, we postpone to provide details about \emph{what} the magnetization is until the next section.
+%
+Going from a discrete dipole moment to continuous magnetization allows us to write:
+\begin{equation}\label{mag_potential}
+	 \phi(r) = \frac{1}{4\pi} \int_{V} \vec M \cdot \nabla \left( { \frac{1}{r} } \right) \: dV 
+\end{equation}
+\begin{equation*}
+	\vec M = 
+	\begin{bmatrix}
+		M_x \\
+		M_y \\
+		M_z 
+	\end{bmatrix} \;,
+\end{equation*}
+where  $\vec M$ is the magnetization vector per unit volume in A/m.
+Taking the gradient of \ref{mag_potential}, the magnetic flux density can be expressed as:
+\begin{equation} \label{b_integral}
+ 	\vec b (P) = \frac{\mu_0}{4\pi}  \int_{V}   \vec M \cdot \nabla \nabla \left(\frac{1}{r}\right) \; dV
+\end{equation}
+\begin{equation*}
+	\vec b(P) = 
+	\begin{bmatrix}
+		b_{x} \\
+		b_{y} \\
+		b_{z} 
+	\end{bmatrix} \:,\:
+\end{equation*}
+where $\vec b(P)$ is the magnetic vector measurement at location $P$.
+
+In a geophysical context, we are interested in identifying discrete volumes of magnetic material. 
+As presented in \cite{Sharma66}, the integral equation can be evaluated analytically for the magnetic field of a rectangular prism. The integral~\ref{b_integral} then becomes:
+\begin{equation}\label{b_discrete}
+\begin{split}
+	\vec b(P) =  \mathbf{T} \cdot \vec M \;,
+\end{split}
+\end{equation}
+where the tensor matrix $\bf{T}$ takes the form:
+\begin{equation}\label{Tensor_T}
+	\mathbf{T} =
+	 \begin{pmatrix}
+       		T_{xx} & T_{xy} & T_{xz}    \\
+		T_{yx} & T_{yy} & T_{yz}    \\
+		T_{zx} & T_{zy} & T_{zz}           
+	\end{pmatrix} \;.
+\end{equation}
+Note that only five of the nine elements forming $\mathbf{T}$ are independent and need to be computed.
+Expanding \ref{b_discrete} in terms of components of the field yields:
+\begin{equation}\label{b_explicit}
+\begin{split}
+	b_{x} &= T_{xx}\;M_x + T_{xy}\;M_y + T_{xz}\;M_z \\
+	b_{y} &= T_{yx}\;M_x + T_{yy}\;M_y + T_{yz}\;M_z \\
+	b_{z} &= T_{zx}\;M_x + T_{zy}\;M_y + T_{zz}\;M_z  \;.
+\end{split}
+\end{equation}
+From~\ref{b_integral}, I divide the earth into $nc$ discrete prisms, each of which has a constant magnetization such that:
+\begin{equation} \label{b_discrete_nc}
+ 	\vec b(P) = \sum_{j=1}^{nc} \mathbf{T}_j \cdot \vec M_j \;.
+\end{equation}
+From the superposition principal, the $\hat x$-component of magnetic flux density $\vec b(P)$ corresponds to the cumulative contribution of all $nc$ cells such that:
+\begin{equation}\label{b_datum}
+\begin{split}
+	b_x(P) &=
+	\begin{bmatrix}
+	T_{xx}^1 &\hdots &T_{xx}^{nc} & T_{xy}^1 & \hdots & T_{xy}^{nc} & T_{xz}^1 & \hdots & T_{xz}^{nc}\\
+	 \end{bmatrix}
+	 \begin{bmatrix}
+		\mathbf{M}_x \\ \mathbf{M}_y \\ \mathbf{M}_z
+	\end{bmatrix} \\
+	&\text{where,}\;
+{\mathbf{ M}_x} = 
+	\begin{bmatrix}
+	M_x^1\\
+	\vdots \\
+	M_x^{nc} 
+	\end{bmatrix}\;
+	{\mathbf{M}_y} = 
+	\begin{bmatrix}
+	M_y^1\\
+	\vdots \\
+	M_y^{nc} 
+	\end{bmatrix}\;
+	{\mathbf{ M}_z} = 
+	\begin{bmatrix}
+	M_z^1\\
+	\vdots \\
+	M_z^{nc}  
+	\end{bmatrix}\;,
+	\end{split}
+\end{equation}
+and likewise for the $b_y(P)$ and $b_z(P)$ components.
+In compact matrix vector notation, \ref{b_datum} can be written as:
+\begin{equation} \label{Datum_b}
+	\vec b(P) = \mathbf{T} \; \vec{\mathbf{M}} \;,
+\end{equation}
+where the augmented tensor matrix $\mathbf{T} \in \mathbb{R}^{3 \times (3nc)}$ multiplies a vector of magnetization direction  $\vec{\mathbf{M}}\in \mathbb{R}^{ 3nc}$.
+
+Because magnetic flux measurements can be recorded at multiple locations, \ref{Datum_b} is further augmented by a factor $N$ such that:
+\begin{equation}
+\begin{split}
+\vec{\mathbf{ b}} &= 
+	\begin{bmatrix}
+	\mathbf{b}_x \\
+	\mathbf{b}_y \\
+	\mathbf{b}_z 
+	\end{bmatrix} \\
+\text{where,}\;
+{\mathbf{ b}_x} = 
+	\begin{bmatrix}
+	b_x(P_1) \\
+	\vdots \\
+	b_x(P_N) 
+	\end{bmatrix}\;
+	{\mathbf{ b}_y} &= 
+	\begin{bmatrix}
+	b_y(P_1) \\
+	\vdots \\
+	b_y(P_N) 
+	\end{bmatrix}\;
+	{\mathbf{ b}_z} = 
+	\begin{bmatrix}
+	b_z(P_1) \\
+	\vdots \\
+	b_z(P_N) 
+	\end{bmatrix}\;.
+	\end{split}
+\end{equation} 
+This ordering defines the rows of the final matrix used for the forward calculations of magnetic data:
+\begin{equation} \label{Fwr_b}
+\begin{split}
+	\vec{\mathbf{ b}}& =  \mathbf{T}\:\vec{\mathbf{M}} \\
+	\text{where}, \; \; \vec {\mathbf{M}} =  
+	\begin{bmatrix}
+	\mathbf{M}_x \\
+	\mathbf{M}_y \\
+	\mathbf{M}_z 
+	\end{bmatrix}&\;,\;
+	\mathbf{T} = 
+	\begin{bmatrix} 
+		\mathbf{T}_{xx}		&	 \mathbf{T}_{xy}	& \mathbf{T}_{xz}  \\
+		\mathbf{T}_{yx}		&	 \mathbf{T}_{yy}	& \mathbf{T}_{yz}  \\
+		\mathbf{T}_{zx}		&	 \mathbf{T}_{zy}		& \mathbf{T}_{zz}  \\
+	\end{bmatrix} \\ \\
+ 	\vec{\mathbf{ b}} \in \mathbb{R}^{ (3N)} \;,\; \mathbf{T}& \in \mathbb{R}^{(3N) \times (3nc)} \;,\; \vec{\mathbf{M}} \in \mathbb{R}^{ (3nc)}\;.
+\end{split}
+\end{equation}
+
+Most geophysical surveys do not collect the components of the magnetic field $\vec{ {b}}$, but rather its amplitude, or Total Magnetic Intensity (TMI) such that:
+\begin{equation}
+	{b}^{TMI} = |\vec {{B}}_0 + \vec {{B}}_A| \;,
+\end{equation}
+where $\vec B_0$ is the primary geomagnetic field and $\vec B_{A}$ are anomalous $local$ fields. 
+In mineral exploration, we are only interested in the anomalous field arising from magnetized rocks.
+The quantity of interest is refered to as Total Magnetic Anomaly, or ${b}^{TMA} $ :
+\begin{equation}
+	{b}^{TMA} = |\vec {{B}}_0 - \vec {{B}}_A|  \;.
+\end{equation}
+Assuming that $\frac{|\vec {{B}}_A|}{|\vec {{B}}_0|} \ll 1$.  the anomalous field is approximated as:
+\begin{equation}
+\begin{split}
+	{b}^{TMA} & \simeq  \vec {{B}}_A \cdot \hat {{B}}_0 \\
+	& = |\vec {{B}}_0 + \vec {{B}}_A| - |\vec {{B}}_0| \;.
+\end{split}
+\end{equation}
+The anomalous data $\mathbf{b}^{TMA}$ can be obtained from~\ref{Fwr_b} by a projection matrix acting on $\mathbf{T}$ such that:
+\begin{equation}\label{bTMI}
+	\mathbf{b}^{TMA} = \mathbf{PT}\:\vec {\mathbf{M}}
+\end{equation}
+\begin{equation}
+\begin{split}
+	\mathbf{P} =& \frac{1}{|\vec {\mathbf{B}}_0|}	
+	\begin{bmatrix}
+	B_{0_x}\mathbf{I} & B_{0_y}\mathbf{I} & B_{0_z}\mathbf{I}
+	\end{bmatrix} \\ \\
+	\mathbf{P} &\in \mathbb{R}^{N \times (3N)} \; ,
+	\end{split}
+\end{equation}
+where the projection matrix $\mathbf{P}$ computes the inner-product between each magnetic field measurements and the inducing field, and $\mathbf{I}$ is an $N\times N$ identity matrix.
+% such that:
+% \begin{equation}
+% 	b^{TMA} = \vec{b}^{TMA} \;\cdot\; \vec{H}_0 / |\vec H_0| \;.
+%\end{equation}
+
+\section{Magnetization}
+We have so far remained general and have omitted any details regarding the magnetization vectors $\vec M$. In matter, the total magnetization per unit volume can be expressed as:
+ \begin{equation}\label{Magnetization}
+	\vec M = \kappa \vec H + \vec M_{NRM}\;,
+\end{equation}
+where $\vec M_{NRM}$ is known as the Natural Remanent Magnetization and the magnetic susceptibility $\kappa$ is the intrinsic physical property of rocks describing their ability to become magnetized under an applied field $\vec H$.
+I will here assume that the induced magnetization is isotropic.
+The inducing field $\vec H$ can be further divided in two parts:
+ \begin{equation}\label{M_induced}
+ 	\vec H = \vec {{H}}_0 + \vec {{H}}_{A} \; , 
+\end{equation}
+where $\vec {{H}}_0$ is the Earth's geomagnetic field and $\vec {{H}}_{A}$ are the anomalous local fields.
+The geomagnetic field $\vec {{H}}_0$ is generally dominant and believed to be generated within the core \cite{Campbell1997}.
+Smaller diurnal variations can be observed due to the movement of charged particles within the upper atmosphere.
+
+Under the assumption of no free currents, secondary fields $\vec {{H}}_A$ arise from the interaction of magnetic objects, or \emph{self-demagnetization} effects. 
+For equidimensional objects, secondary induced fields oppose the geomagnetic field and reduce the overall induced magnetization. For an elongated magnetic body, the total magnetization direction may be deflected towards the principal axis. 
+Self-demagnetization effects usually become important as $\kappa$ gets large ($\kappa \geq 0.1$). 
+For the remainder of this research project I will assume that self-demagnetization effects are negligible.
+
+Lastly, the Natural Remanent Magnetization, or $\vec M_{NRM}$ component, is a permanent dipole moment preserved in the absence of an inducing field. 
+Certain rocks, known as ferromagnetic material, can retain a net magnetization vector, which in some cases will reflect the orientation of the Earth's field during formation.
+The orientation and magnitude of the NRM component is generally unknown and difficult to distinguish from the induced component.
+From laboratory measurements, the strength of remanence is often expressed as a ratio with respect to the induced component:
+\begin{equation}\label{Koenigsber}
+Q = \frac{|\vec M_{NRM}|}{\kappa |\vec H_0|}\;,
+\end{equation}
+where $Q$ stands for the Koenigsberger ratio. 
+The NRM component has been found to play an important role in many geological settings.
+Due to frequent changes in the Earth's polarity and various geological processes, rock magnetization directions can vary greatly within a given region.
+Accurately determining the orientation of magnetization is the principal focus of this research project.
+
+While most magnetic methods proposed in the literature assume a purely induced response, a more general approach must account for variability in magnetization direction. 
+From a geophysical standpoint, we would like to infer the distribution of magnetic material from the observed field data.
+Modeling magnetic objects though the inverse problem without knowledge about the magnetization direction  has proven to be difficult and remains a field of active research in geophysics.
+\endinput
+

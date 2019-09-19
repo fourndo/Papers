@@ -1,0 +1,1705 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.3.21)  18 JUL 2018 22:07
+entering extended mode
+**./Thesis_Driver.tex
+(Thesis_Driver.tex
+LaTeX2e <2017/01/01> patch level 1
+Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
+(ubcdiss.cls
+Document Class: ubcdiss 2008/04/06
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\calc.sty"
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count79
+\calc@Bcount=\count80
+\calc@Adimen=\dimen102
+\calc@Bdimen=\dimen103
+\calc@Askip=\skip41
+\calc@Bskip=\skip42
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count81
+\calc@Cskip=\skip43
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+Using one-and-a-half spacing
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\book.cls"
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\bk11.clo"
+File: bk11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count82
+\c@chapter=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@subparagraph=\count88
+\c@figure=\count89
+\c@table=\count90
+\abovecaptionskip=\skip44
+\belowcaptionskip=\skip45
+\bibindent=\dimen104
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\setspace\setspace.sty"
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\textcase\textcase.sty"
+Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\tocbibind\tocbibind.sty"
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has chapter divisions on input line 50.
+
+
+Package tocbibind Note: Using chapter style headings, unless overridden.
+
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\tocloft\tocloft.sty"
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has chapter divisions on input line 51.
+\cftparskip=\skip46
+\cftbeforetoctitleskip=\skip47
+\cftaftertoctitleskip=\skip48
+\cftbeforepartskip=\skip49
+\cftpartnumwidth=\skip50
+\cftpartindent=\skip51
+\cftbeforechapskip=\skip52
+\cftchapindent=\skip53
+\cftchapnumwidth=\skip54
+\cftbeforesecskip=\skip55
+\cftsecindent=\skip56
+\cftsecnumwidth=\skip57
+\cftbeforesubsecskip=\skip58
+\cftsubsecindent=\skip59
+\cftsubsecnumwidth=\skip60
+\cftbeforesubsubsecskip=\skip61
+\cftsubsubsecindent=\skip62
+\cftsubsubsecnumwidth=\skip63
+\cftbeforeparaskip=\skip64
+\cftparaindent=\skip65
+\cftparanumwidth=\skip66
+\cftbeforesubparaskip=\skip67
+\cftsubparaindent=\skip68
+\cftsubparanumwidth=\skip69
+\cftbeforeloftitleskip=\skip70
+\cftafterloftitleskip=\skip71
+\cftbeforefigskip=\skip72
+\cftfigindent=\skip73
+\cftfignumwidth=\skip74
+\c@lofdepth=\count91
+\c@lotdepth=\count92
+\cftbeforelottitleskip=\skip75
+\cftafterlottitleskip=\skip76
+\cftbeforetabskip=\skip77
+\cfttabindent=\skip78
+\cfttabnumwidth=\skip79
+)
+\@figprefixlen=\skip80
+\@tabprefixlen=\skip81
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\rotating.sty"
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2016/10/09 v1.0u Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count93
+))
+\Gin@req@height=\dimen105
+\Gin@req@width=\dimen106
+)
+\c@r@tfl@t=\count94
+\rotFPtop=\skip82
+\rotFPbot=\skip83
+\rot@float@box=\box26
+\rot@mess@toks=\toks15
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\times.sty"
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\mathptmx.sty"
+Package: mathptmx 2005/04/12 PSNFSS-v9.2a Times w/ Math, improved (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+LaTeX Info: Redefining \hbar on input line 50.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\courier.sty"
+Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\helvet.sty"
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks16
+\symAMSa=\mathgroup6
+\symAMSb=\mathgroup7
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2016/11/05 v2.16a AMS math features
+\@mathmargin=\skip84
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen107
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen108
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count95
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count96
+\leftroot@=\count97
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count98
+\DOTSCASE@=\count99
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box27
+\strutbox@=\box28
+\big@size=\dimen109
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count100
+\c@MaxMatrixCols=\count101
+\dotsspace@=\muskip10
+\c@parentequation=\count102
+\dspbrk@lvl=\count103
+\tag@help=\toks18
+\row@=\count104
+\column@=\count105
+\maxfields@=\count106
+\andhelp@=\toks19
+\eqnshift@=\dimen110
+\alignsep@=\dimen111
+\tagshift@=\dimen112
+\tagwidth@=\dimen113
+\totwidth@=\dimen114
+\lineht@=\dimen115
+\@envbody=\toks20
+\multlinegap=\skip85
+\multlinetaggap=\skip86
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\pifont.sty"
+Package: pifont 2005/04/12 PSNFSS-v9.2a Pi font support (SPQR) 
+LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\upzd.fd"
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Try loading font information for U+psy on input line 64.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\upsy.fd"
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\bezos\checkend.sty"
+Package: checkend 2002/04/20 v1.0 Environment checking
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty"
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen116
+\lightrulewidth=\dimen117
+\cmidrulewidth=\dimen118
+\belowrulesep=\dimen119
+\belowbottomsep=\dimen120
+\aboverulesep=\dimen121
+\abovetopsep=\dimen122
+\cmidrulesep=\dimen123
+\cmidrulekern=\dimen124
+\defaultaddspace=\dimen125
+\@cmidla=\count107
+\@cmidlb=\count108
+\@aboverulesep=\dimen126
+\@belowrulesep=\dimen127
+\@thisruleclass=\count109
+\@lastruleclass=\count110
+\@thisrulewidth=\dimen128
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
+\lst@mode=\count111
+\lst@gtempboxa=\box29
+\lst@token=\toks22
+\lst@length=\count112
+\lst@currlwidth=\dimen129
+\lst@column=\count113
+\lst@pos=\count114
+\lst@lostspace=\dimen130
+\lst@width=\dimen131
+\lst@newlines=\count115
+\lst@lineno=\count116
+\lst@maxwidth=\dimen132
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count117
+\lst@skipnumbers=\count118
+\lst@framebox=\box30
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\acronym\acronym.sty"
+Package: acronym 2015/03/21 v1.41 Support for acronyms (Tobias Oetiker)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\bigfoot\suffix.sty"
+Package: suffix 2006/07/15 1.5a Variant command support
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\xstring\xstring.sty"
+("C:\Program Files\MiKTeX 2.9\tex\generic\xstring\xstring.tex"
+\@xs@message=\write3
+\integerpart=\count119
+\decimalpart=\count120
+)
+Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
+)
+\AC@clearlist=\toks23
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\comment\comment.sty"
+\CommentStream=\write4
+
+Excluding comment 'comment')
+("C:\Program Files\MiKTeX 2.9\tex\latex\natbib\natbib.sty"
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip87
+\bibsep=\skip88
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count121
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty"
+Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
+\ttl@box=\box31
+\beforetitleunit=\skip89
+\aftertitleunit=\skip90
+\ttl@plus=\dimen133
+\ttl@minus=\dimen134
+\ttl@toksa=\toks24
+\titlewidth=\dimen135
+\titlewidthlast=\dimen136
+\titlewidthfirst=\dimen137
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption.sty"
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen138
+\captionmargin@=\dimen139
+\captionwidth=\dimen140
+\caption@tempdima=\dimen141
+\caption@indent=\dimen142
+\caption@parindent=\dimen143
+\caption@hangindent=\dimen144
+)
+\c@ContinuedFloat=\count122
+Package caption Info: listings package is loaded.
+Package caption Info: rotating package is loaded.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+Package: hyperref 2016/06/24 v6.83q Hypertext links for LaTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package: ifpdf 2016/05/14 v3.1 Provides the ifpdf switch
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2016/05/21 v0.22 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
+)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen145
+\Hy@linkcounter=\count123
+\Hy@pagecounter=\count124
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+File: pd1enc.def 2016/06/24 v6.83q Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count125
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Option `bookmarks' set `true' on input line 4362.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 4362
+.
+Package hyperref Info: Option `linktocpage' set `true' on input line 4362.
+Package hyperref Info: Hyper figures OFF on input line 4486.
+Package hyperref Info: Link nesting OFF on input line 4491.
+Package hyperref Info: Hyper index ON on input line 4494.
+Package hyperref Info: Plain pages OFF on input line 4501.
+Package hyperref Info: Backreferencing ON on input line 4504.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4735.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\backref.sty"
+Package: backref 2016/05/21 v1.39 Bibliographical back referencing
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+))
+\c@Hy@tempcnt=\count126
+LaTeX Info: Redefining \url on input line 5088.
+\XeTeXLinkMargin=\dimen146
+\Fld@menulength=\count127
+\Field@Width=\dimen147
+\Fld@charsize=\dimen148
+Package hyperref Info: Hyper figures OFF on input line 6342.
+Package hyperref Info: Link nesting OFF on input line 6347.
+Package hyperref Info: Hyper index ON on input line 6350.
+Package hyperref Info: backreferencing ON on input line 6355.
+Package hyperref Info: Link coloring OFF on input line 6362.
+Package hyperref Info: Link coloring with OCG OFF on input line 6367.
+Package hyperref Info: PDF/A mode OFF on input line 6372.
+LaTeX Info: Redefining \ref on input line 6412.
+LaTeX Info: Redefining \pageref on input line 6416.
+\Hy@abspage=\count128
+\c@Item=\count129
+\c@Hfootnote=\count130
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+File: hpdftex.def 2016/06/24 v6.83q Hyperref driver for pdfTeX
+\Fld@listcount=\count131
+\c@bookmark@seq@number=\count132
+\Hy@SectionHShift=\skip91
+) (macros.tex)
+("C:\Program Files\MiKTeX 2.9\tex\latex\wrapfig\wrapfig.sty"
+\wrapoverhang=\dimen149
+\WF@size=\dimen150
+\c@WF@wrappedlines=\count133
+\WF@box=\box32
+\WF@everypar=\toks25
+Package: wrapfig 2003/01/31  v 3.6
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\enumitem\enumitem.sty"
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip92
+\enit@outerparindent=\dimen151
+\enit@toks=\toks26
+\enit@inbox=\box33
+\enitdp@description=\count134
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip93
+\multirow@cntb=\count135
+\multirow@dima=\skip94
+\bigstrutjot=\dimen152
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\lscape.sty"
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+(Thesis_Driver.aux (abstract.aux) (preface.aux) (ack.aux) (Chap1_Intro.aux)
+(Chap2_Forward.aux
+
+LaTeX Warning: Label `b_integral' multiply defined.
+
+) (Chap3_Inverse.aux) (Chap4_Mixed_Lpnorm_Regularization.aux
+
+LaTeX Warning: Label `eq:lpnorm' multiply defined.
+
+
+LaTeX Warning: Label `eq:eta' multiply defined.
+
+) (Chap5_Cooperative_Mag_Inversion_CMI.aux
+
+LaTeX Warning: Label `fig:3D_Inv_l2l2_pred_kEff' multiply defined.
+
+
+LaTeX Warning: Label `fig:3D_Inv_l2l2_pred_AMI' multiply defined.
+
+) (Chap6_Case_Study.aux) (Chap7_Conclusion.aux))
+\openout1 = `Thesis_Driver.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 336.
+LaTeX Font Info:    ... okay on input line 336.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 336.
+LaTeX Font Info:    ... okay on input line 336.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 336.
+LaTeX Font Info:    ... okay on input line 336.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 336.
+LaTeX Font Info:    ... okay on input line 336.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 336.
+LaTeX Font Info:    ... okay on input line 336.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 336.
+LaTeX Font Info:    ... okay on input line 336.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 336.
+LaTeX Font Info:    ... okay on input line 336.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 336.
+
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count136
+\scratchdimen=\dimen153
+\scratchbox=\box34
+\nofMPsegments=\count137
+\nofMParguments=\count138
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count139
+\MPscratchDim=\dimen154
+\MPnumerator=\count140
+\makeMPintoPDFobject=\count141
+\everyMPtoPDFconversion=\toks28
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+\c@lstlisting=\count142
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: wrapfig package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\AtBeginShipoutBox=\box35
+Package backref Info: ** backref set up for natbib ** on input line 336.
+Package hyperref Info: Link coloring OFF on input line 336.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count143
+)
+LaTeX Info: Redefining \ref on input line 336.
+LaTeX Info: Redefining \pageref on input line 336.
+LaTeX Info: Redefining \nameref on input line 336.
+
+(Thesis_Driver.out) (Thesis_Driver.out)
+\@outlinefile=\write5
+\openout5 = `Thesis_Driver.out'.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 345.
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 34
+5.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ztmcm.fd"
+File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 34
+5.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omlztmcm.fd"
+File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 34
+5.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsztmcm.fd"
+File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 34
+5.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omxztmcm.fd"
+File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 345.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 345.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 345.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 345.
+
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsptm.fd"
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 345.
+ [1
+
+
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+\openout2 = `abstract.aux'.
+
+ (abstract.tex
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 16.
+ [2
+
+
+]) [3]
+\openout2 = `preface.aux'.
+
+ (preface.tex)
+[4
+
+
+
+
+] (Thesis_Driver.toc [5
+
+
+
+] [6])
+\tf@toc=\write6
+\openout6 = `Thesis_Driver.toc'.
+
+ [7] (Thesis_Driver.lot)
+\tf@lot=\write7
+\openout7 = `Thesis_Driver.lot'.
+
+ [8
+
+
+] (Thesis_Driver.lof
+Overfull \hbox (9.51027pt too wide) in paragraph at lines 9--9
+ [][] []$[][]$ \OT1/ptm/m/n/10.95 Syn-thetic sus-cep-ti-bil-ity model con-sist-
+ing of a folded anomaly 
+ []
+
+
+Overfull \hbox (0.35611pt too wide) in paragraph at lines 10--10
+ [][] []$[]$ \OT1/ptm/m/n/10.95 Data gen-er-ated from the syn-thetic sus-cep-ti
+-bil-ity model sub- 
+ []
+
+[9
+
+
+]
+Overfull \hbox (5.59105pt too wide) in paragraph at lines 15--15
+ \OT1/ptm/m/n/10.95 (b) Ob-served data are cor-rupted with (c) ran-dom Gaus-sia
+n noise, 
+ []
+
+[10]
+Overfull \hbox (10.5628pt too wide) in paragraph at lines 24--24
+ \OT1/ptm/m/n/10.95 mov-ing a por-tion of data over the cor-ner of the mag-neti
+c anomaly. 
+ []
+
+[11]
+Overfull \hbox (1.01416pt too wide) in paragraph at lines 27--27
+ [][] []\OT1/ptm/m/n/10.95 Contour maps for var-i-ous ob-jec-tive func-tions af
+-ter con-ver-gence 
+ []
+
+[12] [13]
+Overfull \hbox (0.47717pt too wide) in paragraph at lines 33--33
+ \OT1/ptm/m/n/10.95 re-cov-ered from the smooth $\OML/ztmcm/m/it/10.95 l[]$\OT1
+/ptm/m/n/10.95 -norm reg-u-lar-iza-tion. Both curves 
+ []
+
+[14] [15] [16] [17]
+Overfull \hbox (3.37857pt too wide) in paragraph at lines 51--51
+ \OT1/ptm/m/n/10.95 mal-ized by the es-ti-mated un-cer-tain-ties (10 nT). Both 
+the smooth 
+ []
+
+
+Overfull \hbox (1.41931pt too wide) in paragraph at lines 51--51
+ \OT1/ptm/m/n/10.95 and mixed-norm in-ver-sions re-pro-duce the data within fou
+r stan- 
+ []
+
+[18] [19])
+\tf@lof=\write8
+\openout8 = `Thesis_Driver.lof'.
+
+ [20]
+\openout2 = `ack.aux'.
+
+ (ack.tex) [21
+
+
+
+]
+\openout2 = `Chap1_Intro.aux'.
+
+ (Chap1_Intro.tex
+Chapter 1.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20.74> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
+[1
+
+
+
+
+] [2] <./Figures/Earth_Field.png, id=555, 451.6875pt x 451.6875pt>
+File: ./Figures/Earth_Field.png Graphic file (type png)
+
+<use ./Figures/Earth_Field.png>
+Package pdftex.def Info: ./Figures/Earth_Field.png used on input line 72.
+(pdftex.def)             Requested size: 271.01459pt x 271.01459pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3] [4 <./Figures/Earth_Field.png (PNG copy)>]
+<./Figures/Magnetization_EDT.png, id=578, 485.6544pt x 394.5942pt>
+File: ./Figures/Magnetization_EDT.png Graphic file (type png)
+
+<use ./Figures/Magnetization_EDT.png>
+Package pdftex.def Info: ./Figures/Magnetization_EDT.png used on input line 113
+.
+(pdftex.def)             Requested size: 267.11075pt x 217.02747pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5] [6 <./Figures/Magnetization_EDT.png>] [7] [8]) [9]
+\openout2 = `Chap2_Forward.aux'.
+
+ (Chap2_Forward.tex
+Chapter 2.
+[10
+
+
+
+] [11] [12] [13] [14]) [15]
+\openout2 = `Chap3_Inverse.aux'.
+
+ (Chap3_Inverse.tex
+Chapter 3.
+[16
+
+
+
+] [17] [18] [19] [20]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[21] [22] [23] [24] [25]
+<./Figures/3D_Model_INDUCED.pdf, id=880, 455.30101pt x 654.40488pt>
+File: ./Figures/3D_Model_INDUCED.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Model_INDUCED.pdf>
+Package pdftex.def Info: ./Figures/3D_Model_INDUCED.pdf used on input line 342.
+
+(pdftex.def)             Requested size: 236.75789pt x 340.2925pt.
+
+<./Figures/3D_Data_INDUCED.pdf, id=881, 341.47577pt x 654.40488pt>
+File: ./Figures/3D_Data_INDUCED.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Data_INDUCED.pdf>
+Package pdftex.def Info: ./Figures/3D_Data_INDUCED.pdf used on input line 348.
+(pdftex.def)             Requested size: 177.56842pt x 340.2925pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/Convergence_curve.png, id=889, 421.575pt x 316.18124pt>
+File: ./Figures/Convergence_curve.png Graphic file (type png)
+
+<use ./Figures/Convergence_curve.png>
+Package pdftex.def Info: ./Figures/Convergence_curve.png used on input line 386
+.
+(pdftex.def)             Requested size: 252.94695pt x 189.7102pt.
+ [26]
+
+LaTeX Warning: Text page 27 contains only floats.
+
+[27 <./Figures/3D_Model_INDUCED.pdf> <./Figures/3D_Data_INDUCED.pdf>] [28 <./Fi
+gures/Convergence_curve.png (PNG copy)>] [29]
+<./Figures/3D_Inv_l2l2_model_INDUCED.pdf, id=920, 455.30101pt x 654.40488pt>
+File: ./Figures/3D_Inv_l2l2_model_INDUCED.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_model_INDUCED.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_model_INDUCED.pdf used on input 
+line 407.
+(pdftex.def)             Requested size: 236.75789pt x 340.2925pt.
+
+<./Figures/3D_Inv_l2l2_pred_INDUCED.pdf, id=921, 312.92911pt x 654.40488pt>
+File: ./Figures/3D_Inv_l2l2_pred_INDUCED.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_pred_INDUCED.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_pred_INDUCED.pdf used on input l
+ine 413.
+(pdftex.def)             Requested size: 162.72406pt x 340.2925pt.
+ [30 <./Figures/3D_Inv_l2l2_model_INDUCED.pdf> <./Figures/3D_Inv_l2l2_pred_INDU
+CED.pdf>]
+<./Figures/3D_Model_REMANENT.pdf, id=946, 455.30101pt x 654.40488pt>
+File: ./Figures/3D_Model_REMANENT.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Model_REMANENT.pdf>
+Package pdftex.def Info: ./Figures/3D_Model_REMANENT.pdf used on input line 437
+.
+(pdftex.def)             Requested size: 236.75789pt x 340.2925pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/3D_Data_REMANENT.pdf, id=947, 312.92911pt x 654.40488pt>
+File: ./Figures/3D_Data_REMANENT.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Data_REMANENT.pdf>
+Package pdftex.def Info: ./Figures/3D_Data_REMANENT.pdf used on input line 444.
+
+(pdftex.def)             Requested size: 162.72406pt x 340.2925pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/3D_Inv_l2l2_model_REMANENT.pdf, id=948, 455.30101pt x 654.40488pt>
+File: ./Figures/3D_Inv_l2l2_model_REMANENT.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_model_REMANENT.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_model_REMANENT.pdf used on input
+ line 450.
+(pdftex.def)             Requested size: 236.75789pt x 340.2925pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/3D_Inv_l2l2_pred_REMANENT.pdf, id=949, 312.92911pt x 654.40488pt>
+File: ./Figures/3D_Inv_l2l2_pred_REMANENT.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_pred_REMANENT.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_pred_REMANENT.pdf used on input 
+line 456.
+(pdftex.def)             Requested size: 162.72406pt x 340.2925pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[31]
+
+LaTeX Warning: Text page 32 contains only floats.
+
+[32 <./Figures/3D_Model_REMANENT.pdf> <./Figures/3D_Data_REMANENT.pdf>]
+
+LaTeX Warning: Text page 33 contains only floats.
+
+[33 <./Figures/3D_Inv_l2l2_model_REMANENT.pdf> <./Figures/3D_Inv_l2l2_pred_REMA
+NENT.pdf>]
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 468.
+ [34] [35] [36]
+<./Figures/3D_Inv_l2l2_model_TMVI.pdf, id=1007, 460.96214pt x 651.51407pt>
+File: ./Figures/3D_Inv_l2l2_model_TMVI.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_model_TMVI.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_model_TMVI.pdf used on input lin
+e 564.
+(pdftex.def)             Requested size: 239.70169pt x 338.78926pt.
+
+<./Figures/3D_Inv_l2l2_pred_TMVI.pdf, id=1008, 312.92911pt x 625.97867pt>
+File: ./Figures/3D_Inv_l2l2_pred_TMVI.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_pred_TMVI.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_pred_TMVI.pdf used on input line
+ 570.
+(pdftex.def)             Requested size: 162.72406pt x 325.51079pt.
+ [37 <./Figures/3D_Inv_l2l2_model_TMVI.pdf> <./Figures/3D_Inv_l2l2_pred_TMVI.pd
+f>] [38] [39] [40] [41]
+<./Figures/3D_Inv_l2l2_model_kEff.pdf, id=1060, 460.96214pt x 651.51407pt>
+File: ./Figures/3D_Inv_l2l2_model_kEff.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_model_kEff.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_model_kEff.pdf used on input lin
+e 725.
+(pdftex.def)             Requested size: 239.70169pt x 338.78926pt.
+
+<./Figures/3D_Inv_l2l2_pred_kEff.pdf, id=1061, 312.92911pt x 625.97867pt>
+File: ./Figures/3D_Inv_l2l2_pred_kEff.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_pred_kEff.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_pred_kEff.pdf used on input line
+ 731.
+(pdftex.def)             Requested size: 162.72406pt x 325.51079pt.
+ [42 <./Figures/3D_Inv_l2l2_model_kEff.pdf> <./Figures/3D_Inv_l2l2_pred_kEff.pd
+f>] [43]
+Overfull \hbox (0.14267pt too wide) in paragraph at lines 770--773
+\OT1/ptm/m/n/10.95 As demon-strated by [][]Damp-ney[] ([]1969[]) and later re-v
+ised by [][]Li and Old-en-burg[] ([]2010[]),
+ []
+
+<./Figures/ES_Li_True.pdf, id=1099, 614.295pt x 794.97pt>
+File: ./Figures/ES_Li_True.pdf Graphic file (type pdf)
+
+<use ./Figures/ES_Li_True.pdf>
+Package pdftex.def Info: ./Figures/ES_Li_True.pdf used on input line 784.
+(pdftex.def)             Requested size: 337.86328pt x 437.23485pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/ES_Li_Full_Space.pdf, id=1100, 614.295pt x 794.97pt>
+File: ./Figures/ES_Li_Full_Space.pdf Graphic file (type pdf)
+
+<use ./Figures/ES_Li_Full_Space.pdf>
+Package pdftex.def Info: ./Figures/ES_Li_Full_Space.pdf used on input line 791.
+
+(pdftex.def)             Requested size: 337.86328pt x 437.23485pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[44]
+
+LaTeX Warning: Text page 45 contains only floats.
+
+[45 <./Figures/ES_Li_True.pdf>]
+
+LaTeX Warning: Text page 46 contains only floats.
+
+[46 <./Figures/ES_Li_Full_Space.pdf>]
+<./Figures/ES_Li_CornerOut.pdf, id=1131, 614.295pt x 794.97pt>
+File: ./Figures/ES_Li_CornerOut.pdf Graphic file (type pdf)
+
+<use ./Figures/ES_Li_CornerOut.pdf>
+Package pdftex.def Info: ./Figures/ES_Li_CornerOut.pdf used on input line 812.
+(pdftex.def)             Requested size: 337.86328pt x 437.23485pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) [47]
+
+LaTeX Warning: Text page 48 contains only floats.
+
+
+Overfull \vbox (0.83463pt too high) has occurred while \output is active []
+
+
+[48 <./Figures/ES_Li_CornerOut.pdf>]
+\openout2 = `Chap4_Mixed_Lpnorm_Regularization.aux'.
+
+ (Chap4_Mixed_Lpnorm_Regularization.tex
+Chapter 4.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 4.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 4.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 4.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
+[49
+
+
+
+] [50] <./Figures/IRLS_toy_l0l1l2.pdf, id=1170, 614.295pt x 686.565pt>
+File: ./Figures/IRLS_toy_l0l1l2.pdf Graphic file (type pdf)
+
+<use ./Figures/IRLS_toy_l0l1l2.pdf>
+Package pdftex.def Info: ./Figures/IRLS_toy_l0l1l2.pdf used on input line 86.
+(pdftex.def)             Requested size: 319.43523pt x 357.01585pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/IRLS_toy_Result.pdf, id=1171, 312.92911pt x 625.97867pt>
+File: ./Figures/IRLS_toy_Result.pdf Graphic file (type pdf)
+
+<use ./Figures/IRLS_toy_Result.pdf>
+Package pdftex.def Info: ./Figures/IRLS_toy_Result.pdf used on input line 95.
+(pdftex.def)             Requested size: 181.499pt x 363.06789pt.
+
+Overfull \hbox (3.06789pt too wide) in paragraph at lines 95--98
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 109.
+
+[51]
+
+LaTeX Warning: Text page 52 contains only floats.
+
+
+Overfull \vbox (3.75296pt too high) has occurred while \output is active []
+
+
+[52 <./Figures/IRLS_toy_l0l1l2.pdf>] [53 <./Figures/IRLS_toy_Result.pdf>]
+[54] [55] <./Figures/Lp_r_dphidm.pdf, id=1250, 614.295pt x 794.97pt>
+File: ./Figures/Lp_r_dphidm.pdf Graphic file (type pdf)
+
+<use ./Figures/Lp_r_dphidm.pdf>
+Package pdftex.def Info: ./Figures/Lp_r_dphidm.pdf used on input line 187.
+(pdftex.def)             Requested size: 325.57478pt x 421.33209pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[56]
+
+LaTeX Warning: Text page 57 contains only floats.
+
+[57 <./Figures/Lp_r_dphidm.pdf>] [58] [59]
+<./Figures/1D_Kernel_data.pdf, id=1319, 614.295pt x 614.295pt>
+File: ./Figures/1D_Kernel_data.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_Kernel_data.pdf>
+Package pdftex.def Info: ./Figures/1D_Kernel_data.pdf used on input line 296.
+(pdftex.def)             Requested size: 337.86328pt x 337.86328pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[60] [61 <./Figures/1D_Kernel_data.pdf>] [62]
+<./Figures/1D_IRLS_algo1.pdf, id=1357, 614.295pt x 614.295pt>
+File: ./Figures/1D_IRLS_algo1.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_IRLS_algo1.pdf>
+Package pdftex.def Info: ./Figures/1D_IRLS_algo1.pdf used on input line 355.
+(pdftex.def)             Requested size: 368.57983pt x 368.57983pt.
+
+Overfull \hbox (8.57983pt too wide) in paragraph at lines 355--356
+[][] 
+ []
+
+[63] [64 <./Figures/1D_IRLS_algo1.pdf>]
+<./Figures/1D_IRLS_algo2.pdf, id=1381, 614.295pt x 614.295pt>
+File: ./Figures/1D_IRLS_algo2.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_IRLS_algo2.pdf>
+Package pdftex.def Info: ./Figures/1D_IRLS_algo2.pdf used on input line 413.
+(pdftex.def)             Requested size: 368.57983pt x 368.57983pt.
+
+Overfull \hbox (8.57983pt too wide) in paragraph at lines 413--414
+[][] 
+ []
+
+[65]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 459.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 459.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 459.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\epsilon' on input line 459.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 459.
+
+[66] [67 <./Figures/1D_IRLS_algo2.pdf>] [68]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[69] <./Figures/1D_IRLS_algo3.pdf, id=1445, 614.295pt x 614.295pt>
+File: ./Figures/1D_IRLS_algo3.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_IRLS_algo3.pdf>
+Package pdftex.def Info: ./Figures/1D_IRLS_algo3.pdf used on input line 523.
+(pdftex.def)             Requested size: 350.15178pt x 350.15178pt.
+ [70] [71 <./Figures/1D_IRLS_algo3.pdf>]
+<./Figures/1D_Model_curve.pdf, id=1465, 614.295pt x 614.295pt>
+File: ./Figures/1D_Model_curve.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_Model_curve.pdf>
+Package pdftex.def Info: ./Figures/1D_Model_curve.pdf used on input line 556.
+(pdftex.def)             Requested size: 368.57983pt x 368.57983pt.
+
+Overfull \hbox (8.57983pt too wide) in paragraph at lines 556--558
+[][] 
+ []
+
+[72] [73 <./Figures/1D_Model_curve.pdf>]
+<./Figures/1D_Eta_test.pdf, id=1483, 614.295pt x 614.295pt>
+File: ./Figures/1D_Eta_test.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_Eta_test.pdf>
+Package pdftex.def Info: ./Figures/1D_Eta_test.pdf used on input line 620.
+(pdftex.def)             Requested size: 368.57983pt x 368.57983pt.
+
+Overfull \hbox (8.57983pt too wide) in paragraph at lines 620--621
+ [][] 
+ []
+
+[74] [75 <./Figures/1D_Eta_test.pdf>]
+<./Figures/IRLS_toy_Phis_Phix.pdf, id=1504, 505.89pt x 650.43pt>
+File: ./Figures/IRLS_toy_Phis_Phix.pdf Graphic file (type pdf)
+
+<use ./Figures/IRLS_toy_Phis_Phix.pdf>
+Package pdftex.def Info: ./Figures/IRLS_toy_Phis_Phix.pdf used on input line 66
+1.
+(pdftex.def)             Requested size: 278.24034pt x 357.7376pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[76] [77 <./Figures/IRLS_toy_Phis_Phix.pdf>]
+<./Figures/Lp_g_scaled.pdf, id=1525, 312.92911pt x 625.97867pt>
+File: ./Figures/Lp_g_scaled.pdf Graphic file (type pdf)
+
+<use ./Figures/Lp_g_scaled.pdf>
+Package pdftex.def Info: ./Figures/Lp_g_scaled.pdf used on input line 686.
+(pdftex.def)             Requested size: 181.499pt x 363.06789pt.
+
+Overfull \hbox (3.06789pt too wide) in paragraph at lines 686--687
+[][] 
+ []
+
+[78 <./Figures/Lp_g_scaled.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 723.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 723.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                \kern 3.04074pt
+(hyperref)                removed on input line 723.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 723.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 723.
+
+[79] [80] <./Figures/1D_Wr_in_vs_out.pdf, id=1569, 312.92911pt x 625.97867pt>
+File: ./Figures/1D_Wr_in_vs_out.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_Wr_in_vs_out.pdf>
+Package pdftex.def Info: ./Figures/1D_Wr_in_vs_out.pdf used on input line 771.
+(pdftex.def)             Requested size: 172.11153pt x 344.28934pt.
+ [81 <./Figures/1D_Wr_in_vs_out.pdf>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 780.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 780.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 780.
+
+<./Figures/1D_Results_ALL.pdf, id=1583, 614.295pt x 614.295pt>
+File: ./Figures/1D_Results_ALL.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_Results_ALL.pdf>
+Package pdftex.def Info: ./Figures/1D_Results_ALL.pdf used on input line 794.
+(pdftex.def)             Requested size: 380.85895pt x 380.85895pt.
+
+Overfull \hbox (20.85895pt too wide) in paragraph at lines 794--795
+ [][] 
+ []
+
+<./Figures/1D_Results.pdf, id=1584, 614.295pt x 614.295pt>
+File: ./Figures/1D_Results.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_Results.pdf>
+Package pdftex.def Info: ./Figures/1D_Results.pdf used on input line 801.
+(pdftex.def)             Requested size: 360.04396pt x 368.57983pt.
+ [82] [83 <./Figures/1D_Results_ALL.pdf>]
+[84 <./Figures/1D_Results.pdf>] [85]
+<./Figures/1D_Mixed_norm.pdf, id=1622, 312.92911pt x 654.40488pt>
+File: ./Figures/1D_Mixed_norm.pdf Graphic file (type pdf)
+
+<use ./Figures/1D_Mixed_norm.pdf>
+Package pdftex.def Info: ./Figures/1D_Mixed_norm.pdf used on input line 861.
+(pdftex.def)             Requested size: 175.23909pt x 366.46423pt.
+
+Overfull \hbox (6.46423pt too wide) in paragraph at lines 861--862
+ [][] 
+ []
+
+[86 <./Figures/1D_Mixed_norm.pdf>]
+<./Figures/2D_Model_Kernel_data.pdf, id=1633, 596.10706pt x 686.565pt>
+File: ./Figures/2D_Model_Kernel_data.pdf Graphic file (type pdf)
+
+<use ./Figures/2D_Model_Kernel_data.pdf>
+Package pdftex.def Info: ./Figures/2D_Model_Kernel_data.pdf used on input line 
+877.
+(pdftex.def)             Requested size: 357.66699pt x 411.94218pt.
+ [87] [88 <./Figures/2D_Model_Kernel_data.pdf>]
+<./Figures/2D_Model_Grad_Test.pdf, id=1660, 312.92911pt x 654.40488pt>
+File: ./Figures/2D_Model_Grad_Test.pdf Graphic file (type pdf)
+
+<use ./Figures/2D_Model_Grad_Test.pdf>
+Package pdftex.def Info: ./Figures/2D_Model_Grad_Test.pdf used on input line 92
+3.
+(pdftex.def)             Requested size: 172.11153pt x 359.9238pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./Figures/2D_Mix_lp_norms.pdf, id=1661, 297.87286pt x 686.565pt>
+File: ./Figures/2D_Mix_lp_norms.pdf Graphic file (type pdf)
+
+<use ./Figures/2D_Mix_lp_norms.pdf>
+Package pdftex.def Info: ./Figures/2D_Mix_lp_norms.pdf used on input line 930.
+(pdftex.def)             Requested size: 163.83057pt x 377.61192pt.
+
+Overfull \hbox (17.61192pt too wide) in paragraph at lines 930--931
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/2D_Mix_norm_result.pdf, id=1662, 614.295pt x 614.295pt>
+File: ./Figures/2D_Mix_norm_result.pdf Graphic file (type pdf)
+
+<use ./Figures/2D_Mix_norm_result.pdf>
+Package pdftex.def Info: ./Figures/2D_Mix_norm_result.pdf used on input line 93
+7.
+(pdftex.def)             Requested size: 368.57983pt x 368.57983pt.
+
+Overfull \hbox (8.57983pt too wide) in paragraph at lines 937--939
+ [][] 
+ []
+
+[89] [90 <./Figures/2D_Model_Grad_Test.pdf> <./Figures/2D_Mix_lp_norms.pdf>]
+[91 <./Figures/2D_Mix_norm_result.pdf>] [92]
+<./Figures/3D_Inv_l0l2_model_INDUCED.pdf, id=1697, 460.96214pt x 651.51407pt>
+File: ./Figures/3D_Inv_l0l2_model_INDUCED.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l0l2_model_INDUCED.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l0l2_model_INDUCED.pdf used on input 
+line 960.
+(pdftex.def)             Requested size: 239.70169pt x 338.78926pt.
+
+<./Figures/3D_Inv_l0l2_pred_INDUCED.pdf, id=1698, 312.92911pt x 654.40488pt>
+File: ./Figures/3D_Inv_l0l2_pred_INDUCED.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l0l2_pred_INDUCED.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l0l2_pred_INDUCED.pdf used on input l
+ine 966.
+(pdftex.def)             Requested size: 162.72406pt x 340.2925pt.
+ [93 <./Figures/3D_Inv_l0l2_model_INDUCED.pdf> <./Figures/3D_Inv_l0l2_pred_INDU
+CED.pdf>]
+<./Figures/3D_Inv_l0l0_model_INDUCED.pdf, id=1711, 460.96214pt x 651.51407pt>
+File: ./Figures/3D_Inv_l0l0_model_INDUCED.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l0l0_model_INDUCED.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l0l0_model_INDUCED.pdf used on input 
+line 974.
+(pdftex.def)             Requested size: 239.70169pt x 338.78926pt.
+
+<./Figures/3D_Inv_l0l0_pred_INDUCED.pdf, id=1712, 312.92911pt x 654.40488pt>
+File: ./Figures/3D_Inv_l0l0_pred_INDUCED.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l0l0_pred_INDUCED.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l0l0_pred_INDUCED.pdf used on input l
+ine 980.
+(pdftex.def)             Requested size: 162.72406pt x 340.2925pt.
+ [94 <./Figures/3D_Inv_l0l0_model_INDUCED.pdf> <./Figures/3D_Inv_l0l0_pred_INDU
+CED.pdf>] [95]
+<./Figures/TKC_Mag_Models.pdf, id=1740, 614.295pt x 686.565pt>
+File: ./Figures/TKC_Mag_Models.pdf Graphic file (type pdf)
+
+<use ./Figures/TKC_Mag_Models.pdf>
+Package pdftex.def Info: ./Figures/TKC_Mag_Models.pdf used on input line 1030.
+(pdftex.def)             Requested size: 368.57983pt x 411.94218pt.
+
+Overfull \hbox (8.57983pt too wide) in paragraph at lines 1030--1032
+ [][] 
+ []
+
+<./Figures/TKC_Mix_Norm.pdf, id=1741, 614.295pt x 614.295pt>
+File: ./Figures/TKC_Mix_Norm.pdf Graphic file (type pdf)
+
+<use ./Figures/TKC_Mix_Norm.pdf>
+Package pdftex.def Info: ./Figures/TKC_Mix_Norm.pdf used on input line 1038.
+(pdftex.def)             Requested size: 368.57983pt x 368.57983pt.
+
+Overfull \hbox (8.57983pt too wide) in paragraph at lines 1038--1039
+ [][] 
+ []
+
+<./Figures/TKC_Obs_vs_Pred.pdf, id=1742, 614.295pt x 686.565pt>
+File: ./Figures/TKC_Obs_vs_Pred.pdf Graphic file (type pdf)
+
+<use ./Figures/TKC_Obs_vs_Pred.pdf>
+Package pdftex.def Info: ./Figures/TKC_Obs_vs_Pred.pdf used on input line 1045.
+
+(pdftex.def)             Requested size: 368.57983pt x 411.94218pt.
+
+Overfull \hbox (8.57983pt too wide) in paragraph at lines 1045--1046
+ [][] 
+ []
+
+[96] [97 <./Figures/TKC_Mag_Models.pdf>]) [98] [99 <./Figures/TKC_Mix_Norm.pdf>
+] [100 <./Figures/TKC_Obs_vs_Pred.pdf>]
+\openout2 = `Chap5_Cooperative_Mag_Inversion_CMI.aux'.
+
+
+(Chap5_Cooperative_Mag_Inversion_CMI.tex
+Chapter 5.
+[101
+
+
+
+]
+<./Figures/Advanced_Mag_Inversion_Algo.png, id=1788, 429.2838pt x 323.7696pt>
+File: ./Figures/Advanced_Mag_Inversion_Algo.png Graphic file (type png)
+
+<use ./Figures/Advanced_Mag_Inversion_Algo.png>
+Package pdftex.def Info: ./Figures/Advanced_Mag_Inversion_Algo.png used on inpu
+t line 36.
+(pdftex.def)             Requested size: 257.57227pt x 194.26326pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/3D_EQS_CMI.pdf, id=1792, 614.295pt x 794.97pt>
+File: ./Figures/3D_EQS_CMI.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_EQS_CMI.pdf>
+Package pdftex.def Info: ./Figures/3D_EQS_CMI.pdf used on input line 49.
+(pdftex.def)             Requested size: 337.86328pt x 437.23485pt.
+ [102]
+File: ./Figures/3D_Inv_l2l2_model_kEff.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_model_kEff.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_model_kEff.pdf used on input lin
+e 66.
+(pdftex.def)             Requested size: 239.70169pt x 338.78926pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: ./Figures/3D_Inv_l2l2_pred_kEff.pdf Graphic file (type pdf)
+<use ./Figures/3D_Inv_l2l2_pred_kEff.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_pred_kEff.pdf used on input line
+ 72.
+(pdftex.def)             Requested size: 162.72406pt x 325.51079pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[103 <./Figures/Advanced_Mag_Inversion_Algo.png>] [104 <./Figures/3D_EQS_CMI.pd
+f>]
+
+LaTeX Warning: Text page 105 contains only floats.
+
+[105]
+<./Figures/3D_Inv_l2l2_model_AMI.pdf, id=1821, 460.96214pt x 651.51407pt>
+File: ./Figures/3D_Inv_l2l2_model_AMI.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_model_AMI.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_model_AMI.pdf used on input line
+ 90.
+(pdftex.def)             Requested size: 239.70169pt x 338.78926pt.
+
+<./Figures/3D_Inv_l2l2_pred_AMI.pdf, id=1822, 312.92911pt x 654.40488pt>
+File: ./Figures/3D_Inv_l2l2_pred_AMI.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l2l2_pred_AMI.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l2l2_pred_AMI.pdf used on input line 
+96.
+(pdftex.def)             Requested size: 162.72406pt x 340.2925pt.
+ [106 <./Figures/3D_Inv_l2l2_model_AMI.pdf> <./Figures/3D_Inv_l2l2_pred_AMI.pdf
+>]
+<./Figures/3D_Inv_l0l1_CMI_kEff.pdf, id=1839, 460.96214pt x 651.51407pt>
+File: ./Figures/3D_Inv_l0l1_CMI_kEff.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l0l1_CMI_kEff.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l0l1_CMI_kEff.pdf used on input line 
+115.
+(pdftex.def)             Requested size: 239.70169pt x 338.78926pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/3D_Inv_l0l1_CMI_pred_kEff.pdf, id=1840, 312.92911pt x 654.40488pt>
+File: ./Figures/3D_Inv_l0l1_CMI_pred_kEff.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l0l1_CMI_pred_kEff.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l0l1_CMI_pred_kEff.pdf used on input 
+line 121.
+(pdftex.def)             Requested size: 162.72406pt x 340.2925pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/3D_Inv_l0l1_model_AMI.pdf, id=1841, 460.96214pt x 651.51407pt>
+File: ./Figures/3D_Inv_l0l1_model_AMI.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l0l1_model_AMI.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l0l1_model_AMI.pdf used on input line
+ 128.
+(pdftex.def)             Requested size: 239.70169pt x 338.78926pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./Figures/3D_Inv_l0l1_pred_AMI.pdf, id=1842, 312.92911pt x 654.40488pt>
+File: ./Figures/3D_Inv_l0l1_pred_AMI.pdf Graphic file (type pdf)
+
+<use ./Figures/3D_Inv_l0l1_pred_AMI.pdf>
+Package pdftex.def Info: ./Figures/3D_Inv_l0l1_pred_AMI.pdf used on input line 
+134.
+(pdftex.def)             Requested size: 162.72406pt x 340.2925pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) [107] [108 <./Figures/3D_Inv_l0l1_CMI_kEff.pdf> <./Figures/3D_Inv_l0l1_CMI_pr
+ed_kEff.pdf>] [109 <./Figures/3D_Inv_l0l1_model_AMI.pdf> <./Figures/3D_Inv_l0l1
+_pred_AMI.pdf>]
+\openout2 = `Chap6_Case_Study.aux'.
+
+ (Chap6_Case_Study.tex
+Chapter 6.
+[110
+
+
+
+] <./Figures/Ekati_Location.png, id=1903, 639.89063pt x 489.32813pt>
+File: ./Figures/Ekati_Location.png Graphic file (type png)
+
+<use ./Figures/Ekati_Location.png>
+Package pdftex.def Info: ./Figures/Ekati_Location.png used on input line 40.
+(pdftex.def)             Requested size: 383.93733pt x 293.59914pt.
+
+Overfull \hbox (23.93733pt too wide) in paragraph at lines 40--41
+[][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Overfull \hbox (13.55524pt too wide) in paragraph at lines 46--50
+\OT1/ptm/m/n/10.95 mainly of gran-i-toid and meta-sediment rocks dated be-tween
+ 2.66-2.58 Ga-old ([][]Creaser
+ []
+
+[111] [112 <./Figures/Ekati_Location.png (PNG copy)>] [113]
+<./Figures/Aeromag_Location.png, id=1951, 639.89063pt x 489.32813pt>
+File: ./Figures/Aeromag_Location.png Graphic file (type png)
+
+<use ./Figures/Aeromag_Location.png>
+Package pdftex.def Info: ./Figures/Aeromag_Location.png used on input line 93.
+(pdftex.def)             Requested size: 383.93733pt x 293.59914pt.
+
+Overfull \hbox (23.93733pt too wide) in paragraph at lines 93--94
+[][] 
+ []
+
+[114 <./Figures/Aeromag_Location.png (PNG copy)>]
+<./Figures/Ekati_Detrend_Data.png, id=1960, 677.53125pt x 451.6875pt>
+File: ./Figures/Ekati_Detrend_Data.png Graphic file (type png)
+
+<use ./Figures/Ekati_Detrend_Data.png>
+Package pdftex.def Info: ./Figures/Ekati_Detrend_Data.png used on input line 10
+8.
+(pdftex.def)             Requested size: 356.99428pt x 248.42888pt.
+ [115 <./Figures/Ekati_Detrend_Data.png (PNG copy)>] <./Figures/Ekati_Tiles.png
+, id=1967, 937.25156pt x 567.62062pt>
+File: ./Figures/Ekati_Tiles.png Graphic file (type png)
+
+<use ./Figures/Ekati_Tiles.png>
+Package pdftex.def Info: ./Figures/Ekati_Tiles.png used on input line 132.
+(pdftex.def)             Requested size: 356.15929pt x 215.69806pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[116] [117 <./Figures/Ekati_Tiles.png>]
+<./Figures/Ekati_Reg_geology_interp.png, id=1984, 631.158pt x 421.0932pt>
+File: ./Figures/Ekati_Reg_geology_interp.png Graphic file (type png)
+
+<use ./Figures/Ekati_Reg_geology_interp.png>
+Package pdftex.def Info: ./Figures/Ekati_Reg_geology_interp.png used on input l
+ine 175.
+(pdftex.def)             Requested size: 357.8206pt x 244.23422pt.
+
+<./Figures/Ekati_reg_Obs_Pred.pdf, id=1985, 614.295pt x 614.295pt>
+File: ./Figures/Ekati_reg_Obs_Pred.pdf Graphic file (type pdf)
+
+<use ./Figures/Ekati_reg_Obs_Pred.pdf>
+Package pdftex.def Info: ./Figures/Ekati_reg_Obs_Pred.pdf used on input line 18
+2.
+(pdftex.def)             Requested size: 355.77602pt x 368.57983pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[118 <./Figures/Ekati_Reg_geology_interp.png>]
+
+LaTeX Warning: Text page 119 contains only floats.
+
+[119 <./Figures/Ekati_reg_Obs_Pred.pdf>]
+<./Figures/RegRem_Misery.pdf, id=2004, 455.30101pt x 654.40488pt>
+File: ./Figures/RegRem_Misery.pdf Graphic file (type pdf)
+
+<use ./Figures/RegRem_Misery.pdf>
+Package pdftex.def Info: ./Figures/RegRem_Misery.pdf used on input line 208.
+(pdftex.def)             Requested size: 250.41632pt x 359.9238pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 237.
+
+[120] [121] [122 <./Figures/RegRem_Misery.pdf>]
+<./Figures/Ekati_reg_IND_REM.png, id=2028, 438.8897pt x 553.31718pt>
+File: ./Figures/Ekati_reg_IND_REM.png Graphic file (type png)
+
+<use ./Figures/Ekati_reg_IND_REM.png>
+Package pdftex.def Info: ./Figures/Ekati_reg_IND_REM.png used on input line 278
+.
+(pdftex.def)             Requested size: 351.11223pt x 442.65434pt.
+ [123] [124 <./Figures/Ekati_reg_IND_REM.png>]
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 307.
+
+<./Figures/Ekati_Pipe_time.png, id=2061, 301.125pt x 252.945pt>
+File: ./Figures/Ekati_Pipe_time.png Graphic file (type png)
+
+<use ./Figures/Ekati_Pipe_time.png>
+Package pdftex.def Info: ./Figures/Ekati_Pipe_time.png used on input line 325.
+(pdftex.def)             Requested size: 240.90031pt x 202.35626pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 331.
+
+
+Overfull \hbox (36.19409pt too wide) in paragraph at lines 336--357
+ [][] 
+ []
+
+) [125] [126 <./Figures/Ekati_Pipe_time.png>]
+\openout2 = `Chap7_Conclusion.aux'.
+
+ (Chap7_Conclusion.tex
+Chapter 7.
+[127
+
+
+
+] [128]) [129] (Thesis_Driver.bbl (Thesis_Driver.brf)
+\tf@brf=\write9
+\openout9 = `Thesis_Driver.brf'.
+
+ [130
+
+
+]
+Missing character: There is no – in font ptmr7t!
+ [131] [132]
+[133]) [134]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 426.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 426.
+ (Thesis_Driver.aux (abstract.aux) (preface.aux) (ack.aux)
+(Chap1_Intro.aux) (Chap2_Forward.aux) (Chap3_Inverse.aux)
+(Chap4_Mixed_Lpnorm_Regularization.aux)
+(Chap5_Cooperative_Mag_Inversion_CMI.aux) (Chap6_Case_Study.aux)
+(Chap7_Conclusion.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 426.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 426.
+Package rerunfilecheck Info: File `Thesis_Driver.out' has not changed.
+(rerunfilecheck)             Checksum: EB0D3463100EFAA3736D84186D5FF058;3739.
+Package rerunfilecheck Info: File `Thesis_Driver.brf' has not changed.
+(rerunfilecheck)             Checksum: E21E5B2F2602600FC48837DCCF25997F;8110.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 426.
+ ) 
+Here is how much of TeX's memory you used:
+ 12484 strings out of 493333
+ 190644 string characters out of 3139158
+ 305651 words of memory out of 3000000
+ 15145 multiletter control sequences out of 15000+200000
+ 68989 words of font info for 148 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 36i,25n,44p,1156b,622s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/rsfs/rsfs10
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/tim
+es/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Thesis_Driver.pdf (155 pages, 23251460 bytes).
+PDF statistics:
+ 2408 PDF objects out of 2487 (max. 8388607)
+ 491 named destinations out of 1000 (max. 500000)
+ 730 words of extra memory for PDF output out of 10000 (max. 10000000)
+

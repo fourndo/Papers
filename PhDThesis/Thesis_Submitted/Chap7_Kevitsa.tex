@@ -1,0 +1,287 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./../Figures/}}
+\chapter{Case Study - Kevitsa Ni-Cu-PGE deposit}
+\label{Chapter7}
+
+In the previous chapters, I have provided technical developments to explore the model space, interpret a suite of models and extract dominant inversion parameters. The different components were tested on synthetic examples that showcased specific aspects.
+In this final chapter, I demonstrate the practical implementation of these advances on gravity and magnetic data sets acquired over the Kevitsa Ni-Cu-PGE deposit.
+The complex geology of Kevitsa makes it an ideal candidate to showcase my research.
+
+\subsection{Geological setting}
+The Kevitsa deposit was discovered in the mid-1980's through extensive exploration programs sponsored by the Geological Surveys of Finaland. The proven 160 million tons of nickel is economically significant in the region as it is expected to become the largest mine in the country.
+Figure \ref{Kevitsa_Geology} presents a simplified geological map of the Kevitsa-Satovaara intrusive complex adapted from \cite{Koivisto2015}.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Kevitsa_Geol_SeisSections.png}
+\caption{(a) Geological surface map of the Kevitsa-Satovaara intrusive complex and (b) 2D seismic reflection survey along with the E5 profile. Interpreted seismic reflectors and geological contact (black) from the interpretation of \cite{Koivisto2015} are shown for reference, as well as the outline of the gravity and magnetic data sets analyzed in this chapter.}
+\label{Kevitsa_Geology}
+\end{figure}
+The ore deposit is hosted in a funnel-shaped ultra-mafic olivine pyroxenite (UPXO) unit dipping towards the southwest, dated to approximately 2054 Ma \cite[]{Mutanen1997, FQM2011}.
+Directly adjacent to the southwest margin is a large gabbro (IGB) unit formed during a late phase of the intrusion. Similar gabbro, found west of the Satovaara Fault, is likely related temporally.
+The body intruded a mostly layered sequence of mafic volcanic (MVS) and carbonaceous phyllites (MPH) units. Discontinuous layers of arkose (ARK), arenite (ARN) and felsic volcanic (FVS) units are interbedded within the volcanic sequence.
+The current folded configuration of the geology is due to large tectonic events that deformed the host stratigraphy around the more competent UPXO block.
+
+It is believed that the disseminated sulphide mineralization within the UPXO was precipitated from the dissolution of Ni-Cu rich proterozoic metasediments, referred to as black schist (MPHB) \cite[]{Mutanen1997}.
+Mineralogical and textural changes observed on core samples within the intrusion reveal the highly heterogeneous nature of the deposit. A highly altered dunite raft (UDU), referred to as the \emph{central dunite}, is located between the IGB and UPXO. It has likely been partially assimilated by the UPXO intrusion.
+
+Seismic surveys acquired over the deposit have been studied extensively and yielded the most complete picture of the deposit to date. \cite{Koivisto2015} interpreted the profiles along side drill hole data to produce a partial 3D surface model of the deposit.
+The bottom limit of the intrusion is marked by a series of strong reflectors, interpreted as \emph{footwall dunite} units and host stratigraphy (Figure~\ref{Kevitsa_Geology}).
+Additional UDU units have been intercepted by two deep holes, but it is unclear if this is related to the \emph{central dunite} or to the komatiite (UKO) layers found in the host stratigraphy.
+The southern continuation of the Kevitsa intrusion can clearly be seen along the E5 seismic profile, as a thick 1km non-reflective zone, but no bore hole is available to confirm the lateral extent.
+
+\subsubsection{Petrophysical data}
+Along with geophysical data, physical property measurements collected along 279 bore holes were made available for analysis; they include density, magnetic susceptibility, conductivity, seismic velocity measurements.
+Figure~\ref{Kevitsa_PhysProp} presents whisker plots summarizing the measured density and susceptibility grouped by lithological units. The interpretation of core logs is challenging due to the complex geology and broad terminology used to describe the rocks. In order to focus my analysis, I generalize the rock classification into 10 main geological groups as summarized in Table~\ref{Table1}. These groups were defined in terms of relative age and expected physical property contrasts.
+I note a few obvious trends:
+\begin{itemize}
+\item Intermediate and felsic volcanic rocks (VIO) show low density and moderate to low magnetic susceptibility
+\item The komatiite (UKO) and dunite (UDU) show significantly higher susceptibility but low density
+\item The intrusive rocks (UPX) and (IGB) are both dense and susceptible
+\end{itemize}
+Overall I should expect high physical property contrasts between the different lithologies.
+While I will not directly incorporate this information in the inversion, it will be used to define research questions and for the final interpretation.
+
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Kevitsa_PhysProp_BarPlot.png}
+\caption{Whisker plot of logged (a) density and (b) magnetic susceptibility measured along 279 boreholes. The coloured boxes have a width scaled by the calculated standard deviation and centered on the mean value for all intercepts belonging to the same lithological classification. The black lines on either side define the minimum and maximum values. The different lithologies are colour coded and grouped based on relative age and similarities in physical properties.}
+\label{Kevitsa_PhysProp}
+\end{figure}
+
+\begin{table}
+\begin{tabular}{|c | c| l | c | c |}\hline
+& Code & Description & Density & Susceptibility \\ \hline
+\crule[OVB]{0.25cm}{0.25cm} & OVB & Overburden & Low & Medium \\ \hline
+\crule[IGB]{0.25cm}{0.25cm}& IGB &
+\begin{tabular}{l}
+IGB: Gabbro \\
+IPG: Pegmatite \\
+IGBO: Olivine gabbro\\
+IDI: Diorite \\
+IDB: Diabase \\
+IMO: Intrusive (mafic)\\
+IGBM: Magnetite gabbro
+\end{tabular} & \begin{tabular}{l} \\ Medium \\ \\ \\ \\ \\ \hline Medium \end{tabular} & \begin{tabular}{c} \\ Medium \\ \\ \\ \\ \\ \hline High \end{tabular} \\ \hline
+\crule[UPX]{0.25cm}{0.25cm}& UPX &
+\begin{tabular}{l}
+UPXO: Olivine peroxinite \\
+UOO: Ultramafic (Undiff.)\\
+MPE: Metaperidotite \\
+UWB: Websterite \\
+\end{tabular} & Medium & Medium \\ \hline
+\crule[UDU]{0.25cm}{0.25cm}& UDU &
+\begin{tabular}{l}
+UDU: Dunite \\
+UPE: Peridotite \\
+USP: Serpentinite\\
+\end{tabular} & Low & High \\ \hline
+\crule[UKO]{0.25cm}{0.25cm} & UKO & Komatiite & Low & High \\ \hline
+\crule[BXH]{0.25cm}{0.25cm} & BXH & \begin{tabular}{l}BXO (undiff.) \\ BXHC: Hydrothermal (crackle)\end{tabular} & \begin{tabular}{l} Low \\ High \end{tabular} & Medium \\ \hline
+\crule[SOO]{0.25cm}{0.25cm}& SOO &
+\begin{tabular}{l}
+MAB: Albitite \\
+MAM: Amphibolite\\
+MQZ: Quartzite \\
+MSCSD: Schist \\
+\end{tabular} & Low & Low \\ \hline
+\crule[MPHB]{0.25cm}{0.25cm}& MPH &
+\begin{tabular}{l}
+MPH: Phyllite \\
+MPHB: Black Phyllite \\
+MSCBK: Black Schist \\
+MHF: Hornfels \\
+\end{tabular} & High & Low \\ \hline
+\crule[VMO]{0.25cm}{0.25cm}& VMO &
+\begin{tabular}{l}
+VMO: Volcanic Mafic \\
+VBA: Basalt\\
+VTUM: Volcanic tuff \\
+\end{tabular} & High & Low \\ \hline
+\crule[VOO]{0.25cm}{0.25cm}& VIO &
+\begin{tabular}{l}
+VIO: Volcanic Intermediate \\
+VTUI: Volcanic tuff \\
+VAN: Andesite \\
+VOO: Volcanic (undiff.) \\
+\end{tabular} & Low & Medium \\ \hline
+\end{tabular}
+\caption{Summary table grouping the various lithological units logged from bore hole. Expected density and magnetic susceptibility contrasts are derived from Figure~\ref{Kevitsa_PhysProp}.}
+\label{Table1}
+\end{table}
+
+
+\section{Geophysical data}
+Kevitsa is an interesting case study considering the large collection of data sets that were acquired and made available to researchers: bore hole petrophysical measurements \cite[]{Montonen2012}, seismic refraction \cite[]{Koivisto2015}, direct-current resistivity and magnetotelluric \cite[]{Le2016}, airborne time-domain EM surveys (VTEM 2009, SkyTEM 2010).
+In this section, I focus on the ground gravity dataset and airborne magnetic data collected by the VTEM survey shown in Figure~\ref{Kevitsa_PF_Data}(a) and (b) respectively.
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{Kevitsa_PF_Data.png}
+\caption{(a) Ground gravity and (b) airborne magnetic data map acquired over the Kevitsa Ni-Cu-PGE deposit, Finland. Color ranges are histogram equalized and sun shaded to highlight details. The location of the Kevitsa mine (red), geological boundaries (black) and faults (dash) identified from surface mapping are shown for reference.}
+\label{Kevitsa_PF_Data}
+\end{figure}
+
+From simple visual inspection, I note some obvious connections between the potential field data and the surface geology:
+\begin{itemize}
+\item High gravity and magnetic data correlated with the UPXO and hydrothermal BXH
+\item Moderate response from the VMO
+\item Weak fields over most of the MPHB units.
+\item Magnetic high and gravity low over the komatiite (UKO),
+\item Large negative magnetic anomaly within the UDU and near the southern edge of UPXO
+\end{itemize}
+The strong negative magnetic fields observed over the dunite unit are of particular interest for this study, as it is likely related to remanent magnetization.
+Analysis from core samples by \cite{Montonen2012} reported large Keonigsberger ratios and reversed magnetization direction in the UDU unit as summarized in Table~\ref{MagCoreSamples}. It is important to note that large Koenigsberger ratios were also measured in the lower UPXO unit, although susceptibility values remained small. In the absence of oriented core, no magnetic declinations were provided. From forward modelling of magnetized sheets, \cite{Montonen2012} estimated that a magnetized unit with effective susceptibility 0.82 SI and orientated $[I=-42.5^\circ, D=240^\circ]$ could be responsible for the observed negative magnetic anomaly.
+
+\begin{table}\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Hole ID & Interval & $\kappa$ (SI) & Inc. ($\circ$) & Q\\
+\hline
+KV297 & 0-52.9 & $0.034$ & $-42.4\pm 18.9^\circ$&$[2, 10] $\\
+\hline
+KV200 & 29.9 & $0.038$ & $-50.9$&$ 5.4$\\
+\hline
+\end{tabular}
+\caption{Intervals along boreholes KV200 and KV297 reporting significant remanent magnetization \cite[]{Montonen2012}}
+\label{MagCoreSamples}
+\end{table}
+
+\subsection{Modeling objectives}
+Due to the complex and disseminated nature of the mineralization, substantial modelling efforts continue to be invested to better understand the intrusion. Most of the drill holes made public are concentrated within the UPXO, which leaves a few questions unanswered
+\begin{enumerate}
+\item Can potential fields be used to define the 3D geometry of the intrusion?
+\item Can we distinguish variations in physical properties within the UPXO related to mineralization?
+\item Can we characterize the central dunite and possible extension at depth?
+\item Can the magnetic response be used to infer tectonic deformation?
+\end{enumerate}
+
+\section{Gravity inversion}
+I first invert the ground gravity data set acquired over the Kevitsa deposit shown in Figure~\ref{Kevitsa_PF_Data}(a).
+I will attempt to model the 3D geometry of the intrusion and host stratigraphy based on density contrasts.
+The survey consists of 28,860 gravity stations collected at 20 m intervals along east-west and north-south lines spaced at 100 m. Data were terrain corrected with a reference density of 2.67 g/cc.
+I design an OcTree mesh for the inversion with 25 m cells in the core region extending 2 km at depth.
+After several inversion trials, data uncertainties are set to 0.1 mGal.
+
+As a first pass, I invert the data with the linear $\ell_2$-norm regularization.
+Figure~\ref{Kevitsa_Den_l2model}(a) presents a section through the recovered density model at $\approx 200$ m depth. I also extract a vertical section along the seismic profile E5 in Figure~\ref{Kevitsa_Den_l2model}(b). I note that the bulk of the density anomaly is located inside the upper portion of the UPXO. As expected from smooth assumptions, the edges of the anomaly are poorly defined.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Kevitsa_Den_l2model.png}
+\caption{(a) Horizontal section at $\approx 200$ m depth below topography through the recovered density model after convergence of the algorithm for $p_s=p_x=p_y=p_z=2$. (b) Vertical section of the density model overlaid on the 2D seismic reflection line E5. Interpreted geological contacts (black) are shown for comparison.}
+\label{Kevitsa_Den_l2model}
+\end{figure}
+
+Clearly the assumption of a smooth density distribution is not sufficient to establish a clear correlation between the known lithology and density.
+Taking advantage of the methodology developed in this thesis, I will attempt to improve the definition of geological domains. First I need to define rotation angles in 3D to better represent the folded geology of Kevitsa. In this case, I do not have to learn the orientation as a I have access to geological interpretation at the surface and a seismic profile at depth. 
+The folded geology of Kevitsa appears to by more or less symmetric radially around the center of the intrusion. I will, therefore, assume that vector components extracted from the vertical section can be interpolated in 3D.
+Using the method of image moment introduced in Chapter~\ref{Chapter6}, I extract orientation of major contacts over the study area. Figure~\ref{Kevitsa_Fold_ROT_l2Model} presents the orientation vectors used for the rotation of the objective function.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\columnwidth]{Kevitsa_Grav_Constraints_Markers.png}
+\caption{Rotation parameters (normals) derived from (a) surface geology and (b) major reflectors detected on the seismic profile E5.}
+\label{Kevitsa_Fold_ROT_l2Model}
+\end{figure}
+
+I then proceed with nine inversions over a range of mix-norm penalty functions for $p_s,\:p_{y',z'} \in \{0,\; 1,\; 2\},\: p_{x'}=2$. Only the normal component of the geological contacts is fixed to the $\ell_2$-norm.
+Horizontal and vertical sections through the nine recovered density models are shown in Figure~\ref{Kevitsa_Hsection} and Figure~\ref{Kevitsa_Vsections} respectively.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Kevitsa_Results9x9_Hsection_0mref.png}
+\caption{Horizontal sections at $\approx 200$ m depth below topography through the density models recovered over a range of $\ell_p$-norms applied on the model and modeled derivatives for $p_s,p_{x,y,z} \in \{0,\; 1,\; 2\}$}
+\label{Kevitsa_Hsection}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\columnwidth]{Kevitsa_Results9x9_Vsection_0mref.png}
+\caption{Vertical sections overlaid on the 2D seismic reflection line E5 through the density models recovered over a range of $\ell_p$-norms applied on the model and modeled derivatives for $p_s,p_{x,y,z} \in \{0,\; 1,\; 2\}$}
+\label{Kevitsa_Vsections}
+\end{figure}
+Residual data maps are shown in Figure~\ref{Kevitsa_Results9x9_GRAV_Predicted}. Correlated residuals indicate that some of the short short wavelength information is under fitted.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Kevitsa_Results9x9_GRAV_Predicted.png}
+\caption{Residual data maps for the nine gravity inversions.}
+\label{Kevitsa_Results9x9_GRAV_Predicted}
+\end{figure}
+
+In order to simplify the interpretation, I overlay iso-contour values of low and high density using the $5^{th}$ and $95^{th}$ percentile of density values for each of the nine independent inversions. From Figure~\ref{KevitsaIsoDensity} I make a preliminary interpretation.
+\begin{itemize}
+\item The recovered density within the UPXO unit appears to be highly variable. The known ore deposit appears to be sitting within a region of moderate density.
+\item Density lows are strongly correlated with mapped schist (SOO) and phyllite (MPH) units on the outer perimeter of the intrusion. The same does not apply to the \emph{black schist} unit (MPHB) found immediately south of Kevitsa. While MPH and MPHB appear to have been used interchangeably to build the geological map, the recovered density appears to be a distinguishing property.
+\end{itemize}
+\begin{figure}
+\includegraphics[width=\columnwidth]{Kevitsa_Iso_ModeslSpace_Den.png}
+\caption{(a) Horizontal and (b) vertical section comparing iso-surfaces for the $5^{th}$ and $95^{th}$ percentile of anomalous density values recovered from the nine mixed norm inversions for $p_s,p_{x,y,z} \in \{0,\; 1,\; 2\}$.}
+\label{KevitsaIsoDensity}
+\end{figure}
+The most important aspect of this result is the general trend observed for the main intrusion that extends south-east below the gabbro. This result is interesting as I managed to recover models that are in good agreement with the seismic interpretation of \cite{Koivisto2015}, even though no information about the depth of the intrusion was included in the inversion. $Soft$ geological constraints, in terms of general trend, were sufficient to push the lateral extent of the density anomaly in accordance with the gravity data.
+
+\section{Magnetic inversion}
+I follow my analysis with the processing of magnetic data collected during the 2009 VTEM survey (Figure~\ref{Kevitsa_PF_Data}(b)). The inducing field parameters at the time of acquisition were $B_0 =\;[A:\:52,800\: \text{nT}, I:\:77.5^\circ, D:\:12.2^\circ]$.
+Similar to the gravity inversion, I design an OcTree mesh with 50 m core cells extending 2 km at depth. I determined experimentally a 10 nT uncertainty floor value to the data.
+
+I first invert the TMI data with the conventional smooth susceptibility assumption ($p_s=p_x=p_y=p_z=2$) and ignore the effect of remanence.
+From sections through the recovered susceptibility model, presented in Figure~\ref{MAG_lp_EW}(a) and (b), I note discrepancies with the known geology:
+\begin{itemize}
+\item In plan view, the arc shaped anomaly, SW of the deposit, is recovered outside the mapped UKO unit.
+\item Along the E5 seismic section, no susceptibility anomaly is recovered over the \emph{central dunite}. This directly contradicts the core sample measurements made by \cite{Montonen2012}.
+\item The shape and extent of the large anomaly correlates poorly with the UPXO unit interpreted by \cite{Koivisto2015} from seismic reflectors.
+\item The residual data map shows strong correlation with the location of strong negative magnetic fields.
+\end{itemize}
+I conclude that the magnetic response observed at Kevitsa cannot solely be attributed to an induced magnetization.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Kevitsa_Seis_Susc.png}
+\caption{(a) Horizontal and b) vertical sections through the recovered susceptibility model that ignores the effect of remanence. Lithological contacts (black) identified by \cite{Koivisto2015} are shown for reference. A large dome-shaped zero-susceptibility anomaly is recovered at the center of the Kevitsa intrusion, likely due to remanence. (c) Residual data map shows strong correlation with the negative anomalies.}
+\label{MAG_lp_EW}
+\end{figure}
+
+To address issues posed by remanence, I proceed with the MVI-S algorithm.
+I perform a series of nine inversions with varying sparsity measures to assess the variability in the magnetization model. Starting from a common $\ell_2$-norm MVI-C model, I sequentially vary the combination of norms applied to the amplitude and its derivatives for ($p_{\rho_s}, p_{\rho_{xyz}} \in [0, 2]$) and I apply the same rotation parameters as previously used for the gravity inversions. In this regard, the sparsity and rotation parameters tie the density and magnetization inversions together. While not jointly inverted, I expect some correlation between the two physical properties.
+Horizontal and vertical sections through the recovered nine magnetization models are shown in Figure~\ref{MVIS_Hsections} and \ref{MVIS_Vsections} respectively.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Kevitsa_Results9x9_Hsection_MVIS.png}
+\caption{Horizontal sections at $\approx$ 300 m below topography for a suite models using various sparsity assumptions put on the amplitude of magnetization for $p_s\;, p_{x,y,z} \in [0,:2]$. Norm measures on the magnetization angle are fixed to $p_{x,y,z}=0$ in order to promote uniform magnetization}
+\label{MVIS_Hsections}
+\end{figure}
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Kevitsa_Results9x9_Vsection_MVIS.png}
+\caption{(Top) Horizontal and (bottom) vertical sections through the recovered magnetization model. Effective susceptibilities are concentrated within the UDU and on the lower margin of the UPXO unit.}
+\label{MVIS_Vsections}
+\end{figure}
+Residual data maps are shown in Figure~\ref{Kevitsa_MAG_Results9x9_Predicted} for all nine inversions.
+\begin{figure}
+\includegraphics[width=\columnwidth]{Kevitsa_MAG_Results9x9_Predicted_ROT.png}
+\caption{Residual magnetic data maps for the nine MVI-S inversions.}
+\label{Kevitsa_MAG_Results9x9_Predicted}
+\end{figure}
+
+
+To simplify the analysis, I superimpose the $90^{th}$ percentile iso-value of amplitude for each of the nine models (Figure~\ref{MVIS_Iso_model}). I calculate an average magnetization direction (white) and standard deviation on the angle (red). I observe the following:
+\begin{itemize}
+\item The known ore deposit appears to sit within a volume of low magnetization.
+\item Parts of the central dunite unit appear to be reversely magnetized $[\kappa_{e} = 0.09\;SI, \;I=-52^\circ \pm 15^\circ, \;D=246^\circ \pm 5^\circ]$ This is in excellent agreement with the laboratory results published by \cite{Montonen2012}
+\item The vertical magnetic anomaly between the IGB and UPXO unit, likely related to the central dunite unit, appears to be plunging towards SE, potentially extending below the UPXO unit as hypothesized by \cite{Koivisto2015}.
+\item Strong magnetization recovered along the outer-shell of the ultra-mafic intrusion appears to be pointing radially outward. Largest magnetization appears to originate below the UPXO unit.
+\item Similar magnetization direction pointing normal to the arc-shaped peridotite unit.
+\end{itemize}
+
+The last two remarks are interesting for a few reasons. First, strong magnetization below the base of the ultra-mafic supports the presence of magnetic UDU layers.
+Secondly, the orientation of magnetization pointing normal to the base of the unit may be indicative of past tectonic deformation.
+Under the assumption that the remanent magnetization component had been fairly uniform within the layered UDU, UKO and UPXO unit at the time of formation, then the current radiating magnetization pattern would be caused by subsequent folding of the units.
+If this is the case, then that this is one of the first times that airborne magnetic data would have been used as a marker for tectonic deformation of elongated and folder geological units.
+
+While my modelling of the central dunite unit agrees with published laboratory measurements, the cause for this reverse magnetization direction remains unclear. No other lithological units appear to share the same orientation. Re-magnetization after the emplacement of the ultra-mafic intrusion is unlikely as a similar reversed polarity pattern would also be expected elsewhere at Kevitsa. I speculate that the dunite block could be related to the lower UDU unit, which would have been rotated to its current sub-vertical location.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Kevitsa_Iso_ModeslSpace_Mag.png}
+\caption{(Top) Horizontal and (bottom) vertical sections through iso-contours of magnetization recovered from nine mixed $\ell_p$-norm inversions. Magnetization orientation (white) and standard deviation on the angle (red) are shown.}
+\label{MVIS_Iso_model}
+\end{figure}
+
+
+\section{Summary}
+The inversion of gravity and magnetic data over the Kevitsa deposit yielded valuable information.
+First from the gravity inversion, I have imaged the UPXO at depth and extending below the gabbro unit.
+Second, variations in density and magnetization inside the UPXO unit is of interest as it appears to correlate well with the known mineralization. This could potentially be used for future exploration work.
+
+Third, the average magnetization model confirms that the central dunite unit is associated with strong reversed magnetization oriented roughly [$\kappa_{e} = 0.09$ SI, $I=-52^\circ \pm 15^\circ$, $D=246^\circ \pm 5^\circ$].
+There is also a strong indication that it could be connected to the lower dunite units, although the magnetization direction would require the central dunite to have undergone a rotation of almost $180^\circ$.
+
+Potentially the most significant outcome of this case study is the recovered magnetization pointing normal to the base of the UPXO unit. A similar radiating pattern is observed in the komatiite unit east of the deposit. If confirmed by laboratory measurements, this result would be one of the first cases of paleomagnetism based on the inversion of airborne magnetic data over folded geology.
+
+
+\endinput
+

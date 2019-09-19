@@ -1,0 +1,422 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Abedi%
+, Fournier%
+, Devriese%
+\BCBL {}\ \BBA {} Oldenburg%
+}{%
+Abedi%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+Abedi2018}
+\APACinsertmetastar {%
+Abedi2018}%
+\begin{APACrefauthors}%
+Abedi, M.%
+, Fournier, D.%
+, Devriese, S\BPBI G.%
+\BCBL {}\ \BBA {} Oldenburg, D\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018{\protect \BCnt {1}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Integrated inversion of airborne geophysics over a
+  structural geological unit: A case study for delineation of a porphyry copper
+  zone in Iran}} {{Integrated inversion of airborne geophysics over a
+  structural geological unit: A case study for delineation of a porphyry copper
+  zone in Iran}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Applied Geophysics}{152}{}{188 - 202}.
+\newblock
+\begin{APACrefURL}
+  \url{http://www.sciencedirect.com/science/article/pii/S0926985117307474}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{https://doi.org/10.1016/j.jappgeo.2018.04.001}
+  \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Abedi%
+, Fournier%
+, Devriese%
+\BCBL {}\ \BBA {} Oldenburg%
+}{%
+Abedi%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+Abedi2018a}
+\APACinsertmetastar {%
+Abedi2018a}%
+\begin{APACrefauthors}%
+Abedi, M.%
+, Fournier, D.%
+, Devriese, S\BPBI G.%
+\BCBL {}\ \BBA {} Oldenburg, D\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Potential field signatures along the Zagros collision
+  zone in Iran}} {{Potential field signatures along the Zagros collision zone
+  in Iran}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Tectonophysics}{722}{}{25 - 42}.
+\newblock
+\begin{APACrefURL}
+  \url{http://www.sciencedirect.com/science/article/pii/S0040195117304298}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{https://doi.org/10.1016/j.tecto.2017.10.012}
+  \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Devriese%
+, Davis%
+\BCBL {}\ \BBA {} Oldenburg%
+}{%
+Devriese%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+Devriese2017a}
+\APACinsertmetastar {%
+Devriese2017a}%
+\begin{APACrefauthors}%
+Devriese, S\BPBI G\BPBI R.%
+, Davis, K.%
+\BCBL {}\ \BBA {} Oldenburg, D\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Inversion of airborne geophysics over the DO-27/DO-18
+  kimberlites — Part 1: Potential fields} {Inversion of airborne geophysics
+  over the do-27/do-18 kimberlites — part 1: Potential fields}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Interpretation}{5}{3}{T299-T311}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1190/INT-2016-0142.1}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1190/INT-2016-0142.1} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fournier%
+}{%
+Fournier%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+Fournier2015}
+\APACinsertmetastar {%
+Fournier2015}%
+\begin{APACrefauthors}%
+Fournier, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2015}.
+\unskip\
+\newblock
+\APACrefbtitle {A cooperative magnetic inversion method with lp-norm
+  regularization} {A cooperative magnetic inversion method with lp-norm
+  regularization}\ \APACtypeAddressSchool {MSc. Thesis}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{The University of British Columbia}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fournier%
+, Davis%
+\BCBL {}\ \BBA {} Oldenburg%
+}{%
+Fournier%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+FournierDavis2016a}
+\APACinsertmetastar {%
+FournierDavis2016a}%
+\begin{APACrefauthors}%
+Fournier, D.%
+, Davis, K.%
+\BCBL {}\ \BBA {} Oldenburg, D\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Robust and flexible mixed-norm inversion} {Robust and
+  flexible mixed-norm inversion}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {SEG Technical Program Expanded Abstracts} {Seg technical
+  program expanded abstracts}\ (\BPG~1542-1547).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fournier%
+, Kang%
+, McMillan%
+\BCBL {}\ \BBA {} Oldenburg%
+}{%
+Fournier%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+Fournier2017}
+\APACinsertmetastar {%
+Fournier2017}%
+\begin{APACrefauthors}%
+Fournier, D.%
+, Kang, S.%
+, McMillan, M\BPBI S.%
+\BCBL {}\ \BBA {} Oldenburg, D\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Inversion of airborne geophysics over the DO-27/DO-18
+  kimberlites — Part 2: Electromagnetics}} {{Inversion of airborne geophysics
+  over the DO-27/DO-18 kimberlites — Part 2: Electromagnetics}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Interpretation}{5}{3}{T313-T325}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1190/INT-2016-0140.1}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1190/INT-2016-0140.1} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fournier%
+\ \BBA {} Oldenburg%
+}{%
+Fournier%
+\ \BBA {} Oldenburg%
+}{%
+{\protect \APACyear {2019}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+Fournier2019b}
+\APACinsertmetastar {%
+Fournier2019b}%
+\begin{APACrefauthors}%
+Fournier, D.%
+\BCBT {}\ \BBA {} Oldenburg, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Sparse magnetic vector inversion in spherical
+  coordinates: Application to the Kevitsa Ni-Cu-PGE magnetic anomaly, Finland}}
+  {{Sparse magnetic vector inversion in spherical coordinates: Application to
+  the Kevitsa Ni-Cu-PGE magnetic anomaly, Finland}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Geophysics}{}{}{}.
+\newblock
+\APACrefnote{In revision}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fournier%
+\ \BBA {} Oldenburg%
+}{%
+Fournier%
+\ \BBA {} Oldenburg%
+}{%
+{\protect \APACyear {2019}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+FournierDWO2019}
+\APACinsertmetastar {%
+FournierDWO2019}%
+\begin{APACrefauthors}%
+Fournier, D.%
+\BCBT {}\ \BBA {} Oldenburg, D\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019{\protect \BCnt {1}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Inversion using spatially variable mixed lp-norms}
+  {Inversion using spatially variable mixed lp-norms}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Geophysical Journal International}{218}{1}{268-282}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kang%
+, Fournier%
+\BCBL {}\ \BBA {} Oldenburg%
+}{%
+Kang%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+Kang2017}
+\APACinsertmetastar {%
+Kang2017}%
+\begin{APACrefauthors}%
+Kang, S.%
+, Fournier, D.%
+\BCBL {}\ \BBA {} Oldenburg, D\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Inversion of airborne geophysics over the DO-27/DO-18
+  kimberlites — Part 3: Induced polarization} {Inversion of airborne
+  geophysics over the do-27/do-18 kimberlites — part 3: Induced
+  polarization}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Interpretation}{5}{3}{T327-T340}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1190/INT-2016-0141.1}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1190/INT-2016-0141.1} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+C.~Miller%
+, Kang%
+, Fournier%
+\BCBL {}\ \BBA {} Hill%
+}{%
+C.~Miller%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+Miller2018}
+\APACinsertmetastar {%
+Miller2018}%
+\begin{APACrefauthors}%
+Miller, C.%
+, Kang, S.%
+, Fournier, D.%
+\BCBL {}\ \BBA {} Hill, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Distribution of and condensate in a hydrothermal
+  system: Insights from self‐potential inversion at Mount Tongariro, New
+  Zealand}} {{Distribution of and condensate in a hydrothermal system: Insights
+  from self‐potential inversion at Mount Tongariro, New Zealand}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Geophysical Research Letters}{45}{}{8190-8198}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+C\BPBI A.~Miller%
+, Williams-Jones%
+, Fournier%
+\BCBL {}\ \BBA {} Witter%
+}{%
+C\BPBI A.~Miller%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+Miller2017}
+\APACinsertmetastar {%
+Miller2017}%
+\begin{APACrefauthors}%
+Miller, C\BPBI A.%
+, Williams-Jones, G.%
+, Fournier, D.%
+\BCBL {}\ \BBA {} Witter, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{3D gravity inversion and thermodynamic modelling reveal
+  properties of shallow silicic magma reservoir beneath Laguna del Maule,
+  Chile}} {{3D gravity inversion and thermodynamic modelling reveal properties
+  of shallow silicic magma reservoir beneath Laguna del Maule, Chile}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Earth and Planetary Science Letters}{459}{}{14 - 27}.
+\newblock
+\begin{APACrefURL}
+  \url{http://www.sciencedirect.com/science/article/pii/S0012821X16306410}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{https://doi.org/10.1016/j.epsl.2016.11.007}
+  \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Schermerhorn%
+\ \protect \BOthers {.}}{%
+Schermerhorn%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+Schermerhorn2017}
+\APACinsertmetastar {%
+Schermerhorn2017}%
+\begin{APACrefauthors}%
+Schermerhorn, W\BPBI D.%
+, Ritzinger, B.%
+, Anderson, M.%
+, Peacock, J.%
+, Witter, J.%
+, Glen, J.%
+\BDBL {}Fournier, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Geophysical investigation of the Mount Baker geothermal
+  play}} {{Geophysical investigation of the Mount Baker geothermal
+  play}}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {GSA Annual Meeting in Seattle.} {Gsa annual meeting in
+  seattle.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Yang%
+, Fournier%
+, Kang%
+\BCBL {}\ \BBA {} Oldenburg%
+}{%
+Yang%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+Yang2018}
+\APACinsertmetastar {%
+Yang2018}%
+\begin{APACrefauthors}%
+Yang, D.%
+, Fournier, D.%
+, Kang, S.%
+\BCBL {}\ \BBA {} Oldenburg, D\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Deep mineral exploration using multi-scale
+  electromagnetic geophysics: the Lalor massive sulphide deposit case study}}
+  {{Deep mineral exploration using multi-scale electromagnetic geophysics: the
+  Lalor massive sulphide deposit case study}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Canadian Journal of Earth Sciences}{56}{5}{544-555}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

@@ -1,0 +1,23 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+
+\chapter{Abstract}
+The study of gravity and magnetism has a long history in Earth sciences and continues to play an important role in exploration geophysics. Fundamental knowledge about our planet has been gained from the processing of potential field data at all scales: from large tectonic processes, down to the size of mineral deposits. Attempting to model density and magnetization through the inverse process remains challenging however as it is a highly non-unique problem. Conventional unconstrained inversions generally yield either smooth models with poor edge definition or sparse and compact models that are too simplistic to represent subtle features. 
+
+In this doctoral dissertation, I provide three technical innovations to enhance the capabilities of potential data inversion. First, I propose to explore a wider range of solutions by independently varying the sparsity assumption imposed on the model values and its gradients. At the core of this research is the use of mixed $\ell_p$-norm regularization solved by a scaled Iterative Re-weighted Least Squares algorithm. I provide a path to extract dominant features from the solution space with a Principal Component Analysis and pattern recognition strategy. 
+
+Secondly, I provide modification to the magnetic vector inversion in spherical coordinates to process magnetic field data affected by remanent magnetization. I tackle long-lasting issues related to the non-linear trigonometric coordinate transformation with an iterative sensitivity re-weighting strategy. The spherical formulation allows me to impose sparsity constraints on the amplitude and orientation of the magnetization vector independently. The algorithm can recover anomalies with a coherent magnetization direction. 
+
+Lastly, I incorporate soft geological information in the inversion through the rotation of the objective function. Combined with sparsity assumptions, the rotated regularization improves the imaging of orientated geological contacts. Rotation angles are either interpolated from structural measurements or inferred from the data through a learning process. I demonstrate the benefits of structural constraints on gravity and magnetic datasets acquired over the Kevitsa Ni-Cu-PGE deposit, Finland. The recovered density model is compared to a seismic reflection profile for validation and to complement the geological interpretation of the deposit. Accurate modelling of the magnetization vectors yields insights about past tectonic deformations.
+
+
+
+
+
+% Consider placing version information if you circulate multiple drafts
+%\vfill
+%\begin{center}
+%\begin{sf}
+%\fbox{Revision: \today}
+%\end{sf}
+%\end{center}

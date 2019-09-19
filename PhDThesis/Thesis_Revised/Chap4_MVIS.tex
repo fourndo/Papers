@@ -1,0 +1,360 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./../../Figures/}}
+\chapter{Sparse Magnetic Vector Inversion}
+\label{Chapter4}
+
+I have so far showcased the benefits of employing a mixed-norm inversion to solve the gravity problem. In this chapter, I review and improve inversion methods for the modeling of magnetization parameters. Contrary to the scalar density, magnetization is a vector quantity defined by a magnitude and an orientation as previously defined in \eqref{Magnetization}
+\begin{equation}
+	\vec{M} = \kappa (\vec{H}_0 + \vec{H}_s) + \vec{M}_{r}\;.
+\end{equation}
+Researchers have investigated ways to extract information about magnetization with inversion methods, but this process remains challenging as there are three times the number of unknowns over conventional problems.
+To simplify the inverse problem, the assumption is often made that Earth’s inducing field is much larger than the other component such that secondary fields and the presence of remanence are ignored ($\vec{M}_{r}=\vec{H}_s=0$). This assumption has dominated the inversion literature over the past 30 years \cite[]{LiOldenburg1996, Pilkington97}.
+Under this assumption, the definition of magnetization \eqref{Magnetization} simplifies to
+\begin{equation*}\label{Fwr_Susc}
+\vec{M}= \kappa \vec{H}_0\;,
+\end{equation*}
+which gives rise to a linear system relating $N$ data $\mathbf{d}^{pre}$ to the $M$ discrete model cells of magnetic susceptibility $\boldsymbol \kappa$
+\begin{equation}\label{datatmi}
+\begin{split}
+	\mathbf{d}^{pre}&= \;\mathbf{F\;\boldsymbol{\kappa}} \\
+\mathbf{d}^{pre} \in \mathbb{R}^{N},\mathbf{F}& \in \mathbb{R}^{N \times M}, \boldsymbol{\kappa} \in \mathbb{R}^{M}\;.
+\end{split}
+\end{equation}
+To illustrate potential issues with this induced assumption I revisit the synthetic block example in terms of magnetic properties. I set the magnetic susceptibility ($\kappa$) of the block to 0.035 SI and the vertical inducing flux to $\vec{B}_0$ [50,000 nT, I: $90^\circ$, D: $0^\circ$]. I also add a remanent component equal in magnitude and pointing along the x-axis $\vec{M}_r$ [1.4\:A/m, I: 0$^\circ$, D: $90^\circ$].
+This results in a total magnetization $\vec{M}$ [2.0 A/m, I: $45^\circ$, D: $90^\circ$]. Using the linear relationship presented in \eqref{magLinearOpt}, I can simulate magnetic data presented in \ref{MAG_model}(b) on which I add random Gaussian noise of 1 nT standard deviation to simulate field conditions.
+I will attempt to recover the magnetized block from the noisy data shown in Figure~\ref{MAG_model}(c).
+\begin{figure}[h!]
+{\centering
+\includegraphics[width=\columnwidth]{MAG_Synthetic_True_data_model.png}}
+\caption{(a) Vertical section through a 25 m cube with uniform magnetization $\vec{M}$ [2.0 A/m, I: $45^\circ$, D: $90^\circ$]. (b) Simulated TMA data response on a $21 \times 21$ survey grid placed 15 m above the anomaly. (c) Magnetic data with random Gaussian noise added, $1$ nT standard deviation.}
+\label{MAG_model}
+\end{figure}
+
+I begin with the conventional smooth assumptions ($p_s$, $p_x$, $p_y$, $p_z = 2$) and attempt to recover the position and shape of the magnetic block.
+Since \eqref{datatmi} is linear with respect to $\boldsymbol{\kappa}$, I can use the same inversion methodology established in Chapter~\ref{Chapter3}. The objective function to be minimized becomes
+\begin{equation}\label{ObjFun3D_kappa}
+\begin{split}
+\underset{\boldsymbol{\kappa}}{\text{min}}\; \phi(\boldsymbol{\kappa}) & = \; \|\mathbf{F}\;\boldsymbol{\kappa} - \mathbf{d}^{obs}\|_2^2 + \beta \sum_{r=s,x,y,z} \alpha_r \|\mathbf{W}_r \mathbf{V}_r \;\mathbf{R}_r\;\mathbf{D}_r \;\boldsymbol{\kappa}\|_2^2 \\
+\text{s.t.} \; \phi_d & \leq \phi_d^* \;
+\end{split}
+\end{equation}
+As I am dealing with strictly positive magnetic susceptibility $\kappa$, I impose bound constraints by the projected gradient method \cite[]{Vogel02}. Model parameters $\kappa_i$ that become negative are set to zero and ignored for the following Gauss-Newton step in \eqref{GNmodelUpdate}.
+After reaching the target misfit criterion in equation \eqref{phidTol}, I recover the susceptibility model shown in Figure~\ref{Susc_model}(a). I note that the position of the susceptibility anomaly is shifted to the side of the true block and appears to dip at $45^\circ$ angle. This is due to the large negative data lobe introduced by the remanent component that I have purposefully ignored. Attempting to improve the solution by solving for a sparse model ($p_s$, $p_x$, $p_y$, $p_z = 0$) yields the solution presented in Figure~\ref{Susc_model}(c). The magnetic anomaly is imaged at the right depth and the vertical extent is better recovered, but position and shape of the anomaly have not improved. It is also important to note the correlated negative data residuals in Figure~\ref{Susc_model}(b) and (d). The inversion struggled to reproduce the negative portion of the magnetic data using strictly positive susceptibility values.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{MAG_Sus_model_WrongAssumption.png}
+\caption{Vertical section through the recovered susceptibility model using (a) smooth assumption ($p_s, \;p_x,\; p_y,\; p_z = 2$) and (b) sparse $\ell_p$-norms to recover a compact model ($p_s,\;p_x,\; p_y,\; p_z = 0$). Both solutions show an anomaly with a false dip due to the wrong assumption of a vertical magnetization.}
+\label{Susc_model}
+\end{figure}
+
+The presence of remanence has long been recognized as an obstacle for the geological interpretation of magnetic data.
+Several types of mineral deposits are associated with remanent magnetization such as diamondiferous kimberlites, volcanic massive sulphides and porphyries \cite[]{Henkel1991, Enkin2014}.
+In a mining exploration context, having the wrong image could result in false drilling targets: costly both in time, resources and confidence in geophysical methods.
+Hence the need for a more robust algorithm that does not require knowledge about the orientation of magnetization.
+In the following sections, I revisit the Magnetic Vector Inversion introduced in the Ph.D. thesis of \cite{PhDLelievre09}. I address numerical limitations encountered with the spherical formulation. I also leverage advancements made in Chapter~\ref{Chapter3} and impose sparsity penalties on the magnetization direction and amplitude independently. This allows to recover compact bodies with coherent magnetization direction.
+
+
+\section{Magnetic Vector Inversion - Cartesian parameters}
+Rather than assuming a purely susceptible response, \cite{LelievreOldenburg2009}
+proposed a strategy to directly invert for the magnetization vector $\vec M$.
+Re-writing the discrete system \eqref{datatmi} in terms of vector magnetization:
+\begin{equation}\label{MVIlinear}
+\begin{split}
+\mathbf{d}^{pre} &= \mathbf{F}_{C} \mathbf{m}_C \\
+&= [ \mathbf{F}_u \: \mathbf{F}_v \: \mathbf{F}_w]
+\begin{bsmallmatrix}
+\boldsymbol{\kappa}_{u}\\
+\boldsymbol{\kappa}_{v}\\
+\boldsymbol{\kappa}_{w}
+\end{bsmallmatrix} \\
+\mathbf{F}_u,\; &\mathbf{F}_v, \;\mathbf{F}_w \in \mathbb{R}^{N \times M}
+\end{split}
+\end{equation}
+where the model $\mathbf{m}_C = [\boldsymbol{\kappa}_{u}, \boldsymbol{\kappa}_{v}, \boldsymbol{\kappa}_{w}]^\top$ describes the strength of magnetization along the Cartesian directions in terms of an \emph{effective susceptibility} parameter,
+\begin{equation}
+\boldsymbol{\kappa}_e = \frac{\vec M}{\|\vec H_0\|} \;,
+\end{equation}
+The effective susceptibility scales the amplitude of magnetization with respect to the inducing field strength $\|\vec {H}_0\|$.
+The forward relationship \eqref{MVIlinear} is still a linear system of equations but it has three times the number of unknown parameters compared to the susceptibility assumption ($\mathbf{m}_C \in \mathbb{R}^{3M}$). The objective function \eqref{ObjFun3D} becomes
+\begin{equation} \label{phi_m_sparse_3C}
+\begin{split}
+\underset{\mathbf{m}_C}{\text{min}}\; \phi(\mathbf{m}_C) = \|\mathbf{F}_{C} \mathbf{m}_C - \mathbf{d}^{obs}\|_2^2 + \beta \sum_{c = u,v,w} \;
+\sum_{r = s,x,y,z} \alpha_{c_r} {\|\mathbf{W}_{c_r}\; \mathbf{V}_{c_r} \;\mathbf{R}_{c_r} \; \mathbf{D}_{c_r} \;\mathbf{P}_{c} \; \mathbf{m}_C\|}^2_2 \;,
+\end{split}
+\end{equation}
+where the projection matrices $\mathbf{P}_{c}$ select individual Cartesian component of the vector model $\mathbf{m}_C$. The regularization function is made up of twelve terms. Different norm measures can be applied to each Cartesian component independently.
+
+Keeping the same inversion methodology and smooth assumptions ($p_{c_s}$, $p_{c_x}$, $p_{c_y}$, $p_{c_z}$ = 2), I recover the magnetization model presented in Figure~\ref{MVI_C_model}(a).
+This solution is an improvement over the susceptibility model; the bulk magnetization is recovered at the right position. I note however that the solution is distributed over a large volume and there is a broad distribution in magnetization direction inside and around the block.
+
+In order to reduce the complexity of the solution, I once again resort to $\ell_p$-norm measures ($p_{c_s}, \;p_{c_x},\; p_{c_y},\; p_{c_z} = 0$). As shown in Figure~\ref{MVI_C_model}(b), the recovery of the block has clearly improved. It is important to point out however that the magnetization vectors are pointing along the Cartesian directions and the final anomaly is slightly wider than the true model. In the Cartesian formulation, both the direction and strength of magnetizations are coupled in the vector components and therefore the method lacks flexibility in recovering sparse vector along arbitrary orientations. This was the main motivation behind recent research investigating advanced regularization methodologies and cooperative approaches \cite[]{Zhu2015, Liu2015, Fournier2015}. I will attempt to improve on this solution by decoupling the strength and direction of the magnetization vector with the spherical formulation.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{MVI_C_model.png}
+\caption{Vertical section through the recovered magnetization vector model using the Cartesian formulation with (a) smooth $l_2$-norm assumption and (b) sparsity constraints applied on all three Cartesian components($p_{i_s}, \;p_{i_x},\; p_{i_y},\; p_{i_z} = 0$). Corresponding normalized data residuals are shown in (b) and (d) . The true position and magnetization orientation of the block are shown in red for reference.}
+\label{MVI_C_model}
+\end{figure}
+
+\section{Magnetic Vector Inversion - Spherical parameters}
+As an alternative to the Cartesian formulation, \cite{LelievreOldenburg2009} also proposed the vector inversion in a spherical coordinate system.
+The conversion between Cartesian to spherical system follows the relation:
+\begin{equation}\label{eq:Cart_to_Spherical}
+\begin{split}
+\kappa_u = & \rho \; cos(\theta)\;cos(\phi) \\
+\kappa_v = & \rho \; cos(\theta)\;sin(\phi) \\
+\kappa_w = & \rho \; sin(\theta)
+\end{split}
+\end{equation}
+where the magnetization vector is defined by parameters of amplitude (${\rho}$) and two angles (${\theta}$, ${\phi}$). Performing the forward calculations using spherical parameters $\mathbf{m}_S$ can expressed as
+\begin{equation}
+\mathbb{F}[\mathbf{m}_S] = \mathbf{F}_C
+\begin{bmatrix}
+\boldsymbol{\rho} \; cos(\boldsymbol{\theta})\;cos(\boldsymbol{\phi}) \\
+\boldsymbol{\rho} \; cos(\boldsymbol{\theta})\;sin(\boldsymbol{\phi}) \\
+\boldsymbol{\rho} \; sin(\boldsymbol{\theta})
+\end{bmatrix} \\
+\end{equation}
+The spherical formulation separates the magnitude and orientation of magnetization vector; this has two advantages. First, physical property constraints can easily be incorporated in the inversion. Magnetization measurements performed on rock samples are often provided in term of susceptibility $\kappa$ and Koenigsberger ratio $Q$
+\begin{equation}
+Q = \frac{\vec M_{r}}{\| \kappa \vec H\|}
+\end{equation}
+measuring the ratio between the induced and remanent component of magnetization. This quantity does not contain directionality but it provides information about the amplitude of magnetization. Magnetization direction may also be used in the inversion when laboratory measurements are performed on oriented cores. Reference angles can than be introduced as constraints.
+The second advantage of the spherical coordinate system is that it allows for sparsity assumptions to be  imposed on the magnitude and orientation independently. This has the potential of resolving compact bodies with uniform magnetization direction in any orientation not restricted to the Cartesian axes.
+
+Despite its obvious advantages, the MVI-S method has received little attention in the literature because the non-linear transformation between Cartesian and spherical coordinates greatly complicates the inverse problem.
+I demonstrate challenges encountered with the spherical coordinate system on my synthetic problem.
+Taking the partial derivatives of \eqref{MVIlinear} as a function of $\mathbf{m}_S( \boldsymbol{\rho}, \boldsymbol{\theta}, \boldsymbol{\phi})$ yields:
+\begin{equation} \label{eq:spherical}
+\mathbf{J} = \frac{\partial \mathbb{F}[\mathbf{m}_S]}{\partial \mathbf{m}_S} = \frac{\partial \mathbb{F}[\mathbf{m}_S]}{\partial \mathbf{m}_C} \frac{\partial \mathbf{m}_C}{\partial \mathbf{m}_S}
+\end{equation}
+where $\frac{\partial \mathbf{m}_C}{\partial \mathbf{m}_S}$ involves partial derivatives of trigonometric functions prescribed in \eqref{eq:Cart_to_Spherical}.
+The sensitivity matrix can be linearized before each Gauss-Newton step as:
+\begin{equation} \label{eq:lin_sph}
+\mathbf{J} = \mathbf{F}_C\: \mathbf{S}
+\end{equation}
+where the matrix $\mathbf{S}$ holds the partial derivatives
+\begin{equation} \label{eq:Smatrix}
+\mathbf{S} = \begin{bmatrix} \cos{\theta}\cos{\phi} & -\rho\sin{\theta}\cos{\phi} & -\rho\cos{\theta}\sin{\phi} \\
+\cos{\theta}\sin{\phi} & -\rho\sin{\theta}\sin{\phi} & \rho\cos{\theta}\cos{\phi} \\
+\sin{\theta} & \rho\cos{\theta} & 0 \end{bmatrix}
+\end{equation}
+The regularization function becomes
+\begin{equation} \label{phi_m_sparse_Spherical}
+\begin{split}
+\phi_m = \sum_{c = \rho,\theta,\phi} \;
+\sum_{r = s,x,y,z} \alpha_{c_r} {\|\mathbf{W}_{c_r}\mathbf{V}_{c_r} \;\mathbf{R}_{c_r} \; \mathbf{D}_{c_r} \;\mathbf{P}_{c} \; \mathbf{m}_S\|}^2_2 \;,
+\end{split}
+\end{equation}
+I also take three additional precautions to deal with the spherical parameterization.
+First, a zero reference value $\boldsymbol \theta_{ref}$ and $\boldsymbol \phi_{ref}$ would imply a magnetization direction pointing along the $x$-axis. In the absence of physical constraints, and since I do not want to assume a specific orientation, I set $\alpha_{\theta_s}=\alpha_{\phi_s} = 0$ in all my experiments. Thus the regularization only penalizes the change in angle between neighboring cells. Secondly, I perform an adjustment to the measure of angle differences to deal with the discontinuity at $\theta = -\pi,\; \pi$ in order to prevent over penalizing angles that describe a similar orientation along the $x$-axis. I convert the difference in angles between adjacent cells to the coterminal angles as shown in Figure~\ref{Trig_Circle}. Thirdly, rather than resorting to a projected gradient approach, I proceed with a double transformation ($\mathbf{m}_S \rightarrow \mathbf{m}_C \rightarrow \mathbf{m}_S$) such that spherical parameter remain bounded as $\rho \in [0,\; \infty]$, $\theta \in [-\pi,\; \pi]$ and $\phi \in [-\pi/2,\; \pi/2]$.
+\begin{figure}[h!]\centering
+\includegraphics[width=.5\columnwidth]{Trig_Circle.png}
+\caption{Measure of angle differences $\Delta \theta$ converted to coterminal angle $\Delta\hat  \theta$.}
+\label{Trig_Circle}
+\end{figure}
+
+To demonstrate the difficulties encountered with the MVI-S formulation, I invert the synthetic TMI data with a starting magnetization model pointing upward $\mathbf{m}_S^{(0)}(\rho=10^{-2}, \theta=-45^{\circ}, \phi=0^{\circ}$) as shown in Figure~\ref{MVI_S_model_noScale}(a). This represents a \emph{worst-case} scenario such that the assumed magnetization orientation is at $90^\circ$ from the true orientation.
+After convergence of the algorithm, I recover the model shown in Figure~\ref{MVI_S_model_noScale}(b). The solution is a poor representation of the true magnetization. Model updates were forced to stop before reaching the target data misfit as the inversion was likely trapped in a local minimum. I note that most of the model updates were performed on the amplitude $\rho$, with only marginal changes on the angle of magnetization. Similar behaviors have been documented by \cite{LelievreOldenburg2009} and later by \cite{Liu2017}. Poor convergence was attributed to an imbalance between the model parameters. Before attempting to implement more advanced constraints, I make inroads in improving the convergence of the non-linear MVI-S formulation.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{MVI_S_model_BADStart.png}
+\caption{ Vertical section through the (a) starting model and (b) recovered magnetization vector model in Spherical coordinates. The true position and magnetization orientation of the block are shown in red for reference. (c) Normalized data residuals show correlated signal. The inversion stopped after 15 iterations and was enabled to further reduce the objective function.}
+\label{MVI_S_model_noScale}
+\end{figure}
+
+To gain some insight about the issues encountered with the MVI-S formulation, I consider a simpler two-parameter linear problem of the form
+\begin{equation}
+m_x + \:2*m_y =1 \;,
+\end{equation}
+which I can express in matrix form as
+\begin{equation}\label{twoParam}
+\begin{split}
+\mathbf{F}_C\;\mathbf{m}_C &= \mathbf{d}^{obs} \;,\\
+\mathbf{F}_C = [1\;2], \;
+\mathbf{m}_C &=
+\begin{bsmallmatrix}
+m_x\\
+m_y
+\end{bsmallmatrix}, \;
+\mathbf{d}^{obs} = 1
+\end{split}
+\end{equation}
+This defines an under-determined linear system of equations. Just as I did for the magnetic inverse problem, I can isolate a solution by minimizing an objective function of the form
+\begin{equation}\label{toyProblem}
+\phi(m) = \| \mathbf{F}_C\;\mathbf{m}_C - \mathbf{d}^{obs} \|_2^2 + \beta_C \| \mathbf{m}_C \|_2^2 \;,
+\end{equation}
+Figure~\ref{NonLinearGN}(a) displays a contour map of the objective function along with its gradients.
+Following the same methodology as in \eqref{gradPhi}, I find a solution such that the gradient of the objective function $\phi(m)$ vanish
+\begin{equation}\label{gradLinear}
+\begin{split}
+\frac{\partial \phi}{\partial \mathbf{m}}=\mathbf{g} = \left(\mathbf{F}_C^\top\mathbf{F}_C + \beta_C \mathbf{I}\right) \mathbf{m}_C - \mathbf{F}_C^\top \mathbf{d}^{obs} &= \mathbf{0}
+\end{split}
+\end{equation}
+where $\mathbf{I}$ is the identity matrix. The factor 2 from the derivative of the $\ell_2$-norm is absorbed by the zero right-hand side.
+After determining a trade-off parameter $\beta_C$ such that $\phi_d \leq 1e-3$, I recover the Cartesian model $\mathbf{m}_C=[0.2, 0.4]$. It is the solution that minimizes the distance (evaluated with the $\ell_2$-norm) between the origin and the solution space of $\mathbf{F}$. I note that the relative magnitudes of model parameters in $\mathbf{m}_C$ reflect the size of the forward coefficients in $\mathbf{F}$.
+\begin{figure}{\centering
+\includegraphics[width=\columnwidth]{NonLinear_2param.png}}
+\caption{Contour map for two objective functions and their gradients (arrows) for a two-parameter inverse problem solved in Cartesian and polar coordinate systems. (a) The non-weighted (gray) problem yields a solution $\mathbf{m}_C=[0.2,\:0.4]$ that reflects the size of the forward coefficients. The sensitivity weighted (black) solution is more desirable as it predicts the data with equal model parameters $\mathbf{m}^*_C=[0.33, 0.33]$. (b) Inversion steps performed in the non-linear polar coordinate system (solid red) are highly oscillatory and do not reach the optimal solution $\mathbf{m}_P^*=[0.47, 0.79]$. The same model updates are shown in Cartesian coordinates (red dash) for reference. (green) Inversion steps performed in polar coordinates with iterative sensitivity re-weighting and (blue) with the added $\Omega$-scaling.}
+\label{NonLinearGN}
+\end{figure}
+
+As previously discussed for the gravity and magnetic problems, the smallest solution is often not satisfactory as it is strongly influenced by the physics of the experiment.
+From equation \eqref{iter_sens_weight} in Chapter~\ref{Chapter3}, I can introduce sensitivity based weights to counteract this bias towards a large $m_y$ value
+\begin{equation}
+\begin{split}
+\mathbf{W}_C &= \rm{diag} \left[ {\left[\frac{\mathbf{ w}_C}{\rm{max}(\mathbf{ w}_C)}\right]}^{1/2}\right]\\
+w_{C_j} &= {\left[\sum_{i=1}^{N}{F_{ij}}^2 \right]}^{1/2}\;,
+\end{split}
+\end{equation}
+where $\mathbf{W}_C$ holds sensitivity weights added to the regularization ($\mathbf{w}_C=[1,\:2]^\top$).
+The new weighted objective function becomes
+\begin{equation}\label{toyProblem}
+\phi(m) = \| \mathbf{F}_C\;\mathbf{m}_C - \mathbf{d}^{obs} \|_2^2 + \beta_C \| \mathbf{W}_C \mathbf{m}_C \|_2^2 \;,
+\end{equation}
+and a weighted gradient
+\begin{equation}\label{gradLinearWeighted}
+\begin{split}
+\mathbf{g}_C = \mathbf{F}_C^\top\mathbf{F}_C \mathbf{m}_C + \beta_C \mathbf{W}_C^\top\mathbf{W}_C\mathbf{m}_C - \mathbf{F}_C^\top \mathbf{d}^{obs}
+\end{split}
+\end{equation}
+After determining the appropriate $\beta_C^*$, I get the solution $\mathbf{m}^*_C=[0.33, 0.33]$ marked with a black circle in Figure~\ref{NonLinearGN}(a). I have reached the only solution with equal contribution from both model parameters that also predicts the data within the tolerance.
+
+Alternatively, I can attempt to solve the same problem in a polar coordinate system under the transformation
+\begin{equation}
+\begin{split}
+	\mathbf{m}_P &= [\rho,\;\theta]^\top\\
+	m_x &= \rho \cos{\theta} \\
+	m_y &= \rho \sin{\theta} \;,\\
+\end{split}
+\end{equation}
+where the polar model $\mathbf{m}_P$ is defined by a radius $\rho$ and an angle $\theta$. This is analogous to the spherical transformation performed for the MVI-S formulation in \eqref{eq:Cart_to_Spherical}. 
+The objective function to be minimized becomes
+\begin{equation}\label{toyPolar}
+\begin{split}
+\phi(\mathbf{m}_P)= \| \mathbb{F}[\mathbf{m}_P] - \mathbf{d}^{obs} \|_2^2 + \beta_P \| \mathbf{W}_C \mathbf{m}_P \|_2^2
+\end{split}
+\end{equation}
+The inverse problem is now non-linear with respect to the polar model so I solve it iteratively with the standard Gauss-Newton procedure described in equation \eqref{GaussNewtStep}.
+The partial derivatives of the forward mapping with respect to the polar coordinates are calculated by
+\begin{equation}\begin{split}
+\mathbf{J} = \frac{\partial \mathbb{F}[\mathbf{m}_P]}{\partial \mathbf{m}_P} &= \frac{\partial \mathbb{F}[\mathbf{m}_P]}{\partial \mathbf{m}_C} \frac{\partial \mathbf{m}_C}{\partial \mathbf{m}_P} = \mathbf{F}_C\mathbf{S} \\
+\end{split}
+\end{equation}
+where the matrix $\mathbf{S}$ holds the partial derivatives of the model with respect to the polar parameters
+\begin{equation}\label{nonlinF}\begin{split}
+\mathbf{S} &=
+\begin{bmatrix}
+\cos{\theta} & -\rho\sin{\theta} \\
+\sin{\theta} & \rho\cos{\theta}
+\end{bmatrix} \;.
+\end{split}
+\end{equation}
+The gradient of the objective function becomes
+\begin{equation}\label{gradPolar}
+\begin{split}
+\mathbf{g} = \mathbf{S}^\top \mathbf{F}_C^\top \:\mathbb{F}[\mathbf{m}_P] + \beta_P \mathbf{W}_C^\top\mathbf{W}_C \mathbf{m}_P - \mathbf{S}^\top \mathbf{F}_C^\top \mathbf{d}^{obs} \\
+\end{split}
+\end{equation}
+A trade-off parameter $\beta_P$ is determined through the cooling schedule established in Chapter~\ref{Chapter3}. The inversion is terminated once the data misfit and change in model norm fall below the tolerances $\eta_{\phi_d}$ and $\eta_{\phi_m}$ defined in equation \eqref{phidTol} and \eqref{phimTol} respectively.
+
+Since $\mathbf{m}_C^*$ is a desirable model, I would like to be able to recover a similar solution in polar parameters ($\mathbf{m}_P^{*}=[0.47, 0.76]$). Unfortunately, as shown in Figure~\ref{NonLinearGN}(b), the minimization process performed in polar coordinates converges to a different solution ($\mathbf{m}_P\;[ \rho=0.67,\:\theta=0.26]$) and the iterations steps are oscillatory.
+I display the equivalent iterations (red dash) in the Cartesian space for comparison ($\mathbf{m}_P^C\;[ m_x=0.65,\:m_y=0.17]$).
+
+My main goal is to recover the solution $\mathbf{m}_P^{*}$, and I want to reach this solution with only a few model updates. 
+To understand the discrepancy between the two formulations, I compare their respective gradients for a given starting model $\mathbf{m}_C^{(0)}$ and its equivalent polar model $\mathbf{m}_P^{(0)}$. In Cartesian coordinates, the gradient direction is
+\begin{equation}\label{gradC_0}
+\begin{split}
+\mathbf{g}_C^{(0)} = \mathbf{F}_C^\top \:\mathbf{F}_C\mathbf{m}_C^{(0)} + \beta_C^* \mathbf{W}_C^\top\mathbf{W}_C \mathbf{m}_C^{(0)} - \mathbf{F}_C^\top \mathbf{d}^{obs} \\
+\end{split}
+\end{equation}
+assuming that I know the optimal trade-off parameter $\beta_C^*$.
+I can convert these gradients to polar coordinate by multiplying \eqref{gradC_0} with the matrix of partial derivatives $\mathbf{S}$ such that
+\begin{equation}
+\begin{split}
+\mathbf{g}_C^P = \mathbf{S}^\top \left[ \mathbf{F}_C^\top \:\mathbf{F}_C\mathbf{m}_C^{(0)} + \beta_C^* \mathbf{W}_C^\top\mathbf{W}_C \mathbf{m}_C^{(0)} - \mathbf{F}_C^\top \mathbf{d}^{obs} \right] \\
+\end{split}
+\end{equation}
+I want to compare this gradient to the gradient calculated in polar coordinates to find some equivalence between the two systems
+\begin{equation}\label{gradientmCvsmP}
+\begin{split}
+\mathbf{g}_C^P &\simeq \mathbf{S}^\top \mathbf{F}_C^\top \:\mathbb{F}[\mathbf{m}_P^{(0)}] + \beta_P \mathbf{W}_C^\top\mathbf{W}_C \mathbf{m}_P^{(0)} - \mathbf{S}^\top \mathbf{F}_C^\top \mathbf{d}^{obs}\;.
+\end{split}
+\end{equation}
+I can simplify both sides of equation~\eqref{gradientmCvsmP} by noting that $\mathbf{F}_C \mathbf{m}_C^{(0)} = \mathbb{F}[ \mathbf{m}_P^{(0)}]$ . Equation 4.28 and 4.29 are therefore the same if 
+\begin{equation}\label{gradientmCvsmPSimple}
+\begin{split}
+\beta_C^* \mathbf{S}^\top \mathbf{W}_C^\top\mathbf{W}_C \mathbf{m}_C^{(0)} & \simeq \beta_P \mathbf{W}_C^\top\mathbf{W}_C \mathbf{m}_P^{(0)}\;.
+\end{split}
+\end{equation}
+I would like both sides to be roughly equal such that the gradient direction in polar space resemble the gradient direction calculated in the Cartesian space.
+First, I note from equation \eqref{gradientmCvsmPSimple} that the transformation matrix $\mathbf{S}$ is missing from the right-hand side. The current sensitivity weights were designed to compensate for fixed experimental bias but did not account for a constantly varying sensitivity matrix $\mathbf{J}$. I address this shortcoming by resorting to an iterative update of sensitivity weights
+\begin{equation}
+\begin{split}
+\mathbf{W}_P &= \rm{diag} \left[ {\left[\frac{\mathbf{ w}_P}{\rm{max}(\mathbf{w}_P)}\right]}^{1/2}\right]\\
+w_{P_j} &= {\left[\sum_{i=1}^{N}{J_{ij}}^2 \right]}^{1/2}\;,
+\end{split}
+\end{equation}
+where the weights $\mathbf{w}_P$ are updated between each Gauss-Newton step.
+Inverting once again the non-linear problem with the iterative scaling strategies (green) I recover the model $\mathbf{m}_P[\rho=0.53,\: \theta=0.53]$ (Fig.~\ref{NonLinearGN}(b)). The solution has equal parameters of $\rho$ and $\theta$, and I reached this solution in a few iterations. In most applications, however, obtaining proportionality between the magnitude and angle of the vector is not meaningful. Converted to Cartesian space $\mathbf{m}_P^C[m_x=0.46,\: m_y=0.27]$, I note that the solution is still different from $\mathbf{m}_C^*$.
+
+To understand this result, I now examine equation~\eqref{gradientmCvsmPSimple} in terms of the size of the model parameters in $\mathbf{m}_P$.
+I have used a regularization function to penalize two parameters with different units: the radius $\rho \in [0, \infty]$ in lengths and angle $\theta \in [-\pi,\: \pi]$ in radians. The range of values spanned by these parameters differ in scale as depicted by the aspect ratio of Figure~\ref{NonLinearGN}(b).
+Comparing the largest change in model values (gradient) in relation to the Cartesian space $\mathbf{m}_C$, it is easy to show that
+\begin{equation}
+\begin{split}
+{\|\mathbf{g}_\rho \|_\infty} & \propto \|\mathbf{g}_x\|_\infty + \|\mathbf{g}_y\|_\infty \\
+\end{split}
+\end{equation}
+such that a change in the radius $\rho$ is proportional in magnitude to a change in components in Cartesian space. The same relation does not hold for the angle parameter as an equivalent change in Cartesian parameters can be achieved with a rotation $\Delta \theta=\pi/2$ independent of length.
+In order to scale the gradient steps taken along different dimensions, I define a proportionality relation
+\begin{equation}\label{unitScale}
+\omega = \frac{\|\mathbf{g}_\rho \|_\infty}{\|\mathbf{g}_\theta \|_\infty} = \|\rho\|_\infty \frac{2}{\pi} \;,
+\end{equation}
+and scale the regularization as
+\begin{equation}
+\begin{split}
+\mathbf{\hat W}_P &= diag\left(
+\begin{bmatrix}
+1 &
+\omega
+\end{bmatrix}^{(1/2)}\right) \mathbf{W}_P
+\end{split}
+\end{equation}
+My new scaled objective function becomes
+\begin{equation}\label{toyPolar}
+\begin{split}
+\phi(\mathbf{m}_P) = \| \mathbb{F}[\mathbf{m}_P] - \mathbf{d}^{obs} \|_2^2 + \beta_P \| \mathbf{\hat W}_P \mathbf{m}_P \|_2^2 \\
+\end{split}
+\end{equation}
+Minimizing this function I get the model (blue) presented in Figure~\ref{NonLinearGN} ($\mathbf{m}_P^C[m_1=0.47,\: m_2=0.74]$). Converted to Cartesian space, this solution $\mathbf{m}_P^C[m_1=0.35,\: m_2=0.32]$ closely matches $\mathbf{m}^*_C$. 
+
+
+
+\subsection{Scaled MVI-S algorithm}
+Now that I have demonstrated the benefit of an iterative sensitivity re-weighting of the regularization, I re-visit my synthetic magnetic problem.
+I invert the TMI data once more with the starting model oriented at $90^\circ$ from the true magnetization direction ($\mathbf{m}_P^{(0)}[\rho=10^{-2},\; \theta=-45^\circ,\;\phi=0^\circ$]) with smooth assumptions ($p_s$, $p_x$, $p_y$, $p_z$=2).
+The recovered magnetization model obtained after convergence of the scaled MVIS-S algorithm is presented in Figure~\ref{MVI_S_BadStart_Scaled}(a). The inversion took 15 iterations to converge. I note close similarities with the MVI-C solution presented in \ref{MVI_C_model}(a), with the bulk magnetization centered around the position of the block. This is a clear improvement over the solution previously shown in Figure~\ref{MVI_S_model_noScale}(c).
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{MVI_S_model_BADStart_Scaled.png}
+\caption{(a) Vertical section through the recovered magnetization vector model and (b) normalized data residual using the spherical formulation with sensitivity based weighting ($p_s=p_x=p_y=p_z = 2$). The true position and magnetization orientation of the block are shown in red for reference. }
+\label{MVI_S_BadStart_Scaled}
+\end{figure}
+
+From a practical standpoint, I have found that it is more efficient to initialize the MVI-S algorithm with the Cartesian solution. The linear MVI-C approach allows me to rapidly find a model that fits the observed data and it provides a good approximation to the MVI-S solution. I invert the data once more using the smooth Cartesian solution in \ref{MVI_C_model}(a) as a starting model. Figure~\ref{MVI_S_model}(a) shows the recovered solution obtained after a single iteration of MVI-S.
+
+Having achieved a stable and reasonable solution with the $\ell_2$-norm, I can now consider applying sparsity constraints to recover a block with a coherent magnetization direction.
+I vary the regularization measure on the amplitude, derivative of amplitude and derivatives of angles uniformly such that ($p_{c_s}$, $p_{c_x}$, $p_{c_y}$ $p_{c_z} = 0$) where $c\in[\rho, \theta, \phi]$.
+Figure \ref{MVI_S_model}(c) presents a section through the magnetic vector model. The shape of the anomaly matches that of the magnetic block, with a magnetization direction uniformly orientated at $45^\circ$ inclination. The uniform effective susceptibility recovered inside the block matches exactly the true model with $\kappa_e=0.05$ SI. The normalized data residual shows no apparent correlated signal (Fig.~\ref{MVI_S_model} d). This simple example increases my confidence in my ability to accurately recover the magnetization of geological bodies in 3D.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{MVI_S_model.png}
+\caption{(a) Vertical section through the recovered magnetization vector model in Spherical coordinates using sensitivity based weighting with smooth regularization ($p_s=p_x=p_y=p_z = 2$). MVI-C solution is used as a starting model. The true position and orientation of magnetization of the block are shown in red for reference. (c) Recovered vector model in Spherical coordinates using sparse and blocky assumptions on the amplitude and angles of magnetization ($p_{c_s}=p_{c_x}=p_{c_y}=p_{c_z} = 0$). (b) and (d) Corresponding normalized data residuals.}
+\label{MVI_S_model}
+\end{figure}
+
+\section{Synthesis}
+In this section, I introduced an iterative sensitivity re-weighting strategy to improve the convergence of non-linear inverse problems.
+The iterative re-scaling of the regularization function associated with the amplitude and angles of magnetization was crucial in order to get a stable convergence of the MVI-S algorithm.
+Smoother and more robust solutions allowed me to apply compact norms on the three model parameters independently. This can greatly simplify the solution compared to that from the conventional MVI-C formulation.
+
+Despite this improvement, the MVI problem remains fundamentally under-determined. Incorporating $a \; priori$ information, either through model constraints or joint physical properties, remains important to accurately represent the geology. In the following section, I introduce structural information to constrain the shape of the recovered magnetic bodies.
+
+\endinput
+

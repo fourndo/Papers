@@ -1,0 +1,53 @@
+\BOOKMARK [0][-]{chapter*.1}{Abstract}{}% 1
+\BOOKMARK [0][-]{chapter*.2}{Preface}{}% 2
+\BOOKMARK [0][-]{chapter*.3}{Table of Contents}{}% 3
+\BOOKMARK [0][-]{chapter*.4}{List of Tables}{}% 4
+\BOOKMARK [0][-]{chapter*.5}{List of Figures}{}% 5
+\BOOKMARK [0][-]{chapter*.6}{Acknowledgments}{}% 6
+\BOOKMARK [0][-]{chapter.1}{1 Introduction}{}% 7
+\BOOKMARK [1][-]{section.1.1}{1.1 Magnetic methods}{chapter.1}% 8
+\BOOKMARK [1][-]{section.1.2}{1.2 Thesis outline}{chapter.1}% 9
+\BOOKMARK [0][-]{chapter.2}{2 Magnetostatic Problem}{}% 10
+\BOOKMARK [1][-]{section.2.1}{2.1 Magnetization}{chapter.2}% 11
+\BOOKMARK [0][-]{chapter.3}{3 Inverse Problem}{}% 12
+\BOOKMARK [1][-]{section.3.1}{3.1 Regularized inversion}{chapter.3}% 13
+\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Iterative solver}{section.3.1}% 14
+\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Preconditioner}{section.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.1.3}{3.1.3 Bound constraints}{section.3.1}% 16
+\BOOKMARK [1][-]{section.3.2}{3.2 Magnetic susceptibility inversion}{chapter.3}% 17
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Synthetic example}{section.3.2}% 18
+\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Effect of remanent magnetization}{section.3.2}% 19
+\BOOKMARK [1][-]{section.3.3}{3.3 Magnetic vector inversion}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.4}{3.4 Magnetic amplitude inversion}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.5}{3.5 Equivalent source method}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.5.1}{3.5.1 Comment for future research}{section.3.5}% 23
+\BOOKMARK [0][-]{chapter.4}{4 Mixed Lp-norm Regularization}{}% 24
+\BOOKMARK [1][-]{section.4.1}{4.1 Least-norm and regularized least-squares}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.2}{4.2 Lp-norm and iterative re-weighted least squares}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.3}{4.3 IRLS solver}{chapter.4}% 27
+\BOOKMARK [2][-]{subsection.4.3.1}{4.3.1 Basic IRLS algorithm}{section.4.3}% 28
+\BOOKMARK [2][-]{subsection.4.3.2}{4.3.2 1-D synthetic example}{section.4.3}% 29
+\BOOKMARK [2][-]{subsection.4.3.3}{4.3.3 Regularization scaling}{section.4.3}% 30
+\BOOKMARK [2][-]{subsection.4.3.4}{4.3.4 Threshold parameter }{section.4.3}% 31
+\BOOKMARK [1][-]{section.4.4}{4.4 Scaled-IRLS method \(S-IRLS\)}{chapter.4}% 32
+\BOOKMARK [2][-]{subsection.4.4.1}{4.4.1 Cell-based weights \(wr, wm\)}{section.4.4}% 33
+\BOOKMARK [1][-]{section.4.5}{4.5 Mixed lp-norm regularization}{chapter.4}% 34
+\BOOKMARK [2][-]{subsection.4.5.1}{4.5.1 Localized S-IRLS}{section.4.5}% 35
+\BOOKMARK [2][-]{subsection.4.5.2}{4.5.2 2-D example}{section.4.5}% 36
+\BOOKMARK [2][-]{subsection.4.5.3}{4.5.3 3-D example}{section.4.5}% 37
+\BOOKMARK [1][-]{section.4.6}{4.6 Case study - Tli Kwi Cho kimberlite complex}{chapter.4}% 38
+\BOOKMARK [1][-]{section.4.7}{4.7 Summary}{chapter.4}% 39
+\BOOKMARK [0][-]{chapter.5}{5 Cooperative Magnetic Inversion \(CMI\)}{}% 40
+\BOOKMARK [1][-]{section.5.1}{5.1 Methodology}{chapter.5}% 41
+\BOOKMARK [1][-]{section.5.2}{5.2 CMI with S-IRLS regularization}{chapter.5}% 42
+\BOOKMARK [1][-]{section.5.3}{5.3 Conclusion}{chapter.5}% 43
+\BOOKMARK [0][-]{chapter.6}{6 Case Study}{}% 44
+\BOOKMARK [1][-]{section.6.1}{6.1 Ekati Property}{chapter.6}% 45
+\BOOKMARK [2][-]{subsection.6.1.1}{6.1.1 Geology}{section.6.1}% 46
+\BOOKMARK [2][-]{subsection.6.1.2}{6.1.2 Airborne magnetic data}{section.6.1}% 47
+\BOOKMARK [1][-]{section.6.2}{6.2 Regional scale inversion}{chapter.6}% 48
+\BOOKMARK [1][-]{section.6.3}{6.3 Deposit scale inversion}{chapter.6}% 49
+\BOOKMARK [1][-]{section.6.4}{6.4 Discussion}{chapter.6}% 50
+\BOOKMARK [0][-]{chapter.7}{7 Conclusion}{}% 51
+\BOOKMARK [1][-]{section.7.1}{7.1 Future work}{chapter.7}% 52
+\BOOKMARK [0][-]{chapter*.84}{Bibliography}{}% 53

@@ -1,0 +1,27 @@
+
+
+%\chapter{Appendices}
+\chapter*{Appendix}\label{AppendixA}
+\addcontentsline{toc}{chapter}{Appendix}
+
+This section describes the partial volume calculation defined by the intersection of two upright prisms.
+Let us define the extent of a prism $\mathbf{m}_i$ by the lower southwest and upper northeast nodal coordinates:
+\begin{equation}\tag{A.1}
+\begin{split}
+\mathbf{m}_i = [\mathbf{n}_L\; \mathbf{n}_U] = \begin{bmatrix} x_{L} & x_{U} \\ y_{L}& y_{U} \\ z_{L} & z_{U} \end{bmatrix}\\
+\end{split}
+\end{equation}
+To calculate the volume of intersection of two prisms $\mathbf{m}_i$ and $\mathbf{m}_j$ I first calculate the length $L_x$ intercepted along the $x$-axis as 
+\begin{equation}\tag{A.2}\label{intercept}
+\begin{split} 
+L_x = max\begin{bmatrix} x_{max} - x_{min} & 0\end{bmatrix}\\
+x_{min} = min\begin{bmatrix} n_{{x_U}_i} & n_{{x_U}_j} \end{bmatrix}\\
+x_{max} = max\begin{bmatrix} n_{{x_L}_i} & n_{{x_L}_j} \end{bmatrix} 
+\end{split}
+\end{equation}
+The same calculation is done along the y and z axes ($L_y$, $L_z$).
+The total volume is than calculated as
+\begin{equation}\tag{A.3}
+V = L_x* L_y * L_z
+\end{equation}
+Intersecting length calculations in \eqref{intercept} can easily augmented for $M$ pairs of cells.

@@ -1,0 +1,31 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+
+\chapter{Abstract}
+In this master's thesis, I implement a Cooperative Magnetic Inversion (CMI) algorithm for the 3-D modeling of magnetic rocks at depth.
+While in most cases it is assumed that the magnetic response is purely induced, certain rocks have the ability to retain a permanent magnetic moment in any orientations, also known as remanent magnetization.
+The effect of remanence has long been recognized as an obstacle for the geological interpretation and modeling of magnetic data.
+My objective is to improve current magnetic inversion methods to recover simpler and better defined magnetization models.
+
+The CMI algorithm brings together three inversion techniques previously introduced in the literature.
+First, magnetic data are inverted for an equivalent-source layer, which is used to derive magnetic amplitude data.
+Next, amplitude data are inverted for an effective susceptibility model, providing information about the geometry and distribution of magnetized objects.
+Finally, the effective susceptibility model is used to constrain the Magnetic Vector Inversion (MVI), recovering the orientation and magnitude of magnetization.
+All three algorithms are formulated as regularized least-squares problems solved by the Gauss-Newton method.
+
+I further constrain the solution by imposing sparsity constraints on the model and model gradients via an approximated $l_p$-norm penalty function. I elaborate a Scaled Iterative Re-weighted Least-Squares (S-IRLS) method, allowing for a stable and robust convergence of the algorithm while combining different $l_p$-norms on the range $0 \leq p \leq 2$.
+The goal is to reduce the complexity of magnetization models while also imposing geometrical constraints on the solution.
+
+As a final test, I implement the CMI algorithm on an airborne magnetic survey over the Ekaty Property, Northwest Territories.
+I formulate a tiled inversion scheme in order to reduce the computational cost and increase the level of parallelization.
+The final merged magnetization model provides insights into the distribution of dyke swarms and kimberlite pipes.
+Following the regional inversion, I focus my analysis on sixteen known kimberlite pipes.
+Magnetization vector inclinations are compared to the expected polarity of rocks inferred from radiometric dating. 
+
+% Consider placing version information if you circulate multiple drafts
+%\vfill
+%\begin{center}
+%\begin{sf}
+%\fbox{Revision: \today}
+%\end{sf}
+%\end{center}

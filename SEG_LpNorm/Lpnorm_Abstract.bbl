@@ -1,0 +1,90 @@
+\begin{thebibliography}{}
+\itemsep0pt
+
+\bibitem[Ajo-Franklin et~al., 2007]{Ajo-Franklin07}
+Ajo-Franklin, J.~B., B.~J. Minsley, and T.~M. Daley,  2007, Applying compact
+  constraints to differential traveltime tomography: Geophysics, {\bf 72},
+  67--75.
+
+\bibitem[Barbosa and Silva, 1994]{BarbosaSilva94}
+Barbosa, V. C.~F., and J.~B.~C. Silva,  1994, Generalized compact gravity
+  inversion: Geophysics, {\bf 59}, 57--68.
+
+\bibitem[Chartrand, 2007]{Chartrand07}
+Chartrand, R.,  2007, Exact reconstruction of sparse signals via nonconvex
+  minimization: IEEE Signal Processing Letters, {\bf 76}, 167--188.
+
+\bibitem[Daubechies et~al., 2010]{Daubechies10}
+Daubechies, I., R. DeVore, M. Fornasier, and C.~S. Gunturk,  2010, Iteratively
+  re-weighted least squares minimization for sparse recovery: Communication on
+  Pure and Applied Mathematics, {\bf 63}, 1--35.
+
+\bibitem[Davis et~al., 2012]{Davis12}
+Davis, K., D.~W. Oldenburg, and M. Hillier,  2012, Incorporating geologic
+  structure into the inversion of magnetic data: Presented at the 22 nd
+  International Geophysical Conference and Exhibition, ASEG.
+
+\bibitem[Ekblom, 1973]{Ekblom73}
+Ekblom, H.,  1973, Calculation of linear best $l_p$-approximation: BIT, {\bf
+  13}, 292--300.
+
+\bibitem[Farquharson and Oldenburg, 1998]{FarquharsonOldenburg98}
+Farquharson, C.~G., and D.~W. Oldenburg,  1998, Non-linear inversion using
+  general measures of data misfit and model structure: Geophysical Journal
+  International, {\bf 134}, 213--227.
+
+\bibitem[Gorodnitsky and Rao, 1997]{Gorodnitsky97}
+Gorodnitsky, I.~F., and B.~D. Rao,  1997, {Sparse singal reconstruction from
+  limited data using FOCUSS: A re-weighted minimum norm algorithm}: IEEE
+  Transactions on Signal Processing, {\bf 45}, 600--616.
+
+\bibitem[Last and Kubik, 1983]{LastKubik83}
+Last, B.~H., and K. Kubik,  1983, Compact gravity inversion: Geophysics, {\bf
+  48}, no. 8, 713--721.
+
+\bibitem[Lawson, 1961]{Lawson61}
+Lawson, C.~L.,  1961, Contribution to the theory of linear least maximum
+  approximation: PhD thesis, University of California, Los Angeles.
+
+\bibitem[Leli\`evre, 2009]{PhDLelievre09}
+Leli\`evre, P.~G.,  2009, Integrating geological and geophysical data through
+  advanced constrained inversion: Phd thesis, The University of British
+  Columbia.
+
+\bibitem[Li, 1991]{Li93}
+Li, Y.,  1991, {A globally convergent method for $l_p$ problems}: SIAM J. ScI.
+  Stat. Comput., {\bf 3}, 609--629.
+
+\bibitem[Li and Oldenburg, 2000]{LiOldenburg2000}
+Li, Y., and D. Oldenburg,  2000, Incorporating geological dip information into
+  geophysical inverisons: Geophysics, {\bf 65}, 148--157.
+
+\bibitem[Li and Oldenburg, 1996]{LiOldenburg1996}
+Li, Y., and D.~W. Oldenburg,  1996, {3-D inversion of magnetic data}:
+  Geophysics, {\bf 61}, 394--408.
+
+\bibitem[Pilkington, 1997]{Pilkington97}
+Pilkington, M.,  1997, 3-\uppercase{D} magnetic imaging using conjugate
+  gradients: Geophysics, {\bf 62}, 1132--1142.
+
+\bibitem[Portniaguine and Zhdanov, 2002]{PortniaguineZhdanov02}
+Portniaguine, O., and M.~S. Zhdanov,  2002, {3-D magnetic inversion with data
+  compression and image focusing}: Geophysics, {\bf 67}, 1532--1541.
+
+\bibitem[Stocco et~al., 2009]{Stocco09}
+Stocco, S., A. Godio, and L. Sambuelli,  2009, {Modelling and compact inversion
+  of magnetic data: A Matlab code}: Computer and Geosciences, {\bf 35},
+  2111--2118.
+
+\bibitem[Sun and Li, 2014]{SunLi14}
+Sun, J., and Y. Li,  2014, Adaptive $l_p$ inversion for simultaneous recovery
+  of both blocky and smooth feature in geophysical model: Geophysical Journal
+  International, {\bf 197}, 882--899.
+
+\bibitem[Wilkinson et~al., 2001]{Wilkinson2001}
+Wilkinson, L., B.~A. Kjarsgaard, A.~N. LeCheminant, and J. Harris,  2001,
+  {Diabase dyke swarms in the Lac de Gras area, Northwest Territories, and
+  their significance to kimberlite exploration: initial results}: Current
+  Research 2001-C8, Geological Survey of Canada.
+
+\end{thebibliography}

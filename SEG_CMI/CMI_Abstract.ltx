@@ -1,0 +1,204 @@
+\documentclass{segabs}
+
+% An example of defining macros
+\newcommand{\rs}[1]{\mathstrut\mbox{\scriptsize\rm #1}}
+\newcommand{\rr}[1]{\mbox{\rm #1}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\renewcommand{\figdir}{Fig}
+\begin{document}
+
+\title{Cooperative Magnetic Inversion}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}} 
+
+\author{Dominique Fournier \footnotemark[1], Kristofer Davis and
+Douglas W. Oldenburg, UBC-Geophysical Inversion Facility}
+
+\lefthead{Fournier et al.}
+\righthead{Cooperative Magnetic Inversion}
+
+\maketitle
+
+\begin{abstract}
+The effect of remanence has long been recognized as an obstacle for the interpretation and modeling of magnetic data.
+In this paper, we propose  a Cooperative Magnetic Inversion (CMI) algorithm for the 3-D inversion of magnetic data affected by remanent magnetization.
+The CMI algorithm incorporates advantages from two inversion strategies.
+Magnetic amplitude data are first inverted to recover an effective susceptibility model, providing information about the geometry and extent of the magnetic anomaly.
+The effective susceptibility model is then used to constrain a Magnetic Vector Inversion (MVI), recovering the orientation and magnitude of magnetization.
+We test the CMI algorithm on a ground magnetic survey over the Osborne Cu-Au deposit, Queensland. 
+In both the case study and the synthetic experiments, the cooperative approach improves the resolution of magnetized bodies over each of the inversion methods used separately.\vspace{-5pt}
+\end{abstract}
+
+\section{Introduction}\vspace{-5pt}
+Interpretation and inversion of magnetic field data has long been an important tool in mineral exploration.  
+Local changes in magnetic property of rocks give rise to variations in the ambient magnetic field, which can help resolve geological structures at depth.
+Proper imaging of these physical property contrasts is crucial to efficiently identify drilling targets.
+In order to reduce the complexity of the inverse problem, it is often assumed that the magnetization direction is uniform, neglecting self-demagnetization and remanence effects \cite[]{LiOldenburg1996, Pilkington97}.
+These assumptions however do not hold for many types of mineral deposits such as Banded Iron-Formations (BIF) and diamondiferous kimberlite \cite[]{Anderson1992,Dransfield2003, LiShearer10}
+Modeling the distribution of magnetic rocks through the inverse problem without knowledge about the magnetization direction has proven to be difficult and remains a field of active research in geophysics.
+
+Several studies have been dedicated to the interpretation of magnetic data in the presence of remanence. The proposed methods can be divided into two broad categories.
+%As summarized by \cite{Li2012}, the proposed inverse methods can be divided into three categories.
+The first category estimates the magnetization direction from the magnetic data in a pre-processing step.
+Strategies such as the Helbig's method \cite[]{Phillips03} and the cross-correlation \cite[]{DannemillerLi06} are used upstream of standard inversions.
+In most cases, data are transformed to the wavenumber domain in order to extract magnetic field components.
+These methods are simple and robust for simple and isolated anomalies, but become impractical when the data are acquired over rough terrain or complicated geology.
+
+The second category attempts to directly invert the magnetic data without any assumption about the magnetization direction.
+\cite{Shearer05} proposed to invert magnetic amplitude data, which can provide a robust estimate for the location of magnetized bodies in 3-D.
+The same method has been successfully used to characterize kimberlite deposits and Banded-Iron Formations \cite[]{LiShearer10, Krahenbuhl2007}.
+Because most magnetic surveys only record Total Magnetic Intensity (TMI) data, the amplitude of the field must be calculated in a pre-processing step.
+Information about the orientation of magnetization must also be derived in post-processing.
+
+Other inversion methods attempt to solve directly for the orientation of magnetization without any assumptions about the location or geometry of causative bodies.
+In the Magnetic Vector Inversion (MVI) proposed by \cite{Lelievre2009}, the magnetization vector is decomposed in its induced and orthogonal components.
+The MVI is closely related to the method proposed by \cite{Kubota2005}, and later by \cite{Ellis2012}.
+This method results in a large under-determined inverse problem, with three times the number of variables (i.e. components) over conventional susceptibility inversion codes.
+Recovered magnetization models are generally smooth and become overly complicated for direct geological interpretation.
+As pointed out by \cite{PhDLelievre09}, any \emph{a priori} information from surface or borehole measurements may greatly reduce the non-uniqueness of the problem.
+Unfortunately this kind of information is rarely available in greenfield settings or is only available in sparse samples.
+
+Building upon current strategies, we propose a Cooperative Magnetic Inversion (CMI) algorithm that directly incorporates the amplitude inversion of \cite{Shearer05} into the MVI algorithm of \cite{Lelievre2009}. 
+In the first step, amplitude data are inverted for a 3-D distribution of effective susceptibilities.
+Next, the effective susceptibility distribution is used to constrain spatially the MVI model through a weighted regularization function.
+Our method is closely related to the three-step process proposed by \cite{Liu2015} in 2-D, where the orientation of magnetization is found via a correlation method.
+We first demonstrate the benefits of a cooperative approach on a synthetic example. 
+The method is then applied to the field data set from the Osborne Cu-Au deposit, Queensland.
+
+\section*{Magnetic Inversion Methods}\vspace{-5pt}
+Our goal is to formulate a robust inversion algorithm that can better recover the location and direction of magnetization from surface measurements of magnetic field data.
+From Gauss's law, the relation between the observed magnetic field and a magnetized body can be expressed as:
+\begin{equation} \label{b_integral}
+	\vec b(r) = \frac{\mu_0}{4\pi} \int_{V} \nabla \nabla \frac{1}{ |\vec r|} \cdot \vec M \; dV\;,
+\end{equation}
+where $\vec b$ is the magnetic field (T) as measured at some distance $|\vec r|$ from a magnetic anomaly with magnetization per unit volume $\vec M$ (A/m).
+In matter, the total magnetization per unit volume can be written as:
+ \begin{equation}\label{Magnetization}
+	\vec M = \kappa \vec H + \vec M_{NRM}\;,
+\end{equation}
+where the magnetic susceptibility $\kappa$ is the physical property of rocks describing their ability to become magnetized under an applied field $\vec H$.
+The Natural Remanent Magnetization ($\vec M_{NRM}$) is a permanent dipole moment preserved in the absence of an inducing field. 
+The effect of remanence has long been recognized as an obstacle for the geological interpretation and modeling of magnetic data as we will demonstrated on a simple synthetic example.
+
+We begin our analysis with a classic block model as shown in Figure~\ref{fig:Vec_model_Cropped}(a). The model consists of a cubic anomaly with magnetization of 2 A/m placed in a uniform non-magnetic background.  
+A grid of 342 observation stations is placed on a plane 80 meters above the top of the block.
+We discretized the model on a uniform 10 meter cell size mesh.
+\plot{Vec_model_Cropped}{width=0.85\columnwidth}{(a) Synthetic 3D magnetization model made up of a cubic anomaly uniformly magnetized (Dec: $0^\circ$, Inc: $0^\circ$). (b) TMI anomaly data as measured 80 meters above the magnetized block, 1 nT random noise added.}
+From the solution of the integral equation \eqref{b_integral} \cite[]{Sharma66}, we get a linear system of equations relating the magnetized prisms to the measured magnetic data such that:
+\begin{equation} \label{Fwr_b}
+\begin{split}
+	{\mathbf{ b}}& =  \mathbf{T}\:{\mathbf{m}} \\
+% 	{\mathbf{ b}} \in \mathbb{R}^{ (nd)} \;,\; \mathbf{T}& \in \mathbb{R}^{(3nd) \times (3nc)} \;,\; {\mathbf{m}} \in \mathbb{R}^{ (3nc)}\;.
+\end{split}
+\end{equation} 
+where the tensor matrix $\mathbf{T}$ relates the three components of magnetization $\mathbf{m}$ within each model cell to the observed TMI anomaly data $\mathbf{b}$. Figure~\ref{fig:Vec_model_Cropped}(b) presents the magnetic response of our synthetic block.
+
+\subsection{Magnetic Susceptibility Inversion}
+From a geophysical standpoint, we are interested in the inverse problem, namely to recover the location and direction of magnetization from the observed data. In most mineral exploration cases, the orientation of magnetization is unknown. In order to simplify the inverse problem, it is commonly assumed that the magnetic response is purely induced. We can re-write Eq.~\eqref{Fwr_b} in terms of magnetic susceptibility $\kappa$ such that:
+\begin{equation} \label{sus_prob}
+	\mathbf{b} = \mathbf{T\;H} \; \boldsymbol{\kappa}
+\end{equation}
+where $\mathbf{H}$  is a block diagonal matrix containing the orientation of the inducing field $\vec H_0$ in Cartesian coordinates. We here simulate a worst case scenario where the Earth's field is orientated perpendicular to the orientation of remanent magnetization (Dec: $0^\circ$, Inc: $90^\circ$). 
+As used by \cite{LiOldenburg1996}, the inverse problem is formulated as an optimization problem of the form:
+\begin{equation} \label{eq:obj_func}
+\begin{split}
+\underset{m}{\text{min}}  &\;   \phi_d \;+\; \beta \phi_m \\
+\phi_d = &  \|\mathbf{W_d \;( F\;m - d)}\|_2^{2}\\
+\phi_m = & {\| \mathbf{W}_s\; \;( \mathbf{m - m^{ref}})\|}^2_2  + \sum_{i = x,y,z}  {\| \mathbf{W}_i  \; \mathbf{G}_i \; \mathbf{m}\|}^2_2  \;.
+\end{split}
+\end{equation}
+where we seek to minimize a weighted data misfit function $\phi_d$, as well as some measure of model structure $\phi_m$. The trade-off parameter $\beta$ regulates the contribution between the two penalty functions. Least-squares penalties are assigned to model values deviating from some reference model $\mathbf{m^{ref}}$, as well as to large model gradients measured by finite difference operators $\mathbf{G}$ in Cartesian coordinates. Distance weights $\mathbf{W}_s, \mathbf{W}_i$ are added to counteract the natural decay of potential fields.
+More details regarding this objective function can be found in \cite[]{LiOldenburg1996}.
+In order to simulate field data conditions, we add random Gaussian noise to the data, 1 nT standard deviation.
+Figure \ref{fig:Susc_model_Cropped}(a) presents the recovered model after convergence of the magnetic susceptibility inversion. While this solution honors the data within the imposed tolerance, the model clearly fails at resolving the block anomaly due to the wrongful assumption of a vertical magnetization direction. In a mining exploration context, having the wrong image could result in false drilling targets \textemdash costly both in time, resources and confidence in geophysical methods. Hence the need for a more robust algorithm that does not require knowledge about the orientation of magnetization. 
+\plot{Susc_model_Cropped}{width=0.85\columnwidth}{(a) Recovered susceptibility model assuming a vertical magnetization direction. The inversion poorly recovers the location and geometry of the block. (b) Predicted data over the recovered susceptibility model.}
+
+\subsection{Magnetic Amplitude Inversion}
+The inversion of magnetic amplitude data has been proposed as an alternative to the magnetic susceptibility inversion \cite[]{Shearer05, LiShearer10}.
+Amplitude data have the interesting property of being weakly dependent on the orientation of magnetization \cite[]{Nabighian72}, which can be used to estimate the location and shape of magnetized objects.
+
+Amplitude data can be written in terms of an effective susceptibility value $\kappa_e$ such that:
+\begin{equation}\label{MAI_Forward}
+	\begin{split}
+\mathbf{| b|} &= 
+	\begin{bmatrix}
+		\mathbf{b}^2_x + \mathbf{b}^2_y + \mathbf{b}^2_z
+	\end{bmatrix} ^{1/2} \\
+	&= 
+	\begin{bmatrix}
+		(\mathbf{T\;H} \: \boldsymbol{\kappa_e)}^2 \;+
+	 (\mathbf{T\;H} \: \boldsymbol{\kappa_e)}^2 \;+
+	(\mathbf{T\;H} \: \boldsymbol{\kappa_e)}^2
+	\end{bmatrix} ^{1/2} \;.
+	\end{split}
+\end{equation} 
+In most cases, amplitude data must be derived from the collected TMI data in pre-processing.
+We adopt the equivalent source method presented in \cite{Li2010} to calculate the amplitude data from the observed TMI data.
+
+Following the same inverse procedure, only slightly modified for this non-linear inverse problem, we recover an effective susceptibility ($\kappa_e$) model as presented in Figure~\ref{fig:Amp_model_Cropped}(b). Despite the solution being smooth and lacking spatial resolution, we recover the highest $\kappa_e$ exactly in the center of the block anomaly. Even though our initial assumption about the magnetization direction was wrong, the algorithm successfully identified a region of high magnetic property.
+\plot{Amp_model_Cropped}{width=0.85\columnwidth}{(a) Recovered effective susceptibility model from the amplitude inversion. (b) Predicted amplitude data over the effective susceptibility model.}
+
+\subsection{Magnetic Vector Inversion}
+Generalizing the susceptibility inversion,  \cite{Lelievre2009} propose a Magnetic Vector Inversion (MVI) method to directly recover the orientation and magnitude of magnetization. They decompose the magnetization vector into three orthogonal components such that: 
+\begin{equation}
+\begin{split}
+	\mathbf{b} = \mathbf{T}\;\begin{bmatrix} \mathbf{H}_p & \mathbf{H}_s & \mathbf{H}_t \end{bmatrix}	{\kappa_{pst}} 
+\end{split}
+\end{equation}
+where $ \mathbf{H}_p,  \mathbf{H}_s$ and  $\mathbf{H}_t$ are  block diagonal matrices relating the three orthogonal effective susceptibility parameters $\kappa_{pst}$ to the linear system of equations $\mathbf{T}$. This augmented system has three times the number of unknown parameters compared to the problem presented in Eq.~\eqref{sus_prob}. Keeping the same inversion methodology as prescribed in Eq.~\eqref{eq:obj_func}, we recover the magnetization model presented in Figure~\ref{fig:MVI_model_Cropped}(a). 
+This solution is an improvement over the induced assumption as the bulk of effective susceptibility is recovered at the right location and with the right magnetization direction inside the block. We note however that the solution is distributed over a large volume and smoothly varying through space. The inversion preferentially puts anomalies below the largest data values, increasing the complexity of the solution.
+\plot{MVI_model_Cropped}{width=0.85\columnwidth}{(a) Recovered magnetization model from the MVI method. The strength of magnetization is indicated by the color and length of the vectors. (b) Predicted data over the recovered magnetization model.}
+
+\section{Cooperative Magnetic Inversion}
+We have so far reviewed two inversion methods dealing with arbitrary magnetization direction. 
+Our goal is to combine the latter two methods using their strengths to better resolve the location, orientation, and spatial extent of the magnetized anomaly. The Cooperative Magnetic Inversion (CMI) method combines the amplitude inversion and MVI into a single inversion algorithm. 
+From the robust amplitude inversion, we recover a 3-D distribution of effective susceptibilities, providing a good approximation for the location and shape of magnetic anomalies.
+From the recovered effective susceptibility model, we construct a weighting matrix such that:
+\begin{equation}\label{W_M}
+{W}_{a_{ii}} =  {\Big[\frac{\kappa_{e_i} *0.99 }{max(\kappa_{e})} + 0.01\Big]}^{-1/2}  \;,
+\end{equation} 
+where $\mathbf{W}_a$ is a diagonal matrix of the normalized effective susceptibilities $\kappa_{e}$.
+This type of re-scaling was determined empirically to be robust. 
+
+Next, the weighted matrix $\mathbf{W}_a$ is added to the regularization function as a spatial constraint for the MVI algorithm.
+The regularization function $\phi_m$ becomes:
+\begin{equation} \label{eq:S-IRLS_CMI}
+\begin{aligned}
+\phi_m =  {\|\mathbf{W}_a\; \mathbf{W}_s\; \;( \mathbf{m - m^{ref}})\|}^2_2  + \sum_{i = x,y,z}  {\| \mathbf{W}_a\;  \mathbf{W}_i  \; \mathbf{G}_i \; \mathbf{m}\|}^2_2  \;.
+\end{aligned}
+  \end{equation}
+ The amplitude weighting matrix $\mathbf{W}_a$ imposes a high penalty on cells that received low effective susceptibility from the amplitude inversion. 
+ Figure \ref{fig:CMI_model_Cropped}(a) presents the inverted model after reaching the target data misfit. The added information from the amplitude inversion greatly improves the solution over the MVI method alone. 
+ Although still smoothly varying, the inversion manages to concentrate most of the magnetization inside the block, closely resembling the true model. 
+In a mineral exploration context, getting a more accurate estimate of the magnetic anomaly can greatly facilitate the geological interpretation, as we will demonstrate with the Osborne dataset. \vspace{-8pt} 
+\plot{CMI_model_Cropped}{width=0.85\columnwidth}{(a) Recovered magnetization model from the CMI method. Information from the amplitude inversion helped constraining the spatial extent of the anomaly.}
+
+\section{Case Study - Osborne}\vspace{-5pt}
+We showcase the capabilities of our algorithm on magnetic dataset collected over the Osborne Cu-Au deposit, Queensland (Fig- \ref{fig:Osborne_data_crop}(a)) .
+The deposit consists of shallow dipping ironstone units 20 to 40 m below a Mesozoic shale (Fig- \ref{fig:Osborne_data_crop}(b)).
+\plot{Osborne_data_crop}{width=\columnwidth}{(a) Airborne magnetic data over the Osborne Cu-Au deposit, Queensland. (b) Geological cross-section adapted from \cite{Anderson1992} at location A-A'}
+The ironstone layers have high magnetite content with an average susceptibility value of 2 SI giving rise to strong secondary magnetic fields and significant self-demagnetization effects. 
+As determined experimentally by \cite{Anderson1992}, the resultant magnetization orientation gets rotated along the strike of the ironstone ($ -36^\circ N$) rather than along the inducing field direction ($D: 6^\circ \; I: -56^\circ$).
+Early interpretation of the magnetic data ignored the effect of self-demagnetization, which led to two diamond-cored holes drilled along the dip of the mineralization. 
+As demonstrated by \cite{Krahenbuhl2007}, the amplitude inversion could have been used to better image the deposit.
+The exploration history of Osborne makes it an ideal candidate to test the CMI algorithm in order to (a) image the ironstone and (b) get and estimate of magnetization direction.
+
+We first invert the Osborne dataset with the standard susceptibility inversion algorithm. The region of interest is discretized into 20-m cubic cells.
+Due to self-demagnetization effects, the dip and lateral extent of the magnetic anomaly is not well defined, potentially suggesting a vertical susceptibility anomaly (Fig.~\ref{fig:Osborne_MVI_crop}(a)). For comparison, we also invert the data with the MVI method (Fig.~\ref{fig:Osborne_MVI_crop}(b)). Once again the magnetization model is smooth and lack the spatial resolution for accurate interpretation. The inversion did recover the right magnetization component inside the ironstone, but it is difficult to distinguish the dip and extent of the formation.
+\plot{Osborne_MVI_crop}{width=\columnwidth}{Recovered susceptibility model for (a) the induced assumption and (b)  magnetization model from the MVI method.}
+
+We then proceed with the CMI algorithm starting with the amplitude inversion. The recovered effective susceptibility model (Fig.~\ref{fig:Osborne_CMI_crop}(a)) is an improvement over the induced assumption, with high values confined to the location of the ironstone. The effective susceptibility model is then used to constrain the MVI model as shown in Figure~\ref{fig:Osborne_CMI_crop}(b). The vertical extent and dip of the ironstone matches the known geology. The recovered magnetization direction also agrees well with laboratory measurements ($D: -10^\circ,\; I: -60^\circ$).
+\plot{Osborne_CMI_crop}{width=\columnwidth}{(a) Recovered effective susceptibility model from the amplitude inversion and (b) the final CMI model.}
+
+Since we now know from drilling the approximate dip and orientation of the mineralization, we would like to impose some constraints on the amplitude inversion to further refine the dip and thickness of the anomaly. 
+We use the sparse regularization algorithm of \cite{FournierMSc} as well as a rotation of the model objective function. We add sparsity constraints on the model and its gradients through an approximate $\l_0$-norm orientated along the mean dip ($30^\circ$) and strike ($-40^\circ \; N$) of the formation.  As shown in Figure~\ref{fig:Osborne_CMI_lplq_crop}, the sparsity constraint greatly improves the dip and extent of the magnetic anomaly, accuratly imaging two overlapping ironstone units. 
+\plot{Osborne_CMI_lplq_crop}{width=\columnwidth}{(a) Recovered effective susceptibility model from the amplitude inversion using a rotated sparse norm regularization and (b) magnetization model from the CMI method.}\vspace{-20pt}
+
+\section{Summary}
+Magnetic data affected by remanence are inverted via a cooperative magnetic inversion approach. The location and geometry of magnetic anomalies are extracted from an amplitude inversion, which, in turn, is then used to constrain a magnetic vector inversion. Additional information may be added to recover a geologically acceptable model in a complex magnetic environment as shown with the Osborne deposit.
+
+\bibliographystyle{seg}  % style file is seg.bst
+\bibliography{reference}
+
+\end{document}

@@ -1,0 +1,99 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Automated mixed-norm modeling}{95}{chapter.6}}
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{Chapter6}{{6}{95}{Automated mixed-norm modeling}{chapter.6}{}}
+\citation{SunLi14}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Selecting local $p$-parameters}{96}{section.6.1}}
+\@writefile{brf}{\backcite{SunLi14}{{96}{6.1}{section.6.1}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Model space inversions}{96}{subsection.6.1.1}}
+\newlabel{ObjFun2D}{{6.1}{96}{Model space inversions}{equation.6.1.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces (a) Synthetic 2D travel-time tomography problem made up of a rectangular velocity low, and a smooth Gaussian velocity high. Contour lines ($25^{th}$ and $75^{th}$ percentile) are shown in black for the true position and shape of the velocity anomalies. Transmitters (red) and receivers (green) are positioned on opposite sides of the model domain. (b) Data map for the 143 line integral data calculated for each transmitter-receiver pair. \relax }}{97}{figure.caption.62}}
+\newlabel{Problem2DTrue}{{6.1}{97}{(a) Synthetic 2D travel-time tomography problem made up of a rectangular velocity low, and a smooth Gaussian velocity high. Contour lines ($25^{th}$ and $75^{th}$ percentile) are shown in black for the true position and shape of the velocity anomalies. Transmitters (red) and receivers (green) are positioned on opposite sides of the model domain. (b) Data map for the 143 line integral data calculated for each transmitter-receiver pair. \relax }{figure.caption.62}{}}
+\citation{Pearson1901,Hotelling1933}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Suite of inverted models for various combinations of norms $p_s,\tmspace  +\thickmuskip {.2777em} p_{x}=p_{y} \in {[0,1,2]}$ ($\alpha _s=\alpha _x=\alpha _y=1$). Contour lines ($25^{th}$ and $75^{th}$ percentile) are shown in black for the true position and shape of the velocity anomalies.\relax }}{98}{figure.caption.63}}
+\newlabel{Mixed2DSolutions}{{6.2}{98}{Suite of inverted models for various combinations of norms $p_s,\; p_{x}=p_{y} \in {[0,1,2]}$ ($\alpha _s=\alpha _x=\alpha _y=1$). Contour lines ($25^{th}$ and $75^{th}$ percentile) are shown in black for the true position and shape of the velocity anomalies.\relax }{figure.caption.63}{}}
+\citation{Pedregosa2011}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces (a) to (i) Data residual contour map for the nine inversions presented in Figure\nobreakspace  {}\ref  {Mixed2DSolutions}. Contour lines ($\pm 1$ standard deviation) are shown in black. (j) Random noise added to the experiment.\relax }}{99}{figure.caption.64}}
+\newlabel{Mixed2DResiduals}{{6.3}{99}{(a) to (i) Data residual contour map for the nine inversions presented in Figure~\ref {Mixed2DSolutions}. Contour lines ($\pm 1$ standard deviation) are shown in black. (j) Random noise added to the experiment.\relax }{figure.caption.64}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Average PCA model}{99}{subsection.6.1.2}}
+\newlabel{PCAmodel}{{6.1.2}{99}{Average PCA model}{subsection.6.1.2}{}}
+\@writefile{brf}{\backcite{Hotelling1933}{{99}{6.1.2}{subsection.6.1.2}}}
+\@writefile{brf}{\backcite{Pearson1901}{{99}{6.1.2}{subsection.6.1.2}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces PCA vectors covering $75\%$ of the model variances.\relax }}{100}{figure.caption.65}}
+\newlabel{PCA_vectors}{{6.4}{100}{PCA vectors covering $75\%$ of the model variances.\relax }{figure.caption.65}{}}
+\@writefile{brf}{\backcite{Pedregosa2011}{{100}{6.1.2}{equation.6.1.2}}}
+\newlabel{weightedaverage}{{6.3}{100}{Average PCA model}{equation.6.1.3}{}}
+\citation{Pedregosa2011}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces (a) Averaged PCA model $\mathbf  {m}_A$ and (b) corresponding normalize data residual map. Contour lines are shown in (a) for the true position and shape of the velocity anomalies.\relax }}{101}{figure.caption.66}}
+\newlabel{PCA_model}{{6.5}{101}{(a) Averaged PCA model $\mathbf {m}_A$ and (b) corresponding normalize data residual map. Contour lines are shown in (a) for the true position and shape of the velocity anomalies.\relax }{figure.caption.66}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Parameter extraction}{101}{subsection.6.1.3}}
+\@writefile{brf}{\backcite{Pedregosa2011}{{101}{6.1.3}{subsection.6.1.3}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Parametric representation of the nine inverted models derived form the Canny edge detection algorithm.\relax }}{102}{figure.caption.67}}
+\newlabel{CannyEdges}{{6.6}{102}{Parametric representation of the nine inverted models derived form the Canny edge detection algorithm.\relax }{figure.caption.67}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Local $p$-values on the (a) the model norm $\phi _s^{p_s}$ and (b) model gradients $\phi _{x}^{\tmspace  +\medmuskip {.2222em}p_x}$, $\phi _{y}^{\tmspace  +\medmuskip {.2222em}p_y}$ extracted from the solution space.\relax }}{102}{figure.caption.68}}
+\newlabel{MixedNorms}{{6.7}{102}{Local $p$-values on the (a) the model norm $\phi _s^{p_s}$ and (b) model gradients $\phi _{x}^{\:p_x}$, $\phi _{y}^{\:p_y}$ extracted from the solution space.\relax }{figure.caption.68}{}}
+\citation{SunLi14}
+\newlabel{mixedIRLS}{{6.5}{103}{Parameter extraction}{equation.6.1.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.4}Summary}{103}{subsection.6.1.4}}
+\@writefile{brf}{\backcite{SunLi14}{{103}{6.1.4}{subsection.6.1.4}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces (a) The final SVMN inversion result and (b) normalized data residual map. Contour lines are shown in (a) for the true position and shape of the velocity anomalies.\relax }}{104}{figure.caption.69}}
+\newlabel{FinalMixedNorm}{{6.8}{104}{(a) The final SVMN inversion result and (b) normalized data residual map. Contour lines are shown in (a) for the true position and shape of the velocity anomalies.\relax }{figure.caption.69}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Dip and strike estimation}{104}{section.6.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces Synthetic fold model introduced in Chapter\nobreakspace  {}\ref  {Chapter5} used here to test the dip and strike estimation learning algorithm.\relax }}{105}{figure.caption.70}}
+\newlabel{FoldModel_DipStrikeEst}{{6.9}{105}{Synthetic fold model introduced in Chapter~\ref {Chapter5} used here to test the dip and strike estimation learning algorithm.\relax }{figure.caption.70}{}}
+\citation{Lee1994}
+\citation{Hu1962}
+\@writefile{toc}{\contentsline {subsubsection}{Step 1: Unconstrained inversion}{106}{subsubsection*.71}}
+\@writefile{toc}{\contentsline {subsubsection}{Step 2: Azimuth estimation}{106}{subsubsection*.72}}
+\@writefile{brf}{\backcite{Lee1994}{{106}{6.2}{figure.caption.73}}}
+\@writefile{brf}{\backcite{Hu1962}{{106}{6.2}{figure.caption.73}}}
+\newlabel{imagemoment}{{6.6}{106}{Step 2: Azimuth estimation}{equation.6.2.6}{}}
+\citation{Briggs74}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.10}{\ignorespaces Example of an automated azimuth estimation using the UBC Crest. (b) The image is first converted to a binary image using the python routine \texttt  {ScikitImage.Skeleton}. Image moment calculations are performed on moving windows to determine the position and orientation of dominant features. (c) Vectors are then rotated by $90^\circ $ to point along the normal of edges. The normal vectors are checked for consistency in preparation for interpolation.\relax }}{107}{figure.caption.73}}
+\newlabel{ImageMoment_UBC}{{6.10}{107}{Example of an automated azimuth estimation using the UBC Crest. (b) The image is first converted to a binary image using the python routine \texttt {ScikitImage.Skeleton}. Image moment calculations are performed on moving windows to determine the position and orientation of dominant features. (c) Vectors are then rotated by $90^\circ $ to point along the normal of edges. The normal vectors are checked for consistency in preparation for interpolation.\relax }{figure.caption.73}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.11}{\ignorespaces (a) Image moment calculations over windowed regions of the inverted density model. Arrows are plotted for the principal direction (red) and normal (white) of the main density anomaly. (b) Normal vectors are interpolated in 3D and used to rotate the objective function.\relax }}{108}{figure.caption.74}}
+\newlabel{ImageMoment}{{6.11}{108}{(a) Image moment calculations over windowed regions of the inverted density model. Arrows are plotted for the principal direction (red) and normal (white) of the main density anomaly. (b) Normal vectors are interpolated in 3D and used to rotate the objective function.\relax }{figure.caption.74}{}}
+\@writefile{brf}{\backcite{Briggs74}{{108}{6.2}{equation.6.2.8}}}
+\@writefile{toc}{\contentsline {subsubsection}{Step 3: Model space inversion}{108}{subsubsection*.75}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.12}{\ignorespaces Suite of models with directional gradients for $\theta \in [-90^\circ ,\tmspace  +\thickmuskip {.2777em}75^\circ ]$.\relax }}{109}{figure.caption.76}}
+\newlabel{ModelSpace_Dip}{{6.12}{109}{Suite of models with directional gradients for $\theta \in [-90^\circ ,\;75^\circ ]$.\relax }{figure.caption.76}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Step 4: Dip estimation}{109}{subsubsection*.77}}
+\@writefile{toc}{\contentsline {subsubsection}{Step 5: SVMN inversion}{109}{subsubsection*.79}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.13}{\ignorespaces Sections through the average PCA model and rotation vectors (arrow) derived from the image moment analysis.\relax }}{110}{figure.caption.78}}
+\newlabel{LearnRotation}{{6.13}{110}{Sections through the average PCA model and rotation vectors (arrow) derived from the image moment analysis.\relax }{figure.caption.78}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.14}{\ignorespaces (a) Horizontal and (b, c) vertical sections through the recovered model using rotation angles derived from the average PCA model.\relax }}{110}{figure.caption.80}}
+\newlabel{GRAV_SVMN_rotation}{{6.14}{110}{(a) Horizontal and (b, c) vertical sections through the recovered model using rotation angles derived from the average PCA model.\relax }{figure.caption.80}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Summary}{111}{section.6.3}}
+\@setckpt{Chap6_Learning}{
+\setcounter{page}{112}
+\setcounter{equation}{8}
+\setcounter{enumi}{5}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{6}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{14}
+\setcounter{table}{0}
+\setcounter{lofdepth}{1}
+\setcounter{lotdepth}{1}
+\setcounter{r@tfl@t}{0}
+\setcounter{parentequation}{0}
+\setcounter{lstnumber}{1}
+\setcounter{NAT@ctr}{0}
+\setcounter{ContinuedFloat}{0}
+\setcounter{Item}{14}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{52}
+\setcounter{lstlisting}{0}
+\setcounter{section@level}{0}
+}

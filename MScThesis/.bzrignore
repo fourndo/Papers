@@ -1,0 +1,12 @@
+*.aux
+*.dvi
+*.log
+*.blg
+*.bbl
+*.toc
+*.lo[ft]
+*.pdf
+*.brf
+*.out
+ubcdiss-*.zip
+version.tex

@@ -1,0 +1,555 @@
+\begin{thebibliography}{}
+\itemsep0pt
+
+\bibitem[Abedi et~al., 2018a]{Abedi2018}
+Abedi, M., D. Fournier, S.~G. Devriese, and D.~W. Oldenburg,  2018a,
+  {Integrated inversion of airborne geophysics over a structural geological
+  unit: A case study for delineation of a porphyry copper zone in Iran}:
+  Journal of Applied Geophysics, {\bf 152}, 188 -- 202.
+
+\bibitem[Abedi et~al., 2018b]{Abedi2018a}
+--------, 2018b, {Potential field signatures along the Zagros collision zone in
+  Iran}: Tectonophysics, {\bf 722}, 25 -- 42.
+
+\bibitem[Ajo-Franklin et~al., 2007]{Ajo-Franklin07}
+Ajo-Franklin, J.~B., B.~J. Minsley, and T.~M. Daley,  2007, Applying compact
+  constraints to differential traveltime tomography: Geophysics, {\bf 72},
+  67--75.
+
+\bibitem[Barber et~al., 1996]{Barber1996}
+Barber, C.~B., D.~P. Dobkin, and H. Huhdanpaa,  1996, {The Quickhull algorithm
+  for convex hulls}: ACM Transactions on Mathematical Software, {\bf 22},
+  469--483.
+
+\bibitem[Barbosa and Silva, 2006]{Barbosa2006}
+Barbosa, V.~C., and J.~B. Silva,  2006, {Interactive 2D magnetic inversion: A
+  tool for aiding forward modeling and testing geologic hypotheses}:
+  Geophysics, {\bf 71}, L43--L50.
+
+\bibitem[Barbosa and Silva, 1994]{BarbosaSilva94}
+Barbosa, V. C.~F., and J.~B.~C. Silva,  1994, Generalized compact gravity
+  inversion: Geophysics, {\bf 59}, 57--68.
+
+\bibitem[Blakely, 1996]{Blakely96}
+Blakely, R.,  1996, Potential theory in gravity and magnetic applications:
+  Cambridge University Press.
+
+\bibitem[Blaschek et~al., 2008]{Blaschek2008}
+Blaschek, R., A. Hordt, and A. Kemna,  2008, A new sensitivity-controlled
+  focusing regularization scheme for the inversion of induced polarization data
+  based on the minimum gradient support: Geophysics, {\bf 73}, 45--54.
+
+\bibitem[Bosch and McGaughey, 2001]{Bosh2001}
+Bosch, M., and J. McGaughey,  2001, Joint inversion of gravity and magnetic
+  data under lithologic constraints: The Leading Edge, {\bf 20}, 877--881.
+
+\bibitem[Briggs, 1974]{Briggs74}
+Briggs, I.~C.,  1974, Machine contouring using minimum curvature: Geophysics,
+  {\bf 39}, 39--48.
+
+\bibitem[Chartrand, 2007]{Chartrand07}
+Chartrand, R.,  2007, Exact reconstruction of sparse signals via nonconvex
+  minimization: IEEE Signal Processing Letters, {\bf 76}, 167--188.
+
+\bibitem[Clark, 2014]{Clark2014}
+Clark, D.~A.,  2014, Methods for determining remanent and total magnetisation
+  of magnetic sources - a review: Exploration Geophysics, {\bf 45}, 271--304.
+
+\bibitem[Cordell and Grauch, 2012]{Cordell2012}
+Cordell, L., and V.~J.~S. Grauch,  2012, {\it in} {Mapping basement
+  magnetization zones from aeromagnetic data in the San Juan Basin, New
+  Mexico}:  181--197.
+
+\bibitem[Cox et~al., 2010]{Cox2010}
+Cox, L.~H., G.~A. Wilson, and M.~S. Zhdanov,  2010, {3D inversion of entire
+  airborne electromagnetic surveys using a moving footprint}: ASEG Extended
+  Abstracts, 1--10.
+
+\bibitem[Dannemiller and Li, 2006]{DannemillerLi06}
+Dannemiller, N., and Y. Li,  2006, A new method for estimation of magnetization
+  direction: Geophysics, {\bf 71}, L69--L73.
+
+\bibitem[Dask, 2016]{dask2016}
+Dask, D.~T.,  2016, Dask: Library for dynamic task scheduling:
+  https://dask.org.
+
+\bibitem[Daubechies et~al., 2010]{Daubechies10}
+Daubechies, I., R. DeVore, M. Fornasier, and C.~S. Gunturk,  2010, Iteratively
+  re-weighted least squares minimization for sparse recovery: Communication on
+  Pure and Applied Mathematics, {\bf 63}, 1--35.
+
+\bibitem[Davis et~al., 2012]{Davis2012}
+Davis, K., D.~W. Oldenburg, and M. HIllier,  2012, Incorporating geological
+  structure into the inversion of magnetic data: Presented at the ASEG 22th
+  Conference and Exhibition.
+
+\bibitem[Domzalski, 1966]{Domzalski1966}
+Domzalski, W.,  1966, Importance of aeromagnetics in evaluation of structural
+  constrol of mineralization: Geophysical Prospecting, {\bf 14}, 273--291.
+
+\bibitem[Ekblom, 1973]{Ekblom73}
+Ekblom, H.,  1973, Calculation of linear best $l_p$-approximation: BIT, {\bf
+  13}, 292--300.
+
+\bibitem[Engheta et~al., 1992]{Engheta1992}
+Engheta, N., W.~D. Murphy, V. Rokhlin, and M.~S. Vassiliou,  1992, {The Fast
+  Multipole Method (FFM) for the electromagnetic scattering problem}: {IEEE
+  Transactions on Antenna and Propagation}, {\bf 40}, 634641.
+
+\bibitem[Enkin, 2003]{Enkin2003}
+Enkin, R.,  2003, {Paleomagnetic analysis of selected Ekati kimberlite.}
+\newblock Unpublished report for BHP Billiton Diamonds. Geological Survey of
+  Canada.
+
+\bibitem[Enkin, 2014]{Enkin2014}
+Enkin, R.~J.,  2014, {The rock physical property database of British Columbia,
+  and the distinct petrophysical signature of the Chilcotin basalts.}: Canadian
+  Journal of Earth Sciences, {\bf 51}, 327--338.
+\newblock (NRC Research Press).
+
+\bibitem[Farquharson and Oldenburg, 1998]{FarquharsonOldenburg98}
+Farquharson, C.~G., and D.~W. Oldenburg,  1998, Non-linear inversion using
+  general measures of data misfit and model structure: Geophysical Journal
+  International, {\bf 134}, 213--227.
+
+\bibitem[Fedi et~al., 1994]{Fedi1994}
+Fedi, M., G. Florio, and A. Rapolla,  1994, A method to estimate the total
+  magnetization direction from a distortion analysis of magnetic anomalies1:
+  Geophysical Prospecting, {\bf 42}, 261--274.
+
+\bibitem[Foss, 2006]{Foss2006}
+Foss, C.,  2006, {\it in} Parametric inversion as an advanced technique for
+  magnetic source depth estimation:  943--947.
+
+\bibitem[Foss and McKenzie, 2011]{Foss2011a}
+Foss, C., and B. McKenzie,  2011, {Inversion of anomalies due to remanent
+  magnetisation: an example from the Black Hill Norite of South Australia}:
+  Australian Journal of Earth Sciences, {\bf 58}, 391--405.
+
+\bibitem[Fournier, 2015]{Fournier2015}
+Fournier, D.,  2015, A cooperative magnetic inversion method with lp-norm
+  regularization: Msc. thesis, The University of British Columbia.
+
+\bibitem[Fournier et~al., 2016]{FournierDavis2016a}
+Fournier, D., K. Davis, and D.~W. Oldenburg,  2016, Robust and flexible
+  mixed-norm inversion: SEG Technical Program Expanded Abstracts, 1542--1547.
+
+\bibitem[Fournier and Oldenburg, 2019a]{Fournier2019b}
+Fournier, D., and D. Oldenburg,  2019a, {Sparse magnetic vector inversion in
+  spherical coordinates: Application to the Kevitsa Ni-Cu-PGE magnetic anomaly,
+  Finland}: Geophysics.
+\newblock (In revision).
+
+\bibitem[Fournier and Oldenburg, 2019b]{FournierDWO2019}
+Fournier, D., and D.~W. Oldenburg,  2019b, Inversion using spatially variable
+  mixed lp-norms: Geophysical Journal Internation.
+\newblock ({In revision}).
+
+\bibitem[Fullagar and Pears, 2013]{Fullagar2013}
+Fullagar, P.~K., and G.~A. Pears,  2013, {3D magnetic modelling and inversion
+  incorporating self-demagnetisation and interactions}: ASEG Extended
+  Abstracts, {\bf 2013}, 1--4.
+
+\bibitem[Fullagar et~al., 2008]{Fullagar2008}
+Fullagar, P.~K., G.~A. Pears, and B. McMonnies,  2008, Constrained inversion of
+  geologic surfaces - pushing the boundaries: The Leading Edge, {\bf 27},
+  98--105.
+
+\bibitem[Gorodnitsky and Rao, 1997]{Gorodnitsky97}
+Gorodnitsky, I.~F., and B.~D. Rao,  1997, {Sparse singal reconstruction from
+  limited data using FOCUSS: A re-weighted minimum norm algorithm}: IEEE
+  Transactions on Signal Processing, {\bf 45}, 600--616.
+
+\bibitem[Grant, 1984]{Grant1984}
+Grant, F.,  1984, {Aeromagnetic, geology and ore environments, I. Magnetite in
+  igneous, sedimentary and metamorphic rocks: An overview}: Geoexploration,
+  {\bf 23}, 303--333.
+
+\bibitem[Gregory et~al., 2011]{FQM2011}
+Gregory, J., N. Journet, G. White, and M. Lappalainen,  2011, {Kevitsa copper
+  nickel project Finland}: 43-101 report, First Quantum Mineral.
+
+\bibitem[Haber and Schwartzbach, 2014]{Haber2014}
+Haber, C., and C. Schwartzbach,  2014, Parallel inversion of large-scale
+  airborne time-domain electromagnetic data with multiple {OcTree} meshes:
+  Inverse Problems, {\bf 30}, 1--28.
+
+\bibitem[Haber et~al., 1997]{Haber1997}
+Haber, E., D.~W. Oldenburg, T. Farnocombe, and A. Cellar,  1997, {Direct
+  estimation of dynamic parameters in SPECT tomography}: IEEE Transaction on
+  Nuclear Science, {\bf 44}, 2425--2429.
+
+\bibitem[Haber and Tenorio, 2003]{Haber2003}
+Haber, E., and L. Tenorio,  2003, Learning regularization functionals: a
+  supervised training approach: Inverse Problems, {\bf 19}.
+
+\bibitem[Helbig, 1963]{Helbig1963}
+Helbig, K.,  1963, Some integrals of magnetic anomalies and their relation to
+  the parameters of the disturbing body: Zeitschrift für Geophysik, {\bf 29},
+  83--96.
+
+\bibitem[Henkel, 1991]{Henkel1991}
+Henkel, H.,  1991, Petrophysical properties (density and magnetization) of
+  rocks from the northern part of the baltic shield: Tectonophysics, {\bf 192},
+  1--19.
+
+\bibitem[Hestenes and Stiefel, 1952]{HestenesStiefel1952}
+Hestenes, M.~R., and E. Stiefel,  1952, {Method of Conjugate Gradient for
+  solving linear systems}: Journal of Research of the National Bureau of
+  Standards, {\bf 49}, 409--436.
+
+\bibitem[Hotelling, 1933]{Hotelling1933}
+Hotelling, H.,  1933, Analysis of a complex of statistical variables into
+  principal components: Journal of Educational Psychology, {\bf 24}, 417--441.
+
+\bibitem[Hu, 1962]{Hu1962}
+Hu, M.-K.,  1962, Visual pattern recognition by moment invariants: IRE
+  Transactions on Information Theory, {\bf 8}, 179--187.
+
+\bibitem[Huber, 1964]{Huber64}
+Huber, P.~J.,  1964, Robust estimation of a location parameter: The {A}nnals of
+  {M}athematical {S}tatistics, {\bf 35}, 73--101.
+
+\bibitem[Jones et~al., 2001]{Scipy2001}
+Jones, E., T. Oliphant, and P. Peterson,  2001, {SciPy}: Open source scientific
+  tools for {Python}: http://www.scipy.org/.
+
+\bibitem[Kissel and Laj, 1989]{NATOASIS1989}
+Kissel, C., and C. Laj,  1989, Paleomagnetic rotation and continental
+  deformation: Kluwer Academic Publishers, volume~{\bf 254} {\it of} Series C:
+  Mathematical and Physical Sciences.
+
+\bibitem[Koivisto et~al., 2015]{Koivisto2015}
+Koivisto, E., A. Malehmir, N. Hellqvist, T. Voipio, and C. Wijns,  2015,
+  {Building a 3D model of lithological contacts and near-mine structures in the
+  Kevitsa mining and exploration site, Northern Finland: constraints from 2D
+  and 3D reflection seismic data}: Geophysical Prospecting, {\bf 63}, 754--773.
+
+\bibitem[Krahenbuhl and Li, 2015]{Krahenbuhl2015}
+Krahenbuhl, R., and Y. Li,  2015, Robust parametric inversion using adaptive
+  quenched simulated annealing: SEG Technical Program Expanded Abstract,
+  1526--1530.
+
+\bibitem[Last and Kubik, 1983]{LastKubik83}
+Last, B.~H., and K. Kubik,  1983, Compact gravity inversion: Geophysics, {\bf
+  48}, no. 8, 713--721.
+
+\bibitem[Lawson, 1961]{Lawson61}
+Lawson, C.~L.,  1961, Contribution to the theory of linear least maximum
+  approximation: PhD thesis, University of California, Los Angeles.
+
+\bibitem[Le et~al., 2016]{Le2016}
+Le, C. V.~A., B.~D. Harris, and A.~M. Pethick,  2016, Magnetotelluric
+  inversion, carbonaceous phyllites and an ore zone: Kevitsa, finland: 25th
+  Geophysical Conference and Exhibition, 525--529.
+
+\bibitem[Lee et~al., 1994]{Lee1994}
+Lee, T.-C., R. Kashyap, and C.-N. Chu,  1994, Building skeleton models via 3-d
+  medial surface/axis thinning algorithms: Computer Vision, Graphics, and Image
+  Processing, {\bf 56}, 462--478.
+
+\bibitem[Leli\`evre, 2009]{PhDLelievre09}
+Leli\`evre, P.~G.,  2009, Integrating geological and geophysical data through
+  advanced constrained inversion: Phd thesis, The University of British
+  Columbia.
+
+\bibitem[Lelievre and Oldenburg, 2009]{LelievreOldenburg2009}
+Lelievre, P.~G., and D.~W. Oldenburg,  2009, {A 3D total magnetization
+  inversion applicable when significant, complicated remanence is present}:
+  Geophysics, {\bf 74}, L21--L30.
+
+\bibitem[Leli\`evre and Oldenburg, 2009]{Lelievre2009}
+--------, 2009, {A 3D total magnetization inversion applicable when
+  significant, complicated remanence is present}: Geophysics, {\bf 74}, 21--30.
+
+\bibitem[Leli\`evre et~al., 2009]{LelievreOldenburgWilliams09}
+Leli\`evre, P.~G., D.~W. Oldenburg, and N. Williams,  2009, Integrating
+  geologic and geophysical data through advanced constrained inversions:
+  Extended Abstracts, 20th Geophysical conference and exhibition, ASEG, 1--6.
+
+\bibitem[Li, 1993]{Li93}
+Li, Y.,  1993, {A globally convergent method for $l_p$ problems}: SIAM J. ScI.
+  Stat. Comput., {\bf 3}, 609--629.
+
+\bibitem[Li et~al., 2019]{Li2019}
+Li, Y., A. Melo, C. Martinez, and J. Sun,  2019, Geology differentiation: A new
+  frontier in quantitative geophysical interpretation in mineral exploration:
+  The Leading Edge, {\bf 38}, 60--66.
+
+\bibitem[Li and Oldenburg, 1996]{LiOldenburg1996}
+Li, Y., and D.~W. Oldenburg,  1996, {3-D inversion of magnetic data}:
+  Geophysics, {\bf 61}, 394--408.
+
+\bibitem[Li. and Oldenburg, 1998]{LiOldenburg1998}
+--------, 1998, {3-D inversion of gravity data}: Geophysics, {\bf 63},
+  109--119.
+
+\bibitem[Li and Oldenburg, 2000]{LiDWO2000}
+--------, 2000, Incorporating geological dip information into geophysical
+  inversions: Geophysics, {\bf 65}, 148--157.
+
+\bibitem[Li and Oldenburg, 2003]{LiOldenburg03}
+--------, 2003, Fast inversion of large-scale magnetic data using wavelet
+  transforms and a logarithmic barrier method: Geophysics Journal
+  International, {\bf 152}, 251--265.
+
+\bibitem[Lin and Zhdanov, 2017]{Lin2017}
+Lin, W., and M. Zhdanov,  2017, Joint inversion of seismic and gravity
+  gradiometry data using gramian constraints: SEG Technical Program Expanded
+  Abstracts, 1734--1738.
+
+\bibitem[Liu et~al., 2015]{Liu2015}
+Liu, S., X. Hu, Y. Xi, T. Liu, and S. Xu,  2015, {2D sequential inversion of
+  total magnitude and total magnetic anomaly data affected by remanent
+  magnetization}: Geophysics, {\bf 80}, K1--K12.
+
+\bibitem[Liu et~al., 2017]{Liu2017}
+Liu, S., X. Hu, H. Zhang, M. Geng, and B. Zuo,  2017, {3D magnetization vector
+  inversion of magnetic data: improving and comparing methods}: Pure and
+  Applied Geophysics, {\bf 174}, 4421--4444.
+
+\bibitem[Lockhart et~al., 2004]{Lockhart2004}
+Lockhart, G., H. Grutter, and J. Carlson,  2004, {Temporal, geomagnetic and
+  related attributes of kimberlite magmatism at Ekati, Northwest Territories,
+  Canada}: Lithos, {\bf 77}, 665--682.
+
+\bibitem[Macleod et~al., 1993]{Macleod1993}
+Macleod, I.~N., K. Jones, and T.~F. Dai,  1993, {3-D Analytic Signal in the
+  Interpretation of Total Magnetic Field Data at Low Magnetic Latitudes}:
+  Exploration Geophysics, {\bf 24}.
+
+\bibitem[McMillan et~al., 2016]{McMillan2016}
+McMillan, M., C. Schwarzbach, E. Haber, and D. Oldenburg,  2016, {Multiple body
+  parametric inversion of frequency- and time-domain airborne
+  electromagnetics}: SEG Technical Program Expanded Abstracts 2016, 846--851.
+
+\bibitem[Miller et~al., 2018]{Miller2018}
+Miller, C., S. Kang, D. Fournier, and G. Hill,  2018, {Distribution of and
+  condensate in a hydrothermal system: Insights from self‐potential inversion
+  at Mount Tongariro, New Zealand}: Geophysical Research Letters, {\bf 45},
+  8190--8198.
+
+\bibitem[Miller et~al., 2017]{Miller2017}
+Miller, C.~A., G. Williams-Jones, D. Fournier, and J. Witter,  2017, {3D
+  gravity inversion and thermodynamic modelling reveal properties of shallow
+  silicic magma reservoir beneath Laguna del Maule, Chile}: Earth and Planetary
+  Science Letters, {\bf 459}, 14 -- 27.
+
+\bibitem[Miller and Singh, 1994]{Miller1994}
+Miller, H.~G., and V. Singh,  1994, Potential field tilt—a new concept for
+  location of potential field sources: Journal of Applied Geophysics, {\bf 32},
+  213--217.
+
+\bibitem[Montonen, 2012]{Montonen2012}
+Montonen, M.,  2012, {Induced and remanent magnetization in two boreholes of
+  the Kevitsa intrusion}: Master's thesis, University of Helsinki.
+
+\bibitem[Mushayandebvu et~al., 2001]{Mushayendebvu01}
+Mushayandebvu, M.~F., P. van Driel, A.~B. Reid, and J.~D. Fairhead,  2001,
+  Magnetic source parameters of two-dimensional structures using extended
+  {E}uler deconvolution: Geophysics, {\bf 66}, 814--823.
+
+\bibitem[Mutanen, 1997]{Mutanen1997}
+Mutanen, T.,  1997, {Geology and ore petrology of the Akanvaara and Koitelainen
+  mafic layered intrusions and the Keivitsa-Satovaara layered complex, northern
+  Finland}: Geological Survey of Finland, {\bf 395}.
+
+\bibitem[Nabighian et~al., 2005]{Nabighian2005}
+Nabighian, M.~N., M.~E. Ander, V.~J.~S. Grauch, R.~O. Hansen, T.~R. LaFehr, Y.
+  Li, W.~C. Pearson, J.~W. Peirce, J.~D. Phillips, and M.~E. Ruder,  2005,
+  Historical development of the gravity method in exploration: GEOPHYSICS, {\bf
+  70}, 63ND--89ND.
+
+\bibitem[Nagy, 1966]{Nagy66}
+Nagy, D.,  1966, The gravitational attraction of a right rectangular prism:
+  Geophysics, {\bf 31}, 361--371.
+
+\bibitem[NCEI, 2017]{EMAG2017}
+NCEI,  2017, Emag2v3: Earth magnetic anomaly grid (2-arc-minute resolution):
+  Online.
+\newblock (geomag.models@noaa.gov).
+
+\bibitem[Nocedal and Wright, 1999]{NocedalWright99}
+Nocedal, J., and S.~J. Wright,  1999, Numerical optimatization: Springer
+  Science.
+
+\bibitem[Norris and Black, 1961]{Norris1961}
+Norris, D.~K., and R.~F. Black,  1961, Application of paleomagnetism to thrust
+  mechanics: Nature, {\bf 192}, 933--935.
+
+\bibitem[Osborne, 1985]{Osborne1985}
+Osborne, M.~R.,  1985, Finit algorithms in optimization and data analysis: John
+  Wiley \& Sons Lts.
+
+\bibitem[Pearson, 1901]{Pearson1901}
+Pearson, K.,  1901, On lines and plane of closest fit to systems of points in
+  space: Philosophical Magazine, Series 6, {\bf 2}, 559--572.
+
+\bibitem[Pedregosa et~al., 2011]{Pedregosa2011}
+Pedregosa, F., G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M.
+  Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, J. Vanderplas, A. Passos, D.
+  Cournapeau, M. Brucher, M. Perrot, and E. Duchesnay,  2011, {Scikit-learn:
+  Machine Learning in Python}: Journal of Machine Learning Research, {\bf 12},
+  2825--2830.
+
+\bibitem[Phillips, 2003]{Phillips03}
+Phillips, J.~D.,  2003, Can we estimate total magnetization directions from
+  aeromagnetic data using {H}elbig's formulas: {Abstracts Week B}, {IUGG 2003},
+  B261.
+
+\bibitem[Phillips, 2010]{Phillips2010}
+--------, 2010, Estimating structural dip from gravity and magnetic profile
+  data: SEG Technical Program Expanded Abstracts 2010, 1202--1206.
+
+\bibitem[Phillips, 1996]{Phillips1996}
+Phillips, N.~D.,  1996, {Geophysical inversion in an integrated exploration
+  progra: examples from the San Nicolas deposit}: Master's thesis, The
+  University of British Columbia.
+
+\bibitem[Pilkington, 1997]{Pilkington97}
+Pilkington, M.,  1997, 3-\uppercase{D} magnetic imaging using conjugate
+  gradients: Geophysics, {\bf 62}, 1132--1142.
+
+\bibitem[Portniaguine and Zhdanov, 2002]{PortniaguineZhdanov02}
+Portniaguine, O., and M.~S. Zhdanov,  2002, {3-D magnetic inversion with data
+  compression and image focusing}: Geophysics, {\bf 67}, 1532--1541.
+
+\bibitem[Portniaguine, 1999]{Portniaguine1999}
+Portniaguine, O.~N.,  1999, Image focussing and data compression in the
+  solution of geophysical inverse problems: Phd thesis, Department of Geology
+  and Geophysics, The University of Utah.
+
+\bibitem[Pratt et~al., 2014]{Pratt2014}
+Pratt, D.~A., B.~K. McKenzie, and T.~S. White,  2014, {Remote remanence
+  estimation (RRE)}: Exploration Geophysics, {\bf 45}, 314--323.
+
+\bibitem[Pueyo et~al., 2016]{Pueyo2016}
+Pueyo, E.~L., F. Cifelli, A.~J. Sussman, and B. Oliva-Urcia,  2016,
+  {Introduction: Palaeomagnetism in fold and Thrust belts: New perspective}:
+  Geological Society, London, {\bf 425}, 1--6.
+\newblock (Special Publications).
+
+\bibitem[Queitsch et~al., 2019]{Queitsch2019}
+Queitsch, M., M. Schiffler, R. Stolz, C. Rolf, M. Meyer, and N. Kukowski,
+  2019, {Investigation of three-dimensional magnetization of a dolerite
+  intrusion using airborne full tensor magnetic gradiometry (FTMG) data}:
+  Geophysical Journal International, {\bf 217}, 1643--1655.
+
+\bibitem[Ramon et~al., 2012]{Ramon2012}
+Ramon, M.~J., E.~L. Pueyo, J.~L. Briz, A. Pocovi, and J.~C. Ciria,  2012,
+  Flexural unfolding of horizon using paleomagnetic vectors: Journal of
+  Structural Geology, {\bf 35}, 28--39.
+
+\bibitem[Reid et~al., 1990]{Reid1990}
+Reid, A.~B., J.~M. Allsop, H. Granser, A.~J. Millett, and I.~W. Somerton,
+  1990, {Magnetic interpretation in three dimensions using Euler
+  deconvolution}: GEOPHYSICS, {\bf 55}, 80--91.
+
+\bibitem[Reid and Pfaffling, 2006]{Reid2006}
+Reid, J.~E., and A. Pfaffling,  2006, Airborne electromagnetic footprint in 1d
+  earths: Geophysics, {\bf 71}, 63--72.
+
+\bibitem[Rocklin, 2015]{Scipy2015}
+Rocklin, M.,  2015, {Dask: Parallel computation with blocked algorithms and
+  task scheduling}: {Proceedings of the 14th Python in science conference},
+  126--132.
+
+\bibitem[Roest et~al., 1992]{Roest92}
+Roest, W.~R., J. Verhoef, and M. Pilkington,  1992, Magnetic interpretation
+  using the 3-{D} analytic signal: Geophysics, {\bf 57}, 116--125.
+
+\bibitem[Salem et~al., 2007]{Salem2007}
+Salem, A., S. Williams, J.~D. Fairhead, D. Ravat, and R. Smith,  2007,
+  Tilt-depth method : A simple depth estimation method using first-order
+  magnetic derivatives: The Leading Edge, {\bf 26}, 1502.
+
+\bibitem[Sanchez et~al., 2014]{Sanchez2014}
+Sanchez, M.~G., M.~M. Allan, C.~J.~R. Hart, and J.~K. Mortensen,  2014,
+  {Extracting ore-deposit-controlling structures from aeromagnetic,
+  gravimetric, topographic, and regional geologic data in western Yukon and
+  eastern Alaska}: Interpretation, {\bf 2}, 75--102.
+
+\bibitem[Schermerhorn et~al., 2017]{Schermerhorn2017}
+Schermerhorn, W.~D., B. Ritzinger, M. Anderson, J. Peacock, J. Witter, J. Glen,
+  A. Steely, C. Forson, P. Stelling, and D. Fournier,  2017, {Geophysical
+  investigation of the Mount Baker geothermal play}: Presented at the GSA
+  Annual Meeting in Seattle.
+
+\bibitem[Sharma, 1966]{Sharma66}
+Sharma, P.~V.,  1966, Rapid computation of magnetic anomalies and
+  demagnetization effects caused by bodies of arbitrary shape: Pure Appl.
+  Geophys., {\bf 64}, 89--109.
+
+\bibitem[Shearer, 2005]{Shearer05}
+Shearer, S.,  2005, Three-dimensional inversion of magnetic data in the
+  presence of remanent magnetization: Master's thesis, Colorado School of
+  Mines, Golden, Colorado.
+
+\bibitem[Stocco et~al., 2009]{Stocco09}
+Stocco, S., A. Godio, and L. Sambuelli,  2009, {Modelling and compact inversion
+  of magnetic data: A Matlab code}: Computer and Geosciences, {\bf 35},
+  2111--2118.
+
+\bibitem[Sun and Li, 2013]{Jiajia2013}
+Sun, J., and Y. Li,  2013, A general framework for joint inversion with
+  petrophysical information as constraints: SEG Houston Annual Meeting,
+  3093--3097.
+
+\bibitem[Sun and Li, 2014]{SunLi14}
+--------, 2014, Adaptive $l_p$ inversion for simultaneous recovery of both
+  blocky and smooth feature in geophysical model: Geophysical Journal
+  International, {\bf 197}, 882--899.
+
+\bibitem[Thompson, 1982]{Thompson82}
+Thompson, D.~T.,  1982, {EULDPH: A new technique for making computer-assisted
+  depth estimates from magnetic data}: Geophysics, {\bf 47}, 31--37.
+
+\bibitem[Thurston and Smith, 1997]{Thurston1997}
+Thurston, J.~B., and R.~S. Smith,  1997, {Automatic conversion of magnetic data
+  to depth, dip, and susceptibility contrast using the SPI (TM) method}:
+  GEOPHYSICS, {\bf 62}, 807--813.
+
+\bibitem[Verduzco et~al., 2004]{Verduzco2004}
+Verduzco, B., D.~J. Fairhead, C.~M. Green, and C. MacKenzie,  2004, New
+  insights into magnetic derivatives for structural mapping: The Leading Edge,
+  {\bf 23}, 116.
+
+\bibitem[Villalain et~al., 2015]{Villalain2015}
+Villalain, J.~J., A.~M. Casas-Sainz, and R. Soto,  2015, Reconstruction of
+  inverted sedimentary basins from syntectonic remagnetizations. a
+  methodological proposal: Palaeomagnetism in Fold and Thrust Belts: New
+  Perspectives.
+
+\bibitem[Vine and Matthews, 1963]{Vine1963}
+Vine, F.~J., and D.~H. Matthews,  1963, Magnetic anomalies over the oceanic
+  ridges: Nature, {\bf 199}, 947--949.
+
+\bibitem[Vogel, 2002]{Vogel02}
+Vogel, C.~R.,  2002, {Computational Methods for Inverse Problems (Frontiers in
+  Applied Mathematics)}: Society for Industrial Mathematics.
+
+\bibitem[Wijns and Kowalczyk, 2007]{WijnsKowalczyk07}
+Wijns, C., and P. Kowalczyk,  2007, Interactive geophysical inversion using
+  qualitative geological constraints: Exploration Geophysics, {\bf 38},
+  208--212.
+
+\bibitem[Williams, 2008]{Williams08}
+Williams, N.,  2008, Geologically constrained inversion: PhD thesis, University
+  of British Columbia, Vancouver, British Columbia.
+
+\bibitem[Yang and Oldenburg, 2014]{Yang2014}
+Yang, D., and D.~W. Oldenburg,  2014, {3D inversion of airborne electromagnetic
+  data parallelized and accelerated by local mesh and adaptive soundings}:
+  Geophysical Journal International, {\bf 196}, 1492--1507.
+
+\bibitem[Zhdanov and Tolstaya, 2004]{ZhdanovTolstaya2004}
+Zhdanov, M., and E. Tolstaya,  2004, {Minimum support nonlinear parametrization
+  in the solution of a 3D magnetotelluric inverse problem}: Inverse Problems,
+  {\bf 20}, 937--952.
+
+\bibitem[Zhu et~al., 2015]{Zhu2015}
+Zhu, Y., M.~S. Zhdanov, and M. Cuma,  2015, {Inversion of TMI data for the
+  magnetization vector using Gramian constraints}: Presented at the SEG Annual
+  Meeting.
+
+\end{thebibliography}

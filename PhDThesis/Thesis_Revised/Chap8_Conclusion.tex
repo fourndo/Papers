@@ -1,0 +1,45 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./../../Figures/}}
+\chapter{Conclusion}
+\label{Chapter8}
+
+The overarching goal of this research thesis was to facilitate the interpretation of potential field data acquired over complex geology and to extract as much information out of the data through a semi-automated learning process.
+These goal was motivated by technical limitations encountered with conventional inversion methodologies.
+Geophysical inverse problems are inherently non-unique and the character of the solution depends on assumptions set by the user.
+Smooth physical property inversions yield models that poorly represent sharp geological contact, while sparsity assumptions generally yield simplistic blocky anomalies. The range of possible solutions available for interpretation has generally been fairly limited.
+More experienced users may be able to improve the interpretation with geological constraints, but building and testing different scenarios remains a laborious process that is difficult to track.
+In this regard, the methodology presented in this thesis sit somewhere  between the blind unconstrained inversion and the expert-driven geological inversion. I have developed a methodology and software that can generate a suite of models that honor $soft$ geological assumptions.
+
+In Chapter~\ref{Chapter2}, I reviewed the numerical implementation of gravity and magnetic forward modeling in integral form. I tackle numerical limitations associated with the storage and manipulation of large dense matrices. The memory footprint of potential fields problem is reduced at two levels. First, I borrow the mesh decoupling strategy previously used in electromagnetic modeling. The global forward problem is broken down into tiles each associated with nested Octree mesh. Secondly, I leveraged open-sourced technologies for out-of-core storage of dense matrices. Used in concert, the two advancements allowed to run large forward problems without the need for compression.
+
+In Chapter~\ref{Chapter3} I reviewed some of the work I had previously investigated during my Master's thesis regarding the implementation of a mixed $\ell_p$-norm regularization. I identified a new scaling strategy based on the maximum partial derivatives of individual regularization functions such that multiple penalties could impact the solution. The robust implementation of mixed norm assumptions is at the core of this research as it allows me to generate a suite of solutions and explore the model space in a consistent manner.
+This chapter resulted in the research paper \cite{Fournier2019b}.
+
+Chapter~\ref{Chapter4} builds upon the magnetic vector inversion in spherical coordinates first introduced by \cite{PhDLelievre09}. The algorithm has received little attention due to the difficulty in solving the non-linear inverse problem. With knowledge gained in Chapter~\ref{Chapter3}, I developed an iterative rescaling strategy based on the maximum partial derivatives of the sensitivity function. The decoupling of the magnetization strength and orientation allowed me to apply sparsity assumptions for the recovery of well-defined anomalies with coherent magnetization direction. It is an improvement over methods previously published as it is can deal with complex geological settings comprising multiple anomalies with arbitrary shape. 
+
+Chapter~\ref{Chapter5} is a generalization of the methodology introduced in Chapter~\ref{Chapter3} for the recovery of oriented edges. The measure of model gradients along the Cartesian axes was a choice of convenience but it poses a major limitation for the modeling of folded and dipping geological contacts. I introduced a 7-point gradient operator measuring the model gradients with diagonal cells. I have also shown how scarce structural measurements can be interpolated and used to guide the inversion.
+
+Chapter~\ref{Chapter6} takes the model space inversion further by attempting to learn from the suite of solutions. I investigated ways to extract optimal inversion parameters based on recurrence of dominant features. I utilized basic machine learning tools such as PCA, edge detection and image moment algorithms to identify patterns and build constraints. I elaborated a strategy to automate dip and strike estimation of isolated geological units.
+
+All the technology brought forward in this thesis were put to test in Chapter~\ref{Chapter7} on the Kevitsa Ni-Cu-PGE deposit. I inverted ground gravity and airborne magnetic data using rotated sparse norms. The resulting density and magnetization model highlighted important features of the deposit.
+First from the density model, I confirmed the seismic interpretation of an extended ultra-mafic unit under cover. The magnetization model also corroborated previous studies in modeling the remanent component of the central dunite. The inversion also indicated a possible connection with other units found at the base of the intrusion.
+Potentially the most significant outcome of this case study is the orientation of magnetization recovered in several folded units. While other studies have attempted to use magnetization inversion to gain insight about the geological history of a deposit, it is likely the first time that this was done at such a large scale and over complex geology.
+
+\section{Limitations and future work}
+
+The work presented in this thesis represents a significant gain in flexibility for inverting gravity and magnetic data, but this comes at an added computational cost needed to a single inversion and also for generating a suite of models. This is exacerbated by the cooling strategy of the threshold parameter introduced in Chapter~\ref{Chapter3} such that sparsity assumptions are slowly phased in. It is important to note that each model is a valid candidate with respect to the geophysical data. These models could potentially be used earlier in the learning process to avoid repetitive iteration steps.
+
+Attempting to use magnetic vector inversion for large scale paleomagnetic studies is an appealing approach that warrants further investigation. Sparsity assumptions have helped in recovering coherent magnetization direction inside isolated anomalies. This process is less stable when performed over multiple magnetic anomalies with overlapping signal. The use of magnetic gradient data may help in reducing the non-uniqueness and in better defining the boundaries of anomalies.
+Another aspect of magnetic vector inversion that I have not addressed in this thesis is to isolate the remanent component from the total magnetization. This could potentially be accomplished by jointly inverting electromagnetic and magnetic data for the modeling of susceptibility, remanence and conductivity.
+
+The learning algorithms presented in this thesis have served their purpose in identifying trends in the model space and extracting local parameters. A critical component of this process is the pattern recognition phase. This step still relies heavily on the user to determine tuning parameters that are currently found by trial and error. Some level of quality control is also needed when defining rotation parameters such that strike and dip angles are consistent with known dip directions. More advanced machine learning algorithm could potentially improve these procedures.
+The learning process could be performed on multiple physical properties and serve as a link for joint and cooperative inversions.
+
+Research dedicated to potential field data is likely to continue and grow as the quality and quantity of surveys continues to increase. While I have made inroads in reducing the computation cost of potential fields inversions, large (continental) scale inversion remains difficult. One of the main tuning parameters that I have mostly ignored in this project is the reference model. At a large scale, choosing a single reference value is undoubtedly a gross generalization that can adversely affect the solution. Future work should investigate the use of model decomposition techniques such that the inversion is performed on both the reference and anomalous properties. Large scale model decomposition inversion could be done at various resolutions with the use of spherical Octree discretization.
+
+The methodology presented  in this thesis will be extended to other geophysical data. Work is currently underway to test the model space inversion on electrical resistivity problems and airborne electromagnetics.
+
+
+\endinput
+

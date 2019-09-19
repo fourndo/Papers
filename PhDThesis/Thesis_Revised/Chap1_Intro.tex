@@ -1,0 +1,156 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./../../Figures/}}
+\chapter{Introduction}
+\label{Chapter1}
+
+\section{Motivation}
+
+Density and magnetic permeability are important physical properties used in mineral exploration.  Geologists routinely measure these properties on rock samples, along with textural and structural features, to target areas for further investigation. 
+The vast majority of known mineral deposits have been discovered this way \cite[]{Marjoribanks2010}. But the conventional approach to mineral exploration is limited to shallow regions of the Earth with exposed bedrock. Large portions of the crust remain untouched, buried under thick sedimentary cover.
+
+In the absence of surface evidence, density and magnetic permeability can still play a role in mineral exploration as a source of geophysical signal. Variations in the local gravity and magnetic fields are used to map geology and identify buried structures such as intrusions, faults, folds and alteration zones \cite[]{Domzalski1966, Grant1984}. 
+The physical equations for gravity and magnetics are described with the aid of Figure~\ref{PotentialFields}. For gravity we have the scalar gravitational potential:
+\begin{equation}\label{g_potential}
+\phi_g = G \int_V \frac{1}{r}\; \rho(r)\; dV
+\end{equation}
+The gravity field is obtained by taking the gradient of \eqref{g_potential}
+\begin{equation}
+\vec{g} = \nabla \phi_g
+\end{equation}
+which becomes
+\begin{equation}\label{g_integral}
+\vec{g} = - G \int_V \frac{\hat{r}}{r^2}\; \rho(r)\; dV\;.
+\end{equation}
+Equation~\eqref{g_integral} describes the gravity field $\vec{g}$($\frac{N}{kg}$) as observed at some arbitrary position $P$ due to an elementary volume $dV$ with density $\rho$ ($\frac{kg}{m^3}$). The field scales as a function of radial distance $r$ between the source and the observer, and by Newton's gravitational constant $G$ ($6.674\times10^{−11} \frac{N m^2}{ kg^2}$). 
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{PotentialFields.png}
+\caption{Cartoon illustrating the (left) gravity and (right) magnetic fields originating from dense and magnetized anomalies. Adapted from \cite[]{Blakely96}.}
+\label{PotentialFields}
+\end{figure}
+For the magnetic problem, we follow the notation of \cite{Blakely96}.
+We consider magnetic minerals as being composed of small dipoles, each with their own magnetic dipole moment. Preferential alignment of these dipoles gives rise to a magnetization per unit volume $\vec{M}$ $\left( \frac{A}{m} \right)$
+\begin{equation}
+\vec M = \frac{\text{total magnetic moment}}{\Delta V}\;.
+\end{equation}
+The scalar magnetic potential can than be defined as:
+\begin{equation} \label{b_potiential}
+\phi_b(r) = \frac{\mu_0}{4\pi} \int_{V} \nabla \frac{1}{r} \cdot \vec{M}(r) \;dV\;,
+\end{equation}
+Taking the gradient of \eqref{b_potiential} yields an expression for the magnetic flux density:
+\begin{equation}
+\vec{b} = \nabla \phi_b
+\end{equation}
+and thus
+\begin{equation} \label{b_integral}
+\vec{b}(r) = \frac{\mu_0}{4\pi} \int_{V} \nabla \nabla \frac{1}{r} \cdot \vec{M}(r) \; dV\;.
+\end{equation}
+In this above equation, $\vec{b}$ is the magnetic flux density ($\frac{Wb}{m^2}$ or $\frac{N}{A\:m}$) and $\mu_0$  is the magnetic permeability of free space ($\frac{H}{m}$ or  $\frac{N}{A^2} $).
+Both equation \eqref{g_potential} and \eqref{b_potiential} describe a source of geophysical signal that decays radially with distance and that scales linearly with changes in physical property contrasts. As a result, the gravity and magnetic experiments are collectively referred to as \emph{potential field} methods, and there is a field of mathematics devoted to this subject.
+
+A large number of potential field datasets has been compiled over the years and made available to the geoscientific community for analysis: from global satellite and marine measurements, to airborne and ground surveys (Figure~\ref{TMI_Europe}). Processing this wealth of data has encouraged collaboration between geologists and geophysicists in their efforts to map the sub-surface. After nearly five decades of data acquisition and interpretation, gravity and magnetic methods are still an area of active research in geophysics \cite[]{Nabighian2005}. This Ph.D. project contributes to that body of research.
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{EMAG2_Europe.png}
+\caption{Total magnetic map over northern Europe extracted from the global Earth Magnetic Anomaly Grid (2-arc-minute resolution) compiled from satellite, ship and airborne measurements \cite[]{EMAG2017}. The case study used in this research, the Kevitsa Ni-Cu-PGE deposit in Finland, sits within a region of strong magnetization. The image overlay in \texttt{GoogleEarth} was generated with the open-sourced \texttt{geosci.GeoToolkit} package.}
+\label{TMI_Europe}
+\end{figure}
+
+
+
+
+\subsection{Geophysical processing for geological interpretation}
+While the study of potential field data represents a common ground for geologists and geophysicists to investigate the Earth, the two branches of geoscience appear to diverge on the path taken for interpretation. The majority of geological studies have focused on data processing techniques for mapping structures and geological domains in 2D. Fourier filters have been particularly popular, such as the total derivatives \cite[]{Cordell2012}, analytic signal \cite[]{Roest92, Macleod1993}, tilt angle \cite[]{Miller1994} or combination of filters \cite[]{Verduzco2004, Sanchez2014}.
+Euler deconvolution has been used to estimate the depth of simple parametric shapes such as planes, dykes, and spherical bodies \cite[]{Thompson82, Reid1990, Mushayendebvu01}. Similarly, the tilt-depth method \cite[]{Salem2007}and Source Parameter Imaging (SPI) \cite[]{Thurston1997} can provide an estimate for the depth and dip of elongated bodies in 2D \cite[]{Phillips2010}.
+A common limitation of these methods is in dealing with data acquired over complex geology. It is challenging to interpret overlapping signals from multiple sources with arbitrary shapes and positions in 3D. It is even more challenging to make sense visually of dipolar magnetic anomalies, especially at low latitudes.
+
+The Kevitsa Ni-Cu-PGE deposit shown in Figure~\ref{Kevitsa_data} is an interesting case study to illustrate the difficulty of interpreting potential field data in a mineral exploration context. The gravity and magnetic maps are both visually challenging to interpret. Attempting to construct a 3D geological model of Kevitsa directly from the data maps would undoubtedly be a difficult task. Yet there is a lot of information that could be extracted to help unravel the geological history of the region.
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{Kevitsa_Data.png}
+\caption{(a) Surface geology, (b) Topography (c) ground gravity and (d) airborne magnetic data acquired over the Kevitsa deposit.}
+\label{Kevitsa_data}
+\end{figure}
+
+To this end, a large body of work from the geophysical community has focused on inversion methodologies to model physical property contrasts in 3D. Among these methods, voxel-based inversions have received considerable attention. One of the main challenges posed by the inverse problem is that many models can fit the observed data; this is referred to as non-uniqueness. Additional information must be provided to isolate geologically sensible solutions. The typical strategy is to assume smooth changes in physical properties. This strategy has become an industry standard that is adopted by several commercial codes such as the UBC-\texttt{GRAV3D} and \texttt{MAG3D}, \cite[]{LiOldenburg1996, LiOldenburg1998}.
+
+The conventional smooth physical property inversion framework is somewhat at odds with the geological mindset however which is geared towards defining discrete geological domains with sharp boundaries. This divide can once again be exemplified with sections through the Kevitsa deposit (Figure~\ref{GeologyVsGeophysics}). After years of exploration work in the area, geologists have identified and mapped over a dozen lithologies along 2D sections. In an ideal case, we would like to use geophysical inversion to complete the modelling work in 3D. Attempting to do so with current methodologies yields the model presented in Figure~\ref{GeologyVsGeophysics}(b). The smooth density anomaly is too difficult to interpret in this context as it shows poor correlation with the conceptual model of Kevitsa. It is partially for this reason that the geological community has been slow to adopt 3D inversion methods as part of their interpretation workflow. The apparent disconnect between the two fields of geoscience remains a key issue to be addressed \cite[]{Li2019}.
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{GeologyVsGeophysics.png}
+\caption{Figure comparing three approaches used to model the Kevitsa deposit. (a) Geological interpretation derived from seismic and borehole data (borrowed from \cite{Koivisto2015}). (b) Vertical section through an unconstrained density inversion using conventional smooth assumptions. (c) Geological surface model guided by geophysical forward modelling using \texttt{Gocad}.}
+\label{GeologyVsGeophysics}
+\end{figure}
+
+\subsection{Constraining the inversion}
+A number of inversion strategies have been proposed in the past to help bridge the gap between geologists and geophysicists.
+For simple scenarios involving a few isolated targets, geophysical anomalies may be approximated by simple parametric bodies such as ellipsoids \cite[]{McMillan2016} and dipping dykes \cite[]{Foss2006, Krahenbuhl2015}.
+For most complex geological settings, full 3D surface modelling can be used to constrain the inversion \cite[]{Bosh2001, Fullagar2008}.
+Figure~\ref{GeologyVsGeophysics}(c) demonstrates such modelling efforts on the Kevitsa intrusion. Building upon the seismic interpretation of \cite{Koivisto2015}, borehole logs and surface mapping, I constructed a 3D surface model using the \texttt{Gocad-SKUA} package. Generating and testing this model against the geophysical data is a laborious process that requires skills, advanced software and that can rapidly become intractable.
+
+On a more data-driven side, hard physical property constraints have been included in the inversion on a cell-by-cell basis \cite[]{Phillips1996, Williams08} or through clustering algorithms \cite[]{Jiajia2013, Lin2017}.
+Dip and structural information have also been used to reinforce known trends; this has been accomplished by rotating the regularization functions with manual adjustment of model gradients \cite[]{LiDWO2000, Davis2012}.
+A common limitation with these approaches is in building and testing different geological scenarios.
+Time and computational limitations often force practitioners to arbitrarily choose one set of parameters for the regularization function and accept the outcome as a "best" model and have it used in subsequent interpretation.
+
+Few studies in geophysics have attempted to address non-uniqueness within a learning framework. The genetic algorithm of \cite{WijnsKowalczyk07} and supervised learning of \cite{Haber2003} can guide practitioners in the choice of inversion parameters and they could serve as a starting point for advanced 3D modelling work. But the efficacy of these approaches is once again impeded by assuming a smooth physical property distribution. The learning process is limited by the ability to generate solutions that are significantly diverse.
+
+
+\subsection{Exploring the solution space}
+As an alternative to smooth inversions, several studies have employed approximations to $\ell_p$-norms in order to recover compact anomalies. Methods such as the Ekblom norm ($p=1$) \cite[]{Ekblom73} and the Lawson approximation \cite[]{Lawson61} ($p = 0$) favor impulsive models with fewer non-zero parameters. Several papers have demonstrated the efficacy of a sparsity assumption in reducing the complexity of physical property models \cite[]{LastKubik83, BarbosaSilva94, PortniaguineZhdanov02, Chartrand07, Ajo-Franklin07, Blaschek2008, Stocco09}. Likewise, a sparse solution for model gradients can yield blocky (piece-wise constant) models \cite[]{Li93, Gorodnitsky97, FarquharsonOldenburg98, Daubechies10, SunLi14}.
+
+Sparsity assumptions have increased the flexibility of inversion algorithms for the modelling of compact targets with sharp edges. The usual strategy is to define global parameters applied over the entire model space. In most geological settings, however, we can expect to encounter a mix of features, either smooth and sparse in one region but elongated and blocky elsewhere. Determining exactly which assumption to use in a particular geological setting remains largely user-driven. \cite{SunLi14} have made inroads in imposing variable sparsity assumptions, either the $\ell_2$ or $\ell_1$-norm measure of the model, to different regions of a 2D seismic tomography problem. They demonstrate that this choice could be automated based on information present in the data. Regions reacting favourably to the sparsity assumption are defined through a learning process.
+
+The next logical step, which I am taking in this research, is to further generalize the use of sparse assumptions for $p \in[0,\:2]$ applied to both the model and model gradients in 3D. I provide algorithmic details regarding the mixing of smooth, sparse and blocky assumptions. This general inversion framework can be used to generate diverse solutions and thus help geologists in their interpretation. A suite of models with broad characteristics can also form a basis for learning algorithms.
+
+\subsection{Dealing with remanence}
+Contrary to density, magnetization has the added complexity of being a vector quantity defined by strength and orientation.
+In matter, the total magnetization, which is the magnetic moment per unit volume $\vec{M}$ in \eqref{b_integral} can be separated in its induced and remanent component such that:
+\begin{equation}\label{Magnetization}
+	\vec{M} = \kappa (\vec{H}_0 + \vec{H}_s) + \vec{M}_{r}\;,
+\end{equation}
+where the magnetic susceptibility $\kappa$ (SI) is the physical property describing the ability of a rock to get magnetized under an applied field. In nature, this inducing field has two components. The geomagnetic field $\vec{H}_0$ originates from Earth$'$s core. It is in most cases the dominant component. Secondary fields $\vec{H}_s$ are related to local magnetic anomalies. For highly susceptible material, the secondary fields can oppose the geomagnetic field direction and reduce the total magnetization. It is also referred to as self-demagnetization effects.
+The remanent magnetization $\vec{M}_{rem}$ is a permanent dipole moment that is preserved in the absence of an inducing field.
+
+It has long been assumed that the induced component of magnetization was dominant. The effect of remanence is often regarded as `noise` and simply ignored by 2D filtering and 3D inversion methods. Recent studies have shown however that remanent minerals, most often magnetite and members of the titanium-hematite series, are commonly associated with mineral deposits such as diamondiferous kimberlites, volcanic massive sulphides and porphyries \cite[]{Henkel1991, Enkin2014}. The orientation of remanent magnetization can make geologic interpretation more complicated and should not be ignored.
+
+Meanwhile, the same remanent component has been used extensively in paleomagnetic studies and in that field, it has been regarded as geophysical `data`. A number of researchers have used the permanent magnetization orientation to map continental block rotation \cite[]{Norris1961, Vine1963, NATOASIS1989}, for fold and thrust belts reconstruction \cite[]{Ramon2012, Villalain2015} and in geochronology \cite[]{Henkel1991, Lockhart2004, Enkin2003}.
+While providing valuable information about Earth's history, these studies have relied primarily on laboratory measurements performed on oriented cores. The availability and cost to acquire the orientation of magnetization at a point remains a limiting factor for paleomagnetic studies \cite[]{Pueyo2016}.
+
+Researchers have investigated ways to estimate the magnetization in order to deal with remanence. This includes search
+algorithms \cite[]{Fedi1994, DannemillerLi06}, magnetic moment analysis \cite[]{Helbig1963, Phillips03}, and inversion methods. The most common inversion approach uses simple parametric shapes to approximate elongated and tabular bodies \cite[]{Foss2011a, Clark2014, Pratt2014,Fullagar2013}. For more complex settings, magnetic data can be transformed into a quantity that is weakly sensitive to the orientation of magnetization, such as magnetic amplitude data, and inverted for a scalar quantity, the effective susceptibility \cite[]{Shearer05}. \cite{LelievreOldenburg2009} introduce the Magnetization Vector Inversion (MVI) for the 3D modelling of magnetization parameters. Because a vector is sought, there are three times the number of parameters compared to conventional inversion. This increases the non-uniqueness, and useful information from an inversion will require more complex regularization functions. \cite{Queitsch2019} have shown the benefits of inverting full magnetic gradient tensor data along with sparsity assumptions imposed on the amplitude of magnetization. Other studies have explored the use of sparsity assumptions for the recovery of compact bodies, but imposing such assumptions on the orientation of magnetization remains difficult \cite[]{Zhu2015, Liu2015, Fournier2015}.  
+
+\section{Research objectives}
+The challenges posed by the non-uniqueness of inverse problems and complications posed by remanence form the motivation of my Ph.D. research. The accuracy of potential field inversions depends on our ability to recover the shape of anomalies and, in the case of magnetic inversion, to also accurately predict the magnetization direction.
+I feel that more knowledge and confidence can be gained from 3D potential field inversion if the algorithm can produce a suite of diverse, yet geologically reasonable solutions with minimal input required from experts. The inversion framework should allow for sharp and smooth geological contacts to fit a broad range of geological scenarios supported by the geophysical data. I want to extract subtle information present in the data to better define the geometry of geological bodies.
+More specifically, I want to answer the following questions:
+\begin{itemize}
+\item Can I further generalize the use of sparse norms to generate diverse solutions and determine dominant patterns?
+\item Can sparse norms be used to constrain the magnetization vector inversion?
+\item Can we improve the edge definition of geological domains?
+\end{itemize}
+
+In this thesis, I will attempt to bridge the gap between geological and geophysical modelling with three technical innovations. First, I propose to vary sparsity assumptions imposed on the model and model gradients in a semi-automated fashion such that details about sparsity parameters can vary locally without the direct input from the user.
+At the core of this research is the implementation of a mixed $\ell_p$-norms regularization. This algorithm will allow me to generate a suite of possible candidates representing a broad range of characteristics.
+Secondly, I provide a learning strategy to extract dominant features from the solution space. This aspect is important to help practitioners in their interpretation.
+Thirdly, I improve the convergence of the non-linear MVI in spherical coordinates. When my improved MVI is combined with sparse norms, I can recover magnetized bodies with well-defined edges and coherent magnetization orientation. The different components are tested on synthetic examples and finally implemented in the Kevitsa case study.
+
+\section{Thesis arrangement}
+The chapters in this thesis are meant to build on each other. I progressively add the tools needed for my analysis of the Kevitsa case study in Chapter~\ref{Chapter7}. A number of synthetic examples are provided along the way to showcase specific aspects of inversion.
+In Chapter~\ref{Chapter2}, I provide theoretical background information related to the forward calculation of potential field data. I provide efficiency improvements over conventional codes by using a nested OcTree mesh-decoupling strategy and out-of-core sensitivity storage.
+
+Chapter~\ref{Chapter3} introduces the theory needed for potential field inversion. I provide numerical details for the implementation of mixed $\ell_p$-norm inversions. This chapter is an improvement of the work presented in my MSc thesis \cite[]{FournierDavis2016a}. I use a 1D numerical example to justify changes in the algorithm. I showcase the flexibility of the algorithm on a synthetic 3D gravity problem.
+
+In Chapter~\ref{Chapter4}, I review the work of \cite{LelievreOldenburg2009} on magnetic vector inversion and provide improvements to the non-linear formulation in spherical coordinates by using an iterative sensitivity re-weighting. Sparsity assumptions introduced in Chapter~\ref{Chapter3} are used to constrain the inversion for the recovery of compact magnetic anomalies with coherent magnetization orientation.
+
+Chapter~\ref{Chapter5} brings together advances in mixed norm inversion and the directional objective function of \cite{LiDWO2000}. I introduce a 7-cell gradient operator to improve the symmetry of rotated bodies in 3D. I showcase the capability of the rotated norms for imaging a folded layer. Surface dip and strike data are interpolated and used to enforce directionality for the recovery of a continuous layer in 3D.
+
+In Chapter~\ref{Chapter6}, I make inroads in exploring the model space with mixed $\ell_p$-norm inversions. Building upon Chapter~\ref{Chapter3}, I propose a learning strategy to extract dominant features from a suite of models with different characteristics. I build an average model with Principal Component Analysis (PCA) and extract local parameters with edge detection and image moment algorithms. I extend the work presented in Chapter~\ref{Chapter4} to estimate the dip and strike and geological units.
+
+In Chapter~\ref{Chapter7}, I bring together all these components to process gravity and magnetic data acquired over the Kevitsa deposit, Finland. I provide a suite of density and magnetization models to characterize the 2.0 Ga old ultra-mafic intrusion and host stratigraphy. I incorporate geological trends in the modelling using rotation angles derived from a seismic reflection profile and surface structural data. An ensemble of models is analyzed in relation to borehole physical property measurements and conceptual understanding of the deposit. I infer tectonic deformation from the recovered magnetization vector.
+
+I conclude the thesis with a summary chapter assessing the success of the proposed methodology, identifying weaknesses and providing avenues for future research.
+
+
+
+\endinput
+
+
+

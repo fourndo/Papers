@@ -1,0 +1,73 @@
+\contentsline {chapter}{Abstract}{iii}{chapter*.1}
+\contentsline {chapter}{Lay Summary}{v}{chapter*.2}
+\contentsline {chapter}{Preface}{vi}{chapter*.3}
+\contentsline {chapter}{Table of Contents}{viii}{chapter*.4}
+\contentsline {chapter}{List of Tables}{xi}{chapter*.5}
+\contentsline {chapter}{List of Figures}{xii}{chapter*.6}
+\contentsline {chapter}{Acknowledgments}{xxiv}{chapter*.7}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Geophysical processing for geological interpretation}{3}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Constraining the inversion}{7}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Exploring the solution space}{8}{subsection.1.1.3}
+\contentsline {subsection}{\numberline {1.1.4}Dealing with remanence}{9}{subsection.1.1.4}
+\contentsline {section}{\numberline {1.2}Research objectives}{10}{section.1.2}
+\contentsline {section}{\numberline {1.3}Thesis arrangement}{11}{section.1.3}
+\contentsline {chapter}{\numberline {2}Forward modeling of potential field data}{13}{chapter.2}
+\contentsline {section}{\numberline {2.1}Discrete systems}{13}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Choice of discretization}{17}{subsection.2.1.1}
+\contentsline {subsubsection}{Forward simulation test}{18}{subsubsection*.15}
+\contentsline {section}{\numberline {2.2}Large scale problems}{21}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Numerical test}{23}{subsection.2.2.1}
+\contentsline {chapter}{\numberline {3}Inverse Problem}{27}{chapter.3}
+\contentsline {subsubsection}{Sensitivity weighting}{30}{subsubsection*.22}
+\contentsline {subsection}{\numberline {3.0.1}Synthetic gravity example}{31}{subsection.3.0.1}
+\contentsline {section}{\numberline {3.1}General $\ell _p$-norm regularization}{34}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Synthetic 1D problem}{35}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Iterative Re-weighted Least Squares algorithm}{39}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Case 1: $\ell _1$-norm ($p_s=p_x=1$)}{42}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Case 2: $\ell _0$-norm ($p_s=p_x=0$)}{46}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Mixed norm regularization}{47}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Scaled-IRLS steps}{48}{subsection.3.2.1}
+\contentsline {subsubsection}{Scaled model derivatives}{51}{subsubsection*.36}
+\contentsline {subsection}{\numberline {3.2.2}Threshold $\epsilon $-parameter}{55}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Summary}{60}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Exploring the model space}{61}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Interpretation}{62}{subsection.3.3.1}
+\contentsline {chapter}{\numberline {4}Sparse Magnetic Vector Inversion}{66}{chapter.4}
+\contentsline {section}{\numberline {4.1}Magnetic Vector Inversion - Cartesian parameters}{70}{section.4.1}
+\contentsline {section}{\numberline {4.2}Magnetic Vector Inversion - Spherical parameters}{71}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Scaled MVI-S algorithm}{81}{subsection.4.2.1}
+\contentsline {section}{\numberline {4.3}Synthesis}{82}{section.4.3}
+\contentsline {chapter}{\numberline {5}Rotated $\ell _p$-norm Regularization}{84}{chapter.5}
+\contentsline {section}{\numberline {5.1}Rotated objective function}{85}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Diagonal derivatives}{92}{subsection.5.1.1}
+\contentsline {section}{\numberline {5.2}Synthetic fold model}{94}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}$\ell _p$-norm inversion}{94}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Directional $\ell _p$-norms}{96}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Summary}{98}{section.5.3}
+\contentsline {chapter}{\numberline {6}Automated mixed-norm modeling}{100}{chapter.6}
+\contentsline {section}{\numberline {6.1}Selecting local $p$-parameters}{101}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Model space inversions}{101}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Average PCA model}{104}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Parameter extraction}{106}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Summary}{108}{subsection.6.1.4}
+\contentsline {section}{\numberline {6.2}Dip and strike estimation}{109}{section.6.2}
+\contentsline {subsubsection}{Step 1: Unconstrained inversion}{111}{subsubsection*.75}
+\contentsline {subsubsection}{Step 2: Azimuth estimation}{111}{subsubsection*.76}
+\contentsline {subsubsection}{Step 3: Model space inversion}{113}{subsubsection*.79}
+\contentsline {subsubsection}{Step 4: Dip estimation}{114}{subsubsection*.81}
+\contentsline {subsubsection}{Step 5: SVMN inversion}{114}{subsubsection*.83}
+\contentsline {section}{\numberline {6.3}Summary}{116}{section.6.3}
+\contentsline {chapter}{\numberline {7}Case Study - Kevitsa Ni-Cu-PGE deposit}{117}{chapter.7}
+\contentsline {subsection}{\numberline {7.0.1}Geological setting}{117}{subsection.7.0.1}
+\contentsline {subsubsection}{Petrophysical data}{119}{subsubsection*.86}
+\contentsline {section}{\numberline {7.1}Geophysical data}{120}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Modeling objectives}{124}{subsection.7.1.1}
+\contentsline {section}{\numberline {7.2}Gravity inversion}{124}{section.7.2}
+\contentsline {section}{\numberline {7.3}Magnetic inversion}{127}{section.7.3}
+\contentsline {section}{\numberline {7.4}Summary}{129}{section.7.4}
+\contentsline {chapter}{\numberline {8}Conclusion}{141}{chapter.8}
+\contentsline {section}{\numberline {8.1}Limitations and future work}{143}{section.8.1}
+\contentsline {chapter}{Bibliography}{145}{chapter*.102}
+\contentsline {chapter}{Appendix}{154}{chapter*.103}

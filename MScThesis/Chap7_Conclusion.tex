@@ -1,0 +1,49 @@
+%% The following is a directive for TeXShop to indicate the main file
+%%!TEX root = Thesis_Driver.tex
+\graphicspath{{./Figures/}}
+\chapter{Conclusion}
+\label{ch:Chap7_Conclusion}
+
+The inversion of magnetic data affected by remanent magnetization is an active field of research.
+Several inversion strategies have been proposed in the past.
+The magnetic amplitude inversion of \cite{Shearer05} inverts for the distribution of effective susceptibility from magnetic amplitude data.
+The algorithm is robust and can define regions of high effective susceptibility, but no information is provided regarding the orientation of magnetization.
+On the other hand, the Magnetic Vector Inversion (MVI) of \cite{Lelievre2009} has the ability to recover the magnetization direction over variable and complicated geology, but the algorithm requires \emph{a priori} information to constrain the solution.
+Moreover, most inversion algorithms use $l_2$-norm measures of model structure for regularization, yielding smooth and small models.
+
+ In this thesis, I combined the magnetic amplitude inversion and the MVI algorithm into a Cooperative Magnetic Inversion (CMI) algorithm, in order to improve the robustness and versatility of current magnetic inversion codes used separately. 
+ I developed a flexible $l_p$-norm regularization that allows for sparse and blocky models. The regularization function can be applied on sub-regions of the model domain, allowing for a smooth transition in norm penalties.
+Magnetic amplitude data are computed by the Equivalent Source method adapted from \cite{Li2010}.
+I tested the algorithm on a synthetic model, showing improvement over the MVI method alone, yielding a simpler and more compact magnetization model. 
+This in turn can help differentiate between neighboring anomalies with variable magnetization directions.
+
+Finally, I implemented the CMI algorithm on a large aeromagnetic survey of the Ekati Property. 
+Information regarding the polarity and orientation of magnetization for 16 kimberlite deposits are compared to values from the literature.
+Relative age of dyke swarms are inferred from the apparent overprinting of magnetization.
+The inverted magnetization model yielded information about possible distribution of reversed magnetization at a regional level.
+
+\section{Future work}
+This thesis opens up several avenues for future research.
+While the CMI algorithm has the potential to estimate the magnetization vector orientation, there is still a need to differentiate between the induced and NRM components. In cases where the NRM is parallel to the present inducing field, the current method cannot differentiate between the induced and remanent part of magnetization.
+One option would be to use frequency-domain electromagnetic (FEM) data to estimate the magnetic susceptibility of rocks. FEM surveys are routinely used in mineral exploration projects to identify conductive anomalies. Inversion of FEM data could serve the dual purpose of providing susceptibility and conductivity values, as well as additional geometrical constraints for the inversion. In the case of kimberlite exploration, FEM data could also be used to characterize the electrical conductivity of kimberlite pipes. Combined magnetization and conductivity information may help distinguish between different pipes and estimate the diamondiferous potential.
+
+The CMI algorithm could be implemented on other types of mineral deposits, as well as on global geophysical problems. 
+The classic problem of ocean floor magnetization would be an interesting subject to revisit with this inversion technique. Accurate modeling of the magnetization direction may provide important insights into the transient behavior of Earth's magnetic field during polarity changes.
+
+From a general inverse problem standpoint, the mixed-norm regularization implemented by the S-IRLS method could be implemented in a broad variety of inverse problems in geophysics.
+More specifically, the regularization may be applied to constrain non-linear inverse problems such as encountered in electromagnetics.
+
+The issue regarding the vertical stretching experienced with the amplitude inversion needs to be addressed.
+The closer the recovered effective susceptibility is to the true model, the more accurate the MVI solution will be.
+There might be a need to iterate between the amplitude and MVI steps in order to progressively refine the magnetization model.
+
+The Cartesian formulation for the MVI is not well suited for compact norm constraints. Sparsity constraints on the individual components of magnetization tend to yield polarized models along the  $\{\hat p, \hat s, \hat t \}$ directions. Future work should investigate the spherical formulation of the MVI, which would allow application of sparsity constraints directly on the amplitude of magnetization.
+In the spherical formulation, the magnetization vector is parameterized as an amplitude and two angles \cite[]{Lelievre2009}. This will allow additional information to be incorporated through a reference model with the constraint information coming from the amplitude of the magnetization or the Koenigsberger ratio of rock samples.   
+
+The current CMI code suffers from memory limitations due to the large size of the sensitivity matrix. 
+Incorporating wavelet compression, as seen in \cite{LiOldenburg03}, may greatly reduce the computational time and size of the problem.
+Some of these limitations may also be overcome by working in the differential equation domain \cite[]{Davis2013}. 
+While the tiled inversion procedure proposed in Chapter~\ref{ch:Chap6_Case_Study} was effective in reducing the overall size of the inverse problem, there were several issues with the method. The robustness and accuracy of the final model depends on the distance of overlap between the tiles, as well as on the merging strategy. A more efficient and rigorous approach would be to separate the inversion mesh from the forward modeling mesh. This approach was recently proposed to solve large-scale EM problems \cite[]{Yang2014, Haber2014}. The inversion code could handle large data sets discretized on a fine mesh, would be highly parallelizable and could potentially eliminate the need for compression.
+ 
+\endinput
+
